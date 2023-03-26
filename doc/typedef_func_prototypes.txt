@@ -1,0 +1,29 @@
+We recommend using inline function types instead of typedefs for functions, in most situations. However, function typedefs can still be useful:
+
+typedef Compare<T> = int Function(T a, T b);
+
+int sort(int a, int b) => a - b;
+
+void main() {
+  assert(sort is Compare<int>); // True!
+}
+
+Dart has a general notation for function types, you can use it for function-typed parameters as well:
+
+Iterable<T> where(bool Function(T) predicate) => ...
+
+
+AVOID using dynamic unless you want to disable static checking.
+Some operations work with any possible object. For example, a log() method could take any object and call toString() on it. Two types in Dart permit all values: Object? and dynamic. However, they convey different things. If you simply want to state that you allow all objects, use Object?. If you want to allow all objects except null, then use Object.
+
+The type dynamic not only accepts all objects, but it also permits all operations. Any member access on a value of type dynamic is allowed at compile time, but may fail and throw an exception at runtime. If you want exactly that risky but flexible dynamic dispatch, then dynamic is the right type to use.
+
+Otherwise, prefer using Object? or Object. Rely on is checks and type promotion to ensure that the value’s runtime type supports the member you want to access before you access it.
+
+/// Returns a Boolean representation for [arg], which must
+/// be a String or bool.
+bool convertToBool(Object arg) {
+  if (arg is bool) return arg;
+  if (arg is String) return arg.toLowerCase() == 'true';
+  throw ArgumentError('Cannot convert $arg to a bool.');
+}

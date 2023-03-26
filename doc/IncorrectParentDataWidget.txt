@@ -1,0 +1,8 @@
+Solution of the Error:
+To solve this error, your child widget must have the expected parent widget. Some of the widget and their parent widgets are:
+
+Widget				Parent Widget
+Expanded()			Row(), Column(), Flex()
+Flexible()			Row(), Column(), Flex()
+Positioned()		Stack()
+TableCell()			Table()
