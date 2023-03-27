@@ -1,0 +1,11 @@
+# calculator: { name: Calculator, route: /calculator, build: (context) => Calculator()}
+# editor: {name: Editor, route: /editor', build: (context) => Editor()}
+calculator:
+  name: Calculator
+  route: /calculator
+  build: (context) => Calculator()}
+editor:
+  name: Editor
+  route: /editor
+  build: (context) => Editor()}
+        

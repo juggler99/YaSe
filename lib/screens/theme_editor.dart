@@ -157,13 +157,13 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
     // Theme Editor Items
     List<Tuple3<String, String, VoidCallback>> iconItems = [
       Tuple3<String, String, VoidCallback>(
-          'assets/xplus.png', 'Create a Theme', CreateTheme),
+          'assets/icons/xplus.png', 'Create a Theme', CreateTheme),
       Tuple3<String, String, VoidCallback>(
-          'assets/minus.png', 'Delete a Theme', DeleteTheme),
+          'assets/icons/minus.png', 'Delete a Theme', DeleteTheme),
       Tuple3<String, String, VoidCallback>(
-          'assets/check.png', 'Save a Theme', SaveTheme),
+          'assets/icons/check.png', 'Save a Theme', SaveTheme),
       Tuple3<String, String, VoidCallback>(
-          'assets/x.png', 'Discard changes', DiscardThemeChanges),
+          'assets/icons/x.png', 'Discard changes', DiscardThemeChanges),
     ];
     var themeDataItems =
         _themeManager!.getThemeDataItemsAsListOfTuples(context);

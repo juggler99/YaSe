@@ -125,6 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 edgeItems: const [10, 0, 0, 0]),
             getListTile(context, Icon(Icons.edit), 'Editor', 'editor',
                 edgeItems: const [10, 0, 0, 0]),
+            getListTile(context, Icon(Icons.edit), 'Settings', 'settings',
+                edgeItems: const [10, 0, 0, 0]),
           ]))),
       body: widget._listView,
     );

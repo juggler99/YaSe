@@ -9,6 +9,7 @@ import 'package:tuple/tuple.dart';
 import '../controls/bloc_controls/py_code/py_editor.dart';
 import '../controls/gen/document_manager.dart';
 import '../screens/editor/editor.dart';
+import '../settings.dart';
 import './../controls/color_picker.dart';
 import './../screens/complex.dart';
 import './../screens/home.dart';
@@ -35,12 +36,15 @@ import './../controls/color_shade_picker.dart';
 import '../apps/calculator/calculator.dart';
 import './../screens/python_client.dart';
 import './../controls/app_bars/app_bar_main.dart';
+import 'package:flutter_gen/utils/yaml_utils.dart';
+import 'dart:developer';
 
 class YaSeApp extends StatefulWidget {
   YaSeApp({Key? key}) : super(key: key);
   ThemeManager? _themeManager = null;
   HomeScreen? _homeScreen;
   late String YaSeAppPath;
+  Map<String, dynamic>? routes;
 
   ThemeManager getThemeManager() => _themeManager!;
   void setThemeManager(ThemeManager value) => _themeManager = value;
@@ -80,6 +84,12 @@ class _YaSeAppState extends State<YaSeApp> {
       widget.YaSeAppPath =
           await getDefaultRootFolderAsString(appFolder: "YaSe");
     });
+
+    Future.delayed(Duration.zero, () async {
+      debugger;
+      widget.routes = await loadYamlAsset("assets/routes/routes.yaml");
+    });
+
     widget._appBarMain =
         AppBarMain(title: "YaSe", navMenuItems: widget._appBarNavMenutItems);
   }
@@ -91,6 +101,10 @@ class _YaSeAppState extends State<YaSeApp> {
     print('build context: $hash');
 
     widget._homeScreen = HomeScreen();
+
+    debugger();
+
+    print("routes: ${widget.routes}");
 
     return MaterialApp(
       localizationsDelegates: [
@@ -113,6 +127,7 @@ class _YaSeAppState extends State<YaSeApp> {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => const LoginScreen(),
         // When navigating to the "/second" route, build the widget.
+        '/settings': (context) => const SettingsScreen(),
         '/me': (context) => const MeScreen(),
         '/courses': (context) => const CoursesScreen(),
         '/programs': (context) => const ProgramsScreen(),
@@ -130,7 +145,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/calculator': (context) => Calculator(),
         '/editor': (context) => Editor(),
         '/documentManager': (context) => DocumentManager(),
-        '/file_open': (context) => FileOpenDilaog()
+        '/file_open': (context) => FileOpenDilaog(),
       },
     );
   }

@@ -72,11 +72,12 @@ class FontPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     // Theme Editor Items
     List<Tuple3<String, String, VoidCallback>> iconItems = [
-      Tuple3<String, String, VoidCallback>('assets/bold.png', 'Bold', MakeBold),
       Tuple3<String, String, VoidCallback>(
-          'assets/italics.png', 'Italic', MakeItalic),
+          'assets/icons/bold.png', 'Bold', MakeBold),
       Tuple3<String, String, VoidCallback>(
-          'assets/underline.png', 'Underline', MakeUnderline),
+          'assets/icons/italics.png', 'Italic', MakeItalic),
+      Tuple3<String, String, VoidCallback>(
+          'assets/icons/underline.png', 'Underline', MakeUnderline),
     ];
 
     String textOptionTrue = 'OK';

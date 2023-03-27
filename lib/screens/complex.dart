@@ -27,7 +27,7 @@ class _ComplexScreenState extends State<ComplexScreen> {
       children: <Widget>[
         AnimatedContainer(
           width: _bigger ? 100 : 500,
-          child: Image.asset('assets/star.png'),
+          child: Image.asset('assets/icons/star.png'),
           duration: Duration(seconds: 1),
         ),
         ElevatedButton(
