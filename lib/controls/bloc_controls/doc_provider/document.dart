@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/yase/yase.dart';
+import '/yase/yase.dart';
 import 'dart:io';
 import 'package:flutter_gen/utils/file_utils.dart';
 

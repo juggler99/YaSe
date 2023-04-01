@@ -1,8 +1,8 @@
 import 'dart:io';
-
+import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/controls/bloc_controls/doc_provider/document.dart';
-import 'package:flutter_application_1/controls/bloc_controls/doc_provider/document_bloc.dart';
+import '/controls/bloc_controls/doc_provider/document.dart';
+import '/controls/bloc_controls/doc_provider/document_bloc.dart';
 import '../../../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
 import 'package:flutter_gen/utils/button_utils.dart';
 import 'package:flutter_gen/utils/dlg_utils.dart';
@@ -26,13 +26,13 @@ import 'dart:developer';
 
 class PyEditor extends StatefulWidget {
   String? filename;
-  String contents = "";
-  PyEditor({Key? key}) : super(key: key);
+  PyEditor(this.filename, {Key? key}) : super(key: key);
+
   @override
-  _PyEditorState createState() => _PyEditorState();
+  PyEditorState createState() => PyEditorState();
 }
 
-class _PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
+class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   TabController? tabController;
   var _lineNumberTextController = TextEditingController(text: "1");
   var _blocProvider = PyCodeBloc();
@@ -51,10 +51,12 @@ class _PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   Widget? _lineNumberContainer;
   Widget? _pyCodeFieldContainer;
   ButtonBar? _customButtonBar;
+  String? contents;
+  final logger = Logger('PyEditorState');
 
   @override
   void initState() {
-    print("PyEditor initstate");
+    logger.info("PyEditor initstate");
     super.initState();
 
     TextField LineNumberTextField = TextField(
@@ -83,7 +85,8 @@ class _PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
 
     _pyCodeTextField = PyCodeField(
         lineCountTextController: _lineNumberTextController,
-        updateLineTextController: updateLineNumberTextController);
+        updateLineTextController: updateLineNumberTextController,
+        contentUpdaterFunc: this.contentUpdateFromUserInput);
 
     var PyCodeFieldWidget =
         CompositedTransformTarget(link: _layerLink, child: _pyCodeTextField);
@@ -124,38 +127,53 @@ class _PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   void onChangeColor(
       Color value, int index, String label, BuildContext context) {
     debugger();
-    print('onChangeColor $index');
+    logger.info('onChangeColor $index');
     setState(() {
       //bgColor = value;
     });
   }
 
   void onChangeTheme(ThemeData value, int index, String label) {
-    print('onChangeTheme $index');
+    logger.info('onChangeTheme $index');
     setState(() {
       //bgColor = value;
     });
   }
 
+  void setContents(String contents) {
+    logger.info('setContents');
+    _pyCodeTextField!.getTextController().text = contents;
+    updateLineNumberTextController();
+    setState(() {});
+  }
+
   void updateLineNumberTextController() {
-    print('updateLineNumberTextController');
+    logger.info('PyEditor updateLineNumberTextController');
     var read = context.read<PyCodeBloc>();
     read.add(PyCodeBlocTextChangeEvent(
         codeTextController: _pyCodeTextField!.getTextController(),
-        lineCountTextController: _lineNumberTextController));
+        lineCountTextController: _lineNumberTextController,
+        contentUpdaterFunc: this.contentUpdateFromUserInput));
+  }
+
+  void contentUpdateFromUserInput(String content) {
+    logger.info('PyEditor contentUpdateFromUserInput ${contents}');
+    contents = content;
+    logger.info('PyEditor contentUpdateFromUserInput ${contents}');
   }
 
   @override
   Widget build(BuildContext context) {
-    print("PyEditor build");
+    logger.info("PyEditor build");
     return BlocConsumer<PyCodeBloc, PyCodeBlocState>(
         bloc: BlocProvider.of<PyCodeBloc>(context),
         listener: (context, PyCodeBlocState state) {
           if (state.dirty) {
-            print('listener dirty: $state.dirty');
+            logger.info('listener dirty: $state.dirty');
             var evt = PyCodeBlocTextChangeEvent(
                 codeTextController: _pyCodeTextField!.getTextController(),
-                lineCountTextController: _lineNumberTextController);
+                lineCountTextController: _lineNumberTextController,
+                contentUpdaterFunc: this.contentUpdateFromUserInput);
             BlocProvider.of<PyCodeBloc>(context).add(evt);
           }
         },

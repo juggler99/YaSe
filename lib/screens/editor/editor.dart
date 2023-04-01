@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/controls/bloc_controls/py_code/py_code_field.dart';
-import '../../controls/bloc_controls/py_code/py_code_field.dart';
+import './../../controls/bloc_controls/py_code/py_code_field.dart';
 import 'package:flutter_gen/controls/header.dart';
 import 'package:flutter_gen/utils/button_utils.dart';
 import 'editor_footer.dart';
@@ -17,8 +16,8 @@ class Editor extends StatelessWidget {
       //appBar: EditorHeader(),
       appBar: Header(title: "Hello", items: headerItems),
       body: Center(
-          //child: Text('Edit me'),
-          child: PyCodeField()),
+        child: Text('Edit me'),
+      ),
       bottomNavigationBar: EditorFooter(),
     );
   }

@@ -2,8 +2,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/model/account.dart';
-import 'package:flutter_application_1/services/data_service.dart';
+import '/model/account.dart';
+import '/services/data_service.dart';
 
 class AccountScreen extends StatelessWidget {
   //AccountScreen({Key? key}) : super(key: key);
@@ -37,8 +37,8 @@ class AccountScreen extends StatelessWidget {
 
                               return ListTile(
                                 title: Text(currentAccount.name),
-                                subtitle: Text(
-                                    "Phone: ${currentAccount.phone}"),
+                                subtitle:
+                                    Text("Phone: ${currentAccount.phone}"),
                               );
                             }),
                       ),
@@ -48,9 +48,7 @@ class AccountScreen extends StatelessWidget {
               }
 
               if (snapshot.hasError) {
-                
                 return Center(
-                    
                     child: Icon(
                   Icons.error,
                   color: Colors.red,
@@ -63,13 +61,10 @@ class AccountScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
-                  
                   CircularProgressIndicator(),
-                  
                   SizedBox(
                     height: 20.0,
                   ),
-                  
                   Text("Loading at the moment, please hold the line.")
                 ],
               ));

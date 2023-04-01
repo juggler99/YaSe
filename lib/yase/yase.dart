@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/os/file_open.dart';
+import 'package:flutter_gen/utils/os/file_open.dart' as file_open;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,6 @@ import './../screens/me.dart';
 import './../screens/courses.dart';
 import './../screens/programs.dart';
 import './../screens/theme_editor.dart';
-import '../controls/bloc_controls/py_code/py_editor_screen.dart';
 import './../controls/bloc_controls/theme_manager/theme_manager.dart';
 import './../screens/theme_manager_screen.dart';
 import '../screens/login/login.dart';
@@ -85,10 +84,13 @@ class _YaSeAppState extends State<YaSeApp> {
           await getDefaultRootFolderAsString(appFolder: "YaSe");
     });
 
-    Future.delayed(Duration.zero, () async {
+/*
+    Future.delayed(Duration(seconds: 3), () async {
       debugger;
-      widget.routes = await loadYamlAsset("assets/routes/routes.yaml");
+      widget.routes = await loadYamlAsset(
+          concatPaths([widget.YaSeAppPath, "assets/routes/routes.yaml"]));
     });
+*/
 
     widget._appBarMain =
         AppBarMain(title: "YaSe", navMenuItems: widget._appBarNavMenutItems);
@@ -101,8 +103,6 @@ class _YaSeAppState extends State<YaSeApp> {
     print('build context: $hash');
 
     widget._homeScreen = HomeScreen();
-
-    debugger();
 
     print("routes: ${widget.routes}");
 
@@ -145,7 +145,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/calculator': (context) => Calculator(),
         '/editor': (context) => Editor(),
         '/documentManager': (context) => DocumentManager(),
-        '/file_open': (context) => FileOpenDilaog(),
+        '/file_open': (context) => file_open.FileOpenDialog(),
       },
     );
   }

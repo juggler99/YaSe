@@ -13,12 +13,14 @@ class PyCodeField extends StatefulWidget {
   TextEditingController _textController = PyCodeTextController(
       getTextStyleMapFromList(getKeywords(), TextStyle(color: Colors.green)));
   Function? updateLineTextController;
+  void Function(String) contentUpdaterFunc;
 
-  PyCodeField({
-    Key? key,
-    TextEditingController? this.lineCountTextController,
-    Function? this.updateLineTextController,
-  }) : super(key: key);
+  PyCodeField(
+      {Key? key,
+      TextEditingController? this.lineCountTextController,
+      Function? this.updateLineTextController,
+      required this.contentUpdaterFunc})
+      : super(key: key);
 
   @override
   _PyCodeFieldState createState() => _PyCodeFieldState();
@@ -195,7 +197,8 @@ class _PyCodeFieldState extends State<PyCodeField> {
           onChanged: (String value) async {
             var evt = PyCodeBlocTextChangeEvent(
                 codeTextController: widget.getTextController(),
-                lineCountTextController: widget.lineCountTextController!);
+                lineCountTextController: widget.lineCountTextController!,
+                contentUpdaterFunc: widget.contentUpdaterFunc);
             BlocProvider.of<PyCodeBloc>(context).add(evt);
             getAutocomplete();
           },

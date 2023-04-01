@@ -1,8 +1,8 @@
 //import 'dart:html';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_application_1/yase/yase.dart';
+import '/yase/yase.dart';
 import 'package:flutter_treeview/flutter_treeview.dart';
 import 'package:flutter_gen/utils/file_utils.dart';
 import 'package:flutter_gen/utils/button_utils.dart';
@@ -12,6 +12,7 @@ import '../bloc_controls/doc_provider/document.dart';
 import 'package:flutter_gen/controls/header.dart';
 import 'dart:developer';
 import 'dart:io' as io;
+import 'package:path/path.dart' as path;
 
 class DocumentManager extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _DocumentManagerState extends State<DocumentManager>
     _scrollController = ScrollController();
     String defaultFilename = "Untitled1.py";
     _tabs = [Tab(text: "Untitled1.py")];
-    _tabContent = [PyEditor()];
+    var filename = getDefaultFullPath();
+    _tabContent = [createPyEditor(filename)];
     _documents = [];
     DocumentAddToList(context, defaultFilename, "YaSe", "", _documents);
   }
@@ -111,25 +113,42 @@ class _DocumentManagerState extends State<DocumentManager>
             )));
   }
 
+  String getDefaultFileName() {
+    return "Untitled${_numTabs}.py";
+  }
+
+  String getDefaultFullPath() {
+    return concatPaths(
+        [YaSeApp.of(context)!.widget.YaSeAppPath, getDefaultFileName()]);
+  }
+
   TabBarView createTabView() {
     print("createTabView");
     return TabBarView(
       children: List.generate(
         _numTabs,
-        (index) => index < _tabContent.length ? _tabContent[index] : PyEditor(),
+        (index) => index < _tabContent.length
+            ? _tabContent[index]
+            : createPyEditor(getDefaultFullPath()),
       ),
       controller: _tabController,
     );
   }
 
+  PyEditor createPyEditor(String filename) {
+    var stateKey = GlobalKey<PyEditorState>();
+    var editor = PyEditor(filename, key: stateKey);
+    return editor;
+  }
+
   List<Widget> HeaderItems() {
     List<Widget> headerItems = [];
     headerItems.add(getIconButton(context, Icons.add, 'Add', () {
-      documentAdd();
+      documentAdd(null);
     }, 1));
     headerItems
         .add(getIconButton(context, Icons.file_open_outlined, 'Open', () {
-      documentOpen(() => PyEditor());
+      documentOpen(() => createPyEditor(getDefaultFullPath()));
     }, 1));
     headerItems.add(getIconButton(context, Icons.save, 'Save', () {
       documentSave();
@@ -143,13 +162,23 @@ class _DocumentManagerState extends State<DocumentManager>
     return headerItems;
   }
 
-  void documentAdd<T>() {
+  void documentAdd(String? fullPath) {
     setState(() {
+      debugger();
       final app = YaSeApp.of(context);
       _numTabs++; // add a new tab
-      var filename = 'Untitiled$_numTabs.py';
-      _tabs.add(Tab(text: filename));
-      _tabContent.add(PyEditor());
+      String filename = fullPath ?? 'Untitiled$_numTabs.py';
+      var editor = createPyEditor(getDefaultFullPath());
+      if (fullPath != null) {
+        var contents = read(fullPath);
+        debugger();
+        editor = createPyEditor(filename);
+        var globalEditorKey = editor.key as GlobalKey<PyEditorState>;
+        globalEditorKey.currentState!.setContents(contents);
+      }
+      var file = File(filename);
+      _tabs.add(Tab(text: file.path.split(path.separator).last));
+      _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
       _tabController.animateTo(_tabController.length - 1);
       DocumentAddToList(context, filename, "YaSe", "", _documents);
@@ -158,10 +187,11 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentOpen(createInstanceFunc) {
-    Navigator.pushNamed(context, "/file_open", arguments: <String, String>{
+    Navigator.pushNamed(context, "/file_open", arguments: <String, dynamic>{
       "targetFolder": YaSeApp.of(context)!.widget.YaSeAppPath,
-      "title": "Ya Se",
-      "filter": '.py'
+      "title": "Open File",
+      "filter": '.py',
+      "callback": documentAdd
     });
   }
 
@@ -176,9 +206,11 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentSave() {
+    debugger();
     var editor = _tabContent[_tabController.index] as PyEditor;
-    var content = editor.contents;
-    write(_documents[_tabController.index].filename!, content);
+    //var content = editor.contents;
+    String content = "Helo World";
+    write(_documents[_tabController.index].filename!, content!);
     setState(() {});
   }
 

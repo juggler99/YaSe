@@ -8,8 +8,11 @@ abstract class PyCodeBlocEvent {
 class PyCodeBlocTextChangeEvent extends PyCodeBlocEvent {
   final TextEditingController codeTextController;
   final TextEditingController lineCountTextController;
+  final void Function(String) contentUpdaterFunc;
   const PyCodeBlocTextChangeEvent(
-      {required this.codeTextController, required this.lineCountTextController})
+      {required this.codeTextController,
+      required this.lineCountTextController,
+      required this.contentUpdaterFunc})
       : assert(codeTextController != null && lineCountTextController != null);
   @override
   List<Object> get props => [codeTextController, lineCountTextController];

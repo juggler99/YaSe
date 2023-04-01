@@ -233,9 +233,11 @@ packages:
   flutter_gen:
     dependency: "direct main"
     description:
-      path: "C:\\Dev\\SoftwareProjects\\FlutterProjects\\FlutterGen\\flutter_gen"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "00ccf318f71eabcc65270dba41f6aae7e4cdd139"
+      url: "https://github.com/juggler99/FlutterGen.git"
+    source: git
     version: "0.0.1"
   flutter_localizations:
     dependency: "direct main"
