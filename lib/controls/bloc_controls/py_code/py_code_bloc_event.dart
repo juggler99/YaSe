@@ -6,16 +6,13 @@ abstract class PyCodeBlocEvent {
 }
 
 class PyCodeBlocTextChangeEvent extends PyCodeBlocEvent {
-  final TextEditingController codeTextController;
-  final TextEditingController lineCountTextController;
-  final void Function(String) contentUpdaterFunc;
+  final String text;
+  final int cursorPosition;
+  final PyCodeControllerToken pyCodeControllerToken;
   const PyCodeBlocTextChangeEvent(
-      {required this.codeTextController,
-      required this.lineCountTextController,
-      required this.contentUpdaterFunc})
-      : assert(codeTextController != null && lineCountTextController != null);
+      this.pyCodeControllerToken, this.text, this.cursorPosition);
   @override
-  List<Object> get props => [codeTextController, lineCountTextController];
+  List<Object> get props => [text, cursorPosition];
 }
 
 class PyCodeBlocControlTextChangeEvent extends PyCodeBlocEvent {

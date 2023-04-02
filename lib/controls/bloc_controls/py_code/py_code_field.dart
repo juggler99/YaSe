@@ -5,27 +5,21 @@ import './py_code_bloc.dart';
 import 'package:tuple/tuple.dart';
 import 'package:flutter_gen/utils/python_utils.dart';
 import 'package:flutter_gen/utils/string_utils.dart';
+import 'py_code_controller_token.dart';
 import 'py_code_text_controller.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'dart:developer';
 
 class PyCodeField extends StatefulWidget {
-  TextEditingController? lineCountTextController;
-  TextEditingController _textController = PyCodeTextController(
-      getTextStyleMapFromList(getKeywords(), TextStyle(color: Colors.green)));
-  Function? updateLineTextController;
-  void Function(String) contentUpdaterFunc;
+  PyCodeControllerToken pyCodeControllerToken;
+  PyCodeField(this.pyCodeControllerToken, {Key? key}) : super(key: key);
 
-  PyCodeField(
-      {Key? key,
-      TextEditingController? this.lineCountTextController,
-      Function? this.updateLineTextController,
-      required this.contentUpdaterFunc})
-      : super(key: key);
+  PyCodeControllerToken getPyCodeControllerToken() {
+    return pyCodeControllerToken;
+  }
 
   @override
   _PyCodeFieldState createState() => _PyCodeFieldState();
-
-  TextEditingController getTextController() => _textController;
 }
 
 class _PyCodeFieldState extends State<PyCodeField> {
@@ -45,33 +39,21 @@ class _PyCodeFieldState extends State<PyCodeField> {
   @override
   void initState() {
     super.initState();
-    //widget._textController =
-    WidgetsBinding.instance!.addPostFrameCallback(
-        (_) => displayOverlay(_items, widget._textController, _textStyle));
+    WidgetsBinding.instance!.addPostFrameCallback((_) => displayOverlay(_items,
+        widget.getPyCodeControllerToken().getTextController(), _textStyle));
     focusNode.addListener(() {});
-    widget._textController.addListener(getAutocomplete);
-    widget._textController.addListener(updateLineNumberTextController);
+    widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .addListener(getAutocomplete);
   }
 
   @override
   void dispose() {
-    widget.getTextController().dispose();
     super.dispose();
   }
 
-  void addTextControllerCustomListener(customListener) {
-    widget._textController.addListener(() {
-      customListener(widget._textController);
-    });
-  }
-
   var regex = RegExp('[^a-zA-Z0-9]');
-
-  void updateLineNumberTextController() {
-    print('pycodefieldtext updateLineNumberTextController');
-    if (widget.updateLineTextController != null)
-      widget.updateLineTextController!();
-  }
 
   void getAutocomplete([bool verbose = true]) {
     if (verbose) print("getAutocomplete");
@@ -83,14 +65,22 @@ class _PyCodeFieldState extends State<PyCodeField> {
             screenName: "pyCodeEditor", visibleHeight: visibleHeight));
     print("autocomplete visibleHeight: $visibleheight");
 
-    List<String> words = widget._textController.text
+    List<String> words = widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .text
         .replaceAll(regex, ' ')
         .split(regex)
         .toSet()
         .toList();
-    int cursorPosition = widget._textController.selection.baseOffset;
-    Tuple2<String, int> curWordTuple =
-        getWordAtPosition(widget._textController.text, cursorPosition);
+    int cursorPosition = widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .selection
+        .baseOffset;
+    Tuple2<String, int> curWordTuple = getWordAtPosition(
+        widget.getPyCodeControllerToken().getTextController().text,
+        cursorPosition);
     // current Word
     var curWord = curWordTuple.item1;
     // position of current word in controller text
@@ -98,7 +88,8 @@ class _PyCodeFieldState extends State<PyCodeField> {
     if (verbose) print('curr Word: $curWordTuple');
     if (verbose) print('words: $words');
     if (curWord == " " || curWord == "") {
-      closeOverlay(widget._textController, cursorPosition);
+      closeOverlay(widget.getPyCodeControllerToken().getTextController(),
+          cursorPosition);
       print('return 1 currPosition: $cursorPosition');
       return;
     }
@@ -113,7 +104,8 @@ class _PyCodeFieldState extends State<PyCodeField> {
         // last word already matches single keyword
         // hide overlay, nothing more to do
         if (verbose) print('last word already in');
-        closeOverlay(widget._textController, cursorPosition);
+        closeOverlay(widget.getPyCodeControllerToken().getTextController(),
+            cursorPosition);
         print('return 2 currPosition: $cursorPosition');
         return;
       }
@@ -124,7 +116,8 @@ class _PyCodeFieldState extends State<PyCodeField> {
     // nothing to do, hide overlay
     if (keywords.length > 0 && keywords[0] == curWord) {
       if (verbose) print('word already in');
-      closeOverlay(widget._textController, cursorPosition);
+      closeOverlay(widget.getPyCodeControllerToken().getTextController(),
+          cursorPosition);
       print('return 3 currPosition: $cursorPosition');
       return;
     }
@@ -138,7 +131,8 @@ class _PyCodeFieldState extends State<PyCodeField> {
         word == curWord);
     if (verbose) print("allWords after: $allWords");
     if (allWords.isEmpty || curWord.isEmpty) {
-      closeOverlay(widget._textController, cursorPosition);
+      closeOverlay(widget.getPyCodeControllerToken().getTextController(),
+          cursorPosition);
       print('return 4 currPosition: $cursorPosition');
       return;
     }
@@ -149,30 +143,43 @@ class _PyCodeFieldState extends State<PyCodeField> {
         .map((keyword) => ListTile(
               title: Text(keyword),
               onTap: () {
-                var txt = widget._textController.text;
+                var txt =
+                    widget.getPyCodeControllerToken().getTextController().text;
                 print("text beforfe: $txt");
                 var result = getTextBeforeAfterCurWord(
-                    widget._textController.text,
+                    widget.getPyCodeControllerToken().getTextController().text,
                     curWord,
                     keyword,
                     curWordPosition);
-                widget._textController.text =
+                widget.getPyCodeControllerToken().getTextController().text =
                     result.item1 + keyword + result.item2;
                 print("reslt: $result");
-                closeOverlay(widget._textController, result.item3);
+                closeOverlay(
+                    widget.getPyCodeControllerToken().getTextController(),
+                    result.item3);
               },
             )));
     if (items.isNotEmpty) {
       items.sort((a, b) => a.title.toString().compareTo(b.title.toString()));
-      displayOverlay(items, widget._textController, _textStyle);
+      displayOverlay(items,
+          widget.getPyCodeControllerToken().getTextController(), _textStyle);
     }
   }
 
   void closeOverlay(TextEditingController controller, int cursorPosition) {
     hideOverlay();
+    print("closeOverlay TextController: ${controller.hashCode}");
     if (cursorPosition < 0) cursorPosition = controller.text.length;
     controller.selection =
         TextSelection.fromPosition(TextPosition(offset: cursorPosition));
+    BlocProvider.of<PyCodeBloc>(context).add(PyCodeBlocTextChangeEvent(
+        widget.getPyCodeControllerToken(),
+        controller.text,
+        widget
+            .getPyCodeControllerToken()
+            .getTextController()
+            .selection
+            .baseOffset));
   }
 
   @override
@@ -186,7 +193,7 @@ class _PyCodeFieldState extends State<PyCodeField> {
         link: layerLink,
         child: TextField(
           focusNode: focusNode,
-          controller: widget._textController,
+          controller: widget.getPyCodeControllerToken().getTextController(),
           maxLines: null,
           autofocus: true,
           enableSuggestions: false,
@@ -196,10 +203,16 @@ class _PyCodeFieldState extends State<PyCodeField> {
           enableInteractiveSelection: true,
           onChanged: (String value) async {
             var evt = PyCodeBlocTextChangeEvent(
-                codeTextController: widget.getTextController(),
-                lineCountTextController: widget.lineCountTextController!,
-                contentUpdaterFunc: widget.contentUpdaterFunc);
+                widget.getPyCodeControllerToken(),
+                value,
+                widget
+                    .getPyCodeControllerToken()
+                    .getTextController()
+                    .selection
+                    .baseOffset);
             BlocProvider.of<PyCodeBloc>(context).add(evt);
+            print(
+                "PyCodeField onChange TextController: ${widget.getPyCodeControllerToken().getTextController().hashCode}");
             getAutocomplete();
           },
           decoration: InputDecoration(
@@ -219,8 +232,15 @@ class _PyCodeFieldState extends State<PyCodeField> {
     final _overlay = Overlay.of(context);
     RenderBox? renderBox = context.findRenderObject() as RenderBox?;
     final size = renderBox!.size;
-    var cursorPosition = widget._textController.selection.baseOffset;
-    var lines = widget._textController.text
+    var cursorPosition = widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .selection
+        .baseOffset;
+    var lines = widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .text
         .substring(0, cursorPosition)
         .split('\n')
         .length;

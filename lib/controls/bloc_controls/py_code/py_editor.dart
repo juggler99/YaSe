@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:YaSe/controls/bloc_controls/py_code/py_code_controller_token.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
 import '/controls/bloc_controls/doc_provider/document.dart';
@@ -25,17 +26,17 @@ import 'package:flutter_gen/utils/tabbar_utils.dart';
 import 'dart:developer';
 
 class PyEditor extends StatefulWidget {
-  String? filename;
-  PyEditor(this.filename, {Key? key}) : super(key: key);
+  String filename;
+  PyCodeControllerToken pyCodeControllerToken;
+  PyEditor(this.filename, this.pyCodeControllerToken, {Key? key})
+      : super(key: key);
 
   @override
   PyEditorState createState() => PyEditorState();
+  PyCodeControllerToken getPyCodeControllerToken() => pyCodeControllerToken;
 }
 
 class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
-  TabController? tabController;
-  var _lineNumberTextController = TextEditingController(text: "1");
-  var _blocProvider = PyCodeBloc();
   TextStyle _textStyle = TextStyle(
     backgroundColor: Colors.amber,
     color: Colors.grey,
@@ -43,8 +44,7 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   );
   var _screenSizeProvider = ScreenSizeBloc();
   PyCodeField? _pyCodeTextField;
-  OverlayEntry? _overlayEntry;
-  OverlayState? _overlayState;
+
   double screenSize = 100;
   double screenRatio = 1;
   Color bgColor = Colors.blue;
@@ -58,9 +58,13 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   void initState() {
     logger.info("PyEditor initstate");
     super.initState();
+    _pyCodeTextField = PyCodeField(widget.getPyCodeControllerToken());
+    print(
+        "PyEditor TextController: ${_pyCodeTextField!.getPyCodeControllerToken().getTextController().hashCode}");
 
     TextField LineNumberTextField = TextField(
-      controller: _lineNumberTextController,
+      controller:
+          widget.getPyCodeControllerToken().getLineCountTextController(),
       maxLines: null,
       autofocus: false,
       autocorrect: false,
@@ -83,11 +87,6 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
         width: 45,
         height: containerHeight);
 
-    _pyCodeTextField = PyCodeField(
-        lineCountTextController: _lineNumberTextController,
-        updateLineTextController: updateLineNumberTextController,
-        contentUpdaterFunc: this.contentUpdateFromUserInput);
-
     var PyCodeFieldWidget =
         CompositedTransformTarget(link: _layerLink, child: _pyCodeTextField);
 
@@ -109,7 +108,7 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
       ')',
       '<',
       '>'
-    ], _pyCodeTextField!.getTextController());
+    ], _pyCodeTextField!.getPyCodeControllerToken().getTextController());
   }
 
   void syncLines() {}
@@ -118,9 +117,6 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    if (_overlayEntry != null) {
-      _overlayEntry!.dispose();
-    }
     super.dispose();
   }
 
@@ -142,7 +138,8 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
 
   void setContents(String contents) {
     logger.info('setContents');
-    _pyCodeTextField!.getTextController().text = contents;
+    _pyCodeTextField!.getPyCodeControllerToken().getTextController().text =
+        contents;
     updateLineNumberTextController();
     setState(() {});
   }
@@ -151,9 +148,13 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
     logger.info('PyEditor updateLineNumberTextController');
     var read = context.read<PyCodeBloc>();
     read.add(PyCodeBlocTextChangeEvent(
-        codeTextController: _pyCodeTextField!.getTextController(),
-        lineCountTextController: _lineNumberTextController,
-        contentUpdaterFunc: this.contentUpdateFromUserInput));
+        _pyCodeTextField!.getPyCodeControllerToken(),
+        _pyCodeTextField!.getPyCodeControllerToken().getTextController().text,
+        _pyCodeTextField!
+            .getPyCodeControllerToken()
+            .getTextController()
+            .selection
+            .baseOffset));
   }
 
   void contentUpdateFromUserInput(String content) {
@@ -171,9 +172,16 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
           if (state.dirty) {
             logger.info('listener dirty: $state.dirty');
             var evt = PyCodeBlocTextChangeEvent(
-                codeTextController: _pyCodeTextField!.getTextController(),
-                lineCountTextController: _lineNumberTextController,
-                contentUpdaterFunc: this.contentUpdateFromUserInput);
+                _pyCodeTextField!.getPyCodeControllerToken(),
+                _pyCodeTextField!
+                    .getPyCodeControllerToken()
+                    .getTextController()
+                    .text,
+                _pyCodeTextField!
+                    .getPyCodeControllerToken()
+                    .getTextController()
+                    .selection
+                    .baseOffset);
             BlocProvider.of<PyCodeBloc>(context).add(evt);
           }
         },

@@ -1,7 +1,9 @@
 //import 'dart:html';
 import 'dart:io';
+import 'package:YaSe/controls/bloc_controls/py_code/py_code_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import '../bloc_controls/py_code/py_code_controller_token.dart';
 import '/yase/yase.dart';
 import 'package:flutter_treeview/flutter_treeview.dart';
 import 'package:flutter_gen/utils/file_utils.dart';
@@ -136,8 +138,11 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   PyEditor createPyEditor(String filename) {
-    var stateKey = GlobalKey<PyEditorState>();
-    var editor = PyEditor(filename, key: stateKey);
+    PyCodeControllerToken pyCodeControllerToken = PyCodeControllerToken();
+    print("PyCodeBloc : ${pyCodeControllerToken.hashCode}");
+    print(
+        "DocMan TextController: ${pyCodeControllerToken.getTextController().hashCode}");
+    var editor = PyEditor(filename, pyCodeControllerToken);
     return editor;
   }
 
@@ -164,19 +169,17 @@ class _DocumentManagerState extends State<DocumentManager>
 
   void documentAdd(String? fullPath) {
     setState(() {
-      debugger();
       final app = YaSeApp.of(context);
       _numTabs++; // add a new tab
       String filename = fullPath ?? 'Untitiled$_numTabs.py';
       var editor = createPyEditor(getDefaultFullPath());
       if (fullPath != null) {
         var contents = read(fullPath);
-        debugger();
         editor = createPyEditor(filename);
-        var globalEditorKey = editor.key as GlobalKey<PyEditorState>;
-        globalEditorKey.currentState!.setContents(contents);
+        editor.pyCodeControllerToken.getTextController().text = contents;
       }
       var file = File(filename);
+
       _tabs.add(Tab(text: file.path.split(path.separator).last));
       _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
@@ -208,9 +211,8 @@ class _DocumentManagerState extends State<DocumentManager>
   void documentSave() {
     debugger();
     var editor = _tabContent[_tabController.index] as PyEditor;
-    //var content = editor.contents;
-    String content = "Helo World";
-    write(_documents[_tabController.index].filename!, content!);
+    String content = editor.pyCodeControllerToken.getTextController().text;
+    write(_documents[_tabController.index].filename!, content);
     setState(() {});
   }
 
