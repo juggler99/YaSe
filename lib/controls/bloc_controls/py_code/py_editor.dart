@@ -28,12 +28,19 @@ import 'dart:developer';
 class PyEditor extends StatefulWidget {
   String filename;
   PyCodeControllerToken pyCodeControllerToken;
+  bool _dirty = false;
   PyEditor(this.filename, this.pyCodeControllerToken, {Key? key})
       : super(key: key);
 
   @override
   PyEditorState createState() => PyEditorState();
   PyCodeControllerToken getPyCodeControllerToken() => pyCodeControllerToken;
+
+  void setDirty(bool dirtyFlag) {
+    _dirty = dirtyFlag;
+  }
+
+  bool isDirty() => _dirty;
 }
 
 class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {

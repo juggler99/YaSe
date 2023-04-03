@@ -5,14 +5,17 @@ import 'dart:developer';
 
 /// Returns a [Dialog] with the given [title], [message] and [buttons] to close the dialog
 Future<void> PromptUser(BuildContext context, String title, String message,
-    String textOptionTrue, String textOptionFalse) {
+    String textOptionTrue, String textOptionFalse,
+    {void Function()? onTrue = null, void Function()? onFalse = null}) {
   ElevatedButton? buttonTrue = textOptionTrue.length > 0
       ? getElevatedButtonForClosingDialog<bool>(
-          context, textOptionTrue, Colors.green, true)
+          context, textOptionTrue, Colors.green, true,
+          callback: onTrue)
       : null;
   ElevatedButton? buttonFalse = textOptionFalse.length > 0
       ? getElevatedButtonForClosingDialog<bool>(
-          context, textOptionFalse, Colors.red, false)
+          context, textOptionFalse, Colors.red, false,
+          callback: onFalse)
       : null;
 
   List<Widget> actionItems = [];

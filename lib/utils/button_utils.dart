@@ -4,7 +4,8 @@ import 'style_utils.dart';
 
 /// Returns a [TextButton] with the given [label] and [color] and [value]
 TextButton getTextButtonForClosingDialog<T>(
-    BuildContext context, String label, Color? color, T value) {
+    BuildContext context, String label, Color? color, T value,
+    {void Function()? callback = null}) {
   ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   return TextButton(
@@ -14,13 +15,17 @@ TextButton getTextButtonForClosingDialog<T>(
       ),
       style: ButtonStyle(foregroundColor: MaterialStateProperty.all(color)),
       onPressed: () {
+        if (callback != null) {
+          callback();
+        }
         Navigator.pop(context, value);
       });
 }
 
 /// Returns a [ElevatedButton] with the given [label] and [color] and [value]
 ElevatedButton getElevatedButtonForClosingDialog<T>(
-    BuildContext context, String label, Color? color, T value) {
+    BuildContext context, String label, Color? color, T value,
+    {void Function()? callback = null}) {
   ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   return ElevatedButton(
@@ -31,6 +36,9 @@ ElevatedButton getElevatedButtonForClosingDialog<T>(
               //Theme.of(context).buttonTheme.colorScheme!.outline)),
               Colors.grey[350])),
       onPressed: () {
+        if (callback != null) {
+          callback();
+        }
         Navigator.pop(context, value);
       });
 }

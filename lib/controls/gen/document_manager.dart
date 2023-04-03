@@ -40,7 +40,7 @@ class _DocumentManagerState extends State<DocumentManager>
     _tabController = TabController(length: _numTabs, vsync: this);
     _scrollController = ScrollController();
     String defaultFilename = "Untitled1.py";
-    _tabs = [getTabItem(defaultFilename, Icons.close) as Tab];
+    _tabs = [getTabItem(defaultFilename, Icons.close, documentClose, 0) as Tab];
     var filename = getDefaultFullPath();
     _tabContent = [createPyEditor(filename)];
     _documents = [];
@@ -180,10 +180,8 @@ class _DocumentManagerState extends State<DocumentManager>
         editor.pyCodeControllerToken.getTextController().text = contents;
       }
       var file = File(filename);
-
-      //_tabs.add(Tab(text: file.path.split(path.separator).last));
-      _tabs.add(
-          getTabItem(file.path.split(path.separator).last, Icons.close) as Tab);
+      _tabs.add(getTabItem(file.path.split(path.separator).last, Icons.close,
+          documentClose, _numTabs) as Tab);
       _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
       _tabController.animateTo(_tabController.length - 1);
@@ -211,11 +209,32 @@ class _DocumentManagerState extends State<DocumentManager>
     setState(() {});
   }
 
-  void documentSave() {
+  void documentSave({int tabIndex = -1}) {
     debugger();
-    var editor = _tabContent[_tabController.index] as PyEditor;
+    var targetIndex = tabIndex == -1 ? _tabController.index : tabIndex;
+    var editor = _tabContent[targetIndex] as PyEditor;
     String content = editor.pyCodeControllerToken.getTextController().text;
     write(_documents[_tabController.index].filename!, content);
+    editor.setDirty(false);
+    setState(() {});
+  }
+
+  void documentClose(int tabIndex, {bool validateDirty = true}) {
+    var editor = _tabContent[tabIndex] as PyEditor;
+    if (validateDirty && editor.isDirty()) {
+      PromptUser(context, "YaSe",
+          "Save changes to ${_documents[tabIndex].filename}?", "Yes", "No",
+          onTrue: () => {documentSave(tabIndex: tabIndex)},
+          onFalse: () => {documentClose(tabIndex, validateDirty: false)});
+    } else {
+      _documents.removeAt(tabIndex);
+      _tabContent.removeAt(tabIndex);
+      _tabs.removeAt(tabIndex);
+      _numTabs--;
+      _tabController = TabController(length: _numTabs, vsync: this);
+      _tabController.animateTo(_tabController.length - 1);
+      setState(() {});
+    }
     setState(() {});
   }
 

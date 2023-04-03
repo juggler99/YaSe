@@ -15,33 +15,9 @@ class PyCodeBloc extends Bloc<PyCodeBlocEvent, PyCodeBlocState> {
     on<PyCodeBlocTextChangeEvent>(_addLine);
   }
 
-  TextEditingController _lineCountTextController =
-      TextEditingController(text: "1");
-  TextEditingController _textController = PyCodeTextController(
-      getTextStyleMapFromList(getKeywords(), TextStyle(color: Colors.green)));
-
-  void contentUpdaterFunc(String text) {
-    print('pycodefieldtext contentUpdaterFunc');
-  }
-
-  TextEditingController getTextController() => _textController;
-  TextEditingController getLineCountTextController() =>
-      _lineCountTextController;
-
-  void dispose() {
-    _textController.dispose();
-  }
-
   void _addLine(
       PyCodeBlocTextChangeEvent event, Emitter<PyCodeBlocState> emit) {
-    print(
-        "event.pyCodeControllerToken : ${event.pyCodeControllerToken.hashCode}");
-    print(
-        "event.pyCodeControllerToken TextController: ${event.pyCodeControllerToken.getTextController().hashCode}");
-    print(
-        "event.pyCodeControllerToken TextController method: ${event.pyCodeControllerToken.getLineCountTextController().hashCode}");
-
-    this.contentUpdaterFunc(
+    event.pyCodeControllerToken.contentUpdaterFunc(
         event.pyCodeControllerToken.getTextController().text);
     var codeLines =
         event.pyCodeControllerToken.getTextController().text.split('\n');

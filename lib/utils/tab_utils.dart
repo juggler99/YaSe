@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-var widthCharacterFactor = 10.0;
+var widthCharacterFactor = 6.0;
 var widthWordPadding = 0.0;
 
-Widget getTabItem(String label, IconData iconData) {
+Widget getTabItem(
+    String label, IconData iconData, Function callback, int tabIndex) {
   final labelWidth = getLabelWidth(label);
   return Tab(
       child: Container(
@@ -25,11 +26,13 @@ Widget getTabItem(String label, IconData iconData) {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 1),
-              child: Icon(
-                iconData,
-                color: const Color(0xffef5145),
-                size: 21,
-              ),
+              child: InkWell(
+                  onTap: () => callback(tabIndex),
+                  child: Icon(
+                    iconData,
+                    color: const Color(0xffef5145),
+                    size: 24,
+                  )),
             ),
           ],
         ),
