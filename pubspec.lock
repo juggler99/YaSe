@@ -230,15 +230,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
-  flutter_gen:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "00ccf318f71eabcc65270dba41f6aae7e4cdd139"
-      url: "https://github.com/juggler99/FlutterGen.git"
-    source: git
-    version: "0.0.1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -764,5 +755,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.6 <3.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.0.0"

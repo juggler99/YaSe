@@ -41,9 +41,9 @@ dependencies:
   path_provider: 
   file_picker:
   flutter_treeview:
-  flutter_gen:
-    git:
-      url: https://github.com/juggler99/FlutterGen.git
+  # flutter_gen:
+  #   git:
+  #     url: https://github.com/juggler99/FlutterGen.git
     
 
   # The following adds the Cupertino Icons font to your application.
