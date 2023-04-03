@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import './py_code_field.dart';
 import 'dart:developer';
-import 'package:flutter_gen/utils/python_utils.dart';
+import './../../../utils/python_utils.dart';
 import 'py_code_controller_token.dart';
 import 'py_code_text_controller.dart';
 

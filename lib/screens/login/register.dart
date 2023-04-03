@@ -1,7 +1,7 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/dlg_utils.dart';
-import 'package:flutter_gen/utils/string_utils.dart';
+import './../../../utils/dlg_utils.dart';
+import './../../../utils/string_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

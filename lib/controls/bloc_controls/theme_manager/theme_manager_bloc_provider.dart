@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './theme_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/utils/dlg_utils.dart';
+import './../../../utils/dlg_utils.dart';
 import './../../../yase/yase.dart';
 import 'dart:developer';
 import 'theme_manager_bloc_event.dart';

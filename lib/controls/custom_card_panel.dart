@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'color_shade_picker.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../utils/style_utils.dart';
 import 'color_picker.dart';
 import './../controls/bloc_controls/theme_manager/theme_manager.dart';
 import './../yase/yase.dart';
-import 'package:flutter_gen/utils/theme_utils.dart';
+import './../../utils/theme_utils.dart';
 import 'dart:developer';
 
 typedef OnColorChangeCallback = void Function(Color value, int index);

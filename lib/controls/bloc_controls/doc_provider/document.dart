@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/yase/yase.dart';
 import 'dart:io';
-import 'package:flutter_gen/utils/file_utils.dart';
+import './../../../utils/file_utils.dart';
 
 class Document extends StatefulWidget {
   String? filename;

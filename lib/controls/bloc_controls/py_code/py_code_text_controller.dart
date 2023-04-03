@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/python_utils.dart';
-import 'package:flutter_gen/utils/edit_utils.dart';
+import './../../../utils/python_utils.dart';
+import './../../../utils/edit_utils.dart';
 
 class PyCodeTextController extends TextEditingController {
   final Map<String, TextStyle> mapping;

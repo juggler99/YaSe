@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../../utils/style_utils.dart';
 
 class NoAccessScreen extends StatefulWidget {
   const NoAccessScreen({Key? key}) : super(key: key);

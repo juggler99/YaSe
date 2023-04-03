@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/utils/dropdown_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../utils/dropdown_utils.dart';
+import './../../utils/style_utils.dart';
 import 'dart:developer';
 
 typedef OnColorChangeCallback = void Function(Color, int, String, BuildContext);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './../../controls/bloc_controls/py_code/py_code_field.dart';
-import 'package:flutter_gen/controls/header.dart';
-import 'package:flutter_gen/utils/button_utils.dart';
+import './../../../controls/header.dart';
+import './../../../utils/button_utils.dart';
 import 'editor_footer.dart';
 import 'editor_header.dart';
 

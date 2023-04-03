@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../../utils/style_utils.dart';
 
 class LoggedOutScreen extends StatefulWidget {
   const LoggedOutScreen({Key? key}) : super(key: key);

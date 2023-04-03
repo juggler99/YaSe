@@ -1,6 +1,6 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/dlg_utils.dart';
+import './../../../utils/dlg_utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

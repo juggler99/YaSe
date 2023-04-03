@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import './../controls/edit_control_panel.dart';
 import './../controls/edit_control_panel_custom.dart';
-import 'package:flutter_gen/utils/dropdown_utils.dart';
-import 'package:flutter_gen/utils/theme_utils.dart';
+import './../../../utils/dropdown_utils.dart';
+import './../../../utils/theme_utils.dart';
 import 'package:tuple/tuple.dart';
 import './../controls/dropdown_item_theme_color_panel.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../../utils/style_utils.dart';
 import './../yase/yase.dart';
 import 'dart:developer';
 

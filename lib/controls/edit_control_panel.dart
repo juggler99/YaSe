@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/dropdown_utils.dart';
-import 'package:flutter_gen/utils/dropdownlist.dart';
-import 'package:flutter_gen/utils/button_utils.dart';
+import './../../utils/dropdown_utils.dart';
+import './../../utils/dropdownlist.dart';
+import './../../utils/button_utils.dart';
 import 'package:tuple/tuple.dart';
 
 import 'dart:developer';

@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/os/file_open.dart' as file_open;
+import './../../../utils/os/file_open.dart' as file_open;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -27,15 +27,15 @@ import '../screens/login/forgot_password.dart';
 import '../screens/login/no_access.dart';
 import '../screens/login/register.dart';
 import '../screens/login/logged_out.dart';
-import 'package:flutter_gen/utils/file_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
-import 'package:flutter_gen/utils/theme_utils.dart';
-import 'package:flutter_gen/utils/menu_utils.dart';
+import './../../../utils/file_utils.dart';
+import './../../../utils/style_utils.dart';
+import './../../../utils/theme_utils.dart';
+import './../../../utils/menu_utils.dart';
 import './../controls/color_shade_picker.dart';
 import '../apps/calculator/calculator.dart';
 import './../screens/python_client.dart';
 import './../controls/app_bars/app_bar_main.dart';
-import 'package:flutter_gen/utils/yaml_utils.dart';
+import './../../../utils/yaml_utils.dart';
 import 'dart:developer';
 
 class YaSeApp extends StatefulWidget {

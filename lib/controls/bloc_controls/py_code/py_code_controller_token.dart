@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'py_code_text_controller.dart';
-import 'package:flutter_gen/utils/python_utils.dart';
+import './../../../utils/python_utils.dart';
 
 class PyCodeControllerToken {
   PyCodeControllerToken() {

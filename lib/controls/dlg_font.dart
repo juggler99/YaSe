@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
-import 'package:flutter_gen/utils/button_utils.dart';
+import './../../utils/style_utils.dart';
+import './../../utils/button_utils.dart';
 import 'dart:developer';
 
 Map<String, TextStyle?> getFonts(BuildContext context) {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //import 'package:starflut/starflut.dart';
-import 'package:flutter_gen/utils/dropdown_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
-import 'package:flutter_gen/utils/dropdownlist.dart';
+import './../../../utils/dropdown_utils.dart';
+import './../../../utils/style_utils.dart';
+import './../../../utils/dropdownlist.dart';
 
 class PythonClientScreen extends StatefulWidget {
   const PythonClientScreen({Key? key}) : super(key: key);

@@ -3,15 +3,17 @@ import 'dart:io';
 import 'package:YaSe/controls/bloc_controls/py_code/py_code_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import './../../utils/menu_utils.dart';
 import '../bloc_controls/py_code/py_code_controller_token.dart';
 import '/yase/yase.dart';
 import 'package:flutter_treeview/flutter_treeview.dart';
-import 'package:flutter_gen/utils/file_utils.dart';
-import 'package:flutter_gen/utils/button_utils.dart';
-import 'package:flutter_gen/utils/dlg_utils.dart';
+import './../../utils/file_utils.dart';
+import './../../utils/button_utils.dart';
+import './../../utils/dlg_utils.dart';
+import './../../utils/tab_utils.dart';
 import '../bloc_controls/py_code/py_editor.dart';
 import '../bloc_controls/doc_provider/document.dart';
-import 'package:flutter_gen/controls/header.dart';
+import './../../controls/header.dart';
 import 'dart:developer';
 import 'dart:io' as io;
 import 'package:path/path.dart' as path;
@@ -38,7 +40,7 @@ class _DocumentManagerState extends State<DocumentManager>
     _tabController = TabController(length: _numTabs, vsync: this);
     _scrollController = ScrollController();
     String defaultFilename = "Untitled1.py";
-    _tabs = [Tab(text: "Untitled1.py")];
+    _tabs = [getTabItem(defaultFilename, Icons.close) as Tab];
     var filename = getDefaultFullPath();
     _tabContent = [createPyEditor(filename)];
     _documents = [];
@@ -49,6 +51,7 @@ class _DocumentManagerState extends State<DocumentManager>
   void dispose() {
     _tabController.dispose();
     _scrollController.dispose();
+
     super.dispose();
   }
 
@@ -89,9 +92,7 @@ class _DocumentManagerState extends State<DocumentManager>
               padding: EdgeInsets.all(0.0),
               isScrollable: true,
               tabs: _tabs.map((tab) {
-                final label = tab.text ?? '';
-                final labelWidth =
-                    (label.length * 10.0) + 40.0; // calculate label width
+                final labelWidth = getTabLabelWidth(tab);
                 return Container(
                   height: 32,
                   width: labelWidth,
@@ -180,7 +181,9 @@ class _DocumentManagerState extends State<DocumentManager>
       }
       var file = File(filename);
 
-      _tabs.add(Tab(text: file.path.split(path.separator).last));
+      //_tabs.add(Tab(text: file.path.split(path.separator).last));
+      _tabs.add(
+          getTabItem(file.path.split(path.separator).last, Icons.close) as Tab);
       _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
       _tabController.animateTo(_tabController.length - 1);

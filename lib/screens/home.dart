@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
-import 'package:flutter_gen/utils/drawer_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
-import 'package:flutter_gen/utils/menu_utils.dart';
+import './../../../utils/drawer_utils.dart';
+import './../../../utils/style_utils.dart';
+import './../../../utils/menu_utils.dart';
 import 'dart:developer';
 
 class HomeScreen extends StatefulWidget {

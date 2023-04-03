@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/dropdown_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
-import 'package:flutter_gen/utils/dropdownlist.dart';
+import './../../../utils/dropdown_utils.dart';
+import './../../../utils/style_utils.dart';
+import './../../../utils/dropdownlist.dart';
 
 class ProgramsScreen extends StatefulWidget {
   const ProgramsScreen({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'package:flutter_gen/utils/dlg_utils.dart';
+import './../../../utils/dlg_utils.dart';
 import './../../../yase/yase.dart';
 import 'dart:developer';
 

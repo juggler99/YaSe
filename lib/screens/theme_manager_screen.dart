@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/utils/button_utils.dart';
-import 'package:flutter_gen/utils/collection_utils.dart';
-import 'package:flutter_gen/utils/style_utils.dart';
+import './../../../utils/button_utils.dart';
+import './../../../utils/collection_utils.dart';
+import './../../../utils/style_utils.dart';
 import './../yase/yase.dart';
 import 'dart:developer';
 
