@@ -41,6 +41,9 @@ class PyEditor extends StatefulWidget {
   }
 
   bool isDirty() => _dirty;
+  void updateFilename(String newFilename) {
+    filename = newFilename;
+  }
 }
 
 class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {

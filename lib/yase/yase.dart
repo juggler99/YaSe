@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import './../../../utils/os/file_open.dart' as file_open;
+import './../../../utils/os/file_save.dart' as file_save;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -146,6 +147,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/editor': (context) => Editor(),
         '/documentManager': (context) => DocumentManager(),
         '/file_open': (context) => file_open.FileOpenDialog(),
+        '/file_save': (context) => file_save.FileSaveDialog(),
       },
     );
   }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
-var widthCharacterFactor = 6.0;
-var widthWordPadding = 0.0;
+var widthCharacterFactor = 8.0;
+var widthWordPadding = 20.0;
 
 Widget getTabItem(
     String label, IconData iconData, Function callback, int tabIndex) {
   final labelWidth = getLabelWidth(label);
   return Tab(
       child: Container(
+    constraints: BoxConstraints(
+      maxWidth: 500, // Set the maximum width of the row
+    ),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       //color: isSelected ? Colors.blue : Colors.white,
@@ -42,7 +46,10 @@ Widget getTabItem(
 }
 
 double getLabelWidth(String label) {
-  return (label.length * widthCharacterFactor) + widthWordPadding;
+  var newLen = (label.length * widthCharacterFactor) + widthWordPadding;
+  print(
+      "getLabelWidth: $label length: ${label.length} newlen: $newLen widthCharacterFactor: $widthCharacterFactor  widthWordPadding: $widthWordPadding");
+  return newLen;
 }
 
 double getTabLabelWidth(Tab tab) {

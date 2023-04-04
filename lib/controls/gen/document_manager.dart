@@ -40,9 +40,13 @@ class _DocumentManagerState extends State<DocumentManager>
     _tabController = TabController(length: _numTabs, vsync: this);
     _scrollController = ScrollController();
     String defaultFilename = "Untitled1.py";
-    _tabs = [getTabItem(defaultFilename, Icons.close, documentClose, 0) as Tab];
     var filename = getDefaultFullPath();
-    _tabContent = [createPyEditor(filename)];
+    var editor = createPyEditor(filename);
+    _tabs = [
+      getTabItem(defaultFilename, Icons.close, documentClose, editor.hashCode)
+          as Tab
+    ];
+    _tabContent = [editor];
     _documents = [];
     DocumentAddToList(context, defaultFilename, "YaSe", "", _documents);
   }
@@ -172,7 +176,7 @@ class _DocumentManagerState extends State<DocumentManager>
     setState(() {
       final app = YaSeApp.of(context);
       _numTabs++; // add a new tab
-      String filename = fullPath ?? 'Untitiled$_numTabs.py';
+      String filename = fullPath ?? 'Untitled$_numTabs.py';
       var editor = createPyEditor(getDefaultFullPath());
       if (fullPath != null) {
         var contents = read(fullPath);
@@ -181,7 +185,7 @@ class _DocumentManagerState extends State<DocumentManager>
       }
       var file = File(filename);
       _tabs.add(getTabItem(file.path.split(path.separator).last, Icons.close,
-          documentClose, _numTabs) as Tab);
+          documentClose, editor.hashCode) as Tab);
       _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
       _tabController.animateTo(_tabController.length - 1);
@@ -200,7 +204,6 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentInfo() {
-    debugger();
     var editor = _tabContent[_tabController.index] as PyEditor;
     String filename = "None";
     if (_documents[_tabController.index].filename != null)
@@ -209,22 +212,38 @@ class _DocumentManagerState extends State<DocumentManager>
     setState(() {});
   }
 
-  void documentSave({int tabIndex = -1}) {
-    debugger();
-    var targetIndex = tabIndex == -1 ? _tabController.index : tabIndex;
-    var editor = _tabContent[targetIndex] as PyEditor;
+  void documentSave() {
+    var editor = _tabContent[_tabController.index] as PyEditor;
+    if (editor.filename.split(path.separator).last == getDefaultFileName() ||
+        editor.filename == "") {
+      Navigator.pushNamed(context, "/file_save", arguments: <String, dynamic>{
+        "targetFolder": YaSeApp.of(context)!.widget.YaSeAppPath,
+        "title": "Save File As",
+        "filter": '.py',
+        "callback": () => editor.updateFilename
+      });
+    }
     String content = editor.pyCodeControllerToken.getTextController().text;
     write(_documents[_tabController.index].filename!, content);
     editor.setDirty(false);
     setState(() {});
   }
 
-  void documentClose(int tabIndex, {bool validateDirty = true}) {
+  int getTabIndexByEditorHashCode(int hashcode) {
+    for (var i = 0; i < _tabContent.length; i++) {
+      if (_tabContent[i].hashCode == hashcode) return i;
+    }
+    return -1;
+  }
+
+  void documentClose(int hashcode, {bool validateDirty = true}) {
+    var tabIndex = getTabIndexByEditorHashCode(hashcode);
+    if (tabIndex < 0) return;
     var editor = _tabContent[tabIndex] as PyEditor;
     if (validateDirty && editor.isDirty()) {
       PromptUser(context, "YaSe",
           "Save changes to ${_documents[tabIndex].filename}?", "Yes", "No",
-          onTrue: () => {documentSave(tabIndex: tabIndex)},
+          onTrue: () => {documentSave()},
           onFalse: () => {documentClose(tabIndex, validateDirty: false)});
     } else {
       _documents.removeAt(tabIndex);
@@ -232,7 +251,12 @@ class _DocumentManagerState extends State<DocumentManager>
       _tabs.removeAt(tabIndex);
       _numTabs--;
       _tabController = TabController(length: _numTabs, vsync: this);
-      _tabController.animateTo(_tabController.length - 1);
+      if (tabIndex > 0) {
+        _tabController.animateTo(tabIndex - 1);
+      } else {
+        //close the editor
+        Navigator.of(context).pop();
+      }
       setState(() {});
     }
     setState(() {});
@@ -265,7 +289,7 @@ class _DocumentManagerState extends State<DocumentManager>
           onPressed: () {
             setState(() {
               _numTabs++; // add a new tab
-              _tabs.add(Tab(text: 'Untitiled$_numTabs'));
+              _tabs.add(Tab(text: 'Untitled$_numTabs'));
               _tabContent.add(Text('This is Tab $_numTabs'));
               _tabController = TabController(length: _numTabs, vsync: this);
             });
