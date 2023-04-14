@@ -1,3 +1,4 @@
+import 'package:YaSe/yase/yase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
@@ -37,6 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final isCollapsed = false;
+    YaSeApp.of(context)?.widget.YaSeAppWidth =
+        MediaQuery.of(context).size.width;
+    YaSeApp.of(context)?.widget.YaSeAppHeight =
+        MediaQuery.of(context).size.height;
     double visibleHeight = MediaQuery.of(context).size.height +
         MediaQuery.of(context).padding.top -
         MediaQuery.of(context).padding.bottom;

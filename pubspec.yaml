@@ -40,7 +40,9 @@ dependencies:
   keyboard_actions: "^4.1.0"  
   path_provider: 
   file_picker:
-  flutter_treeview:
+  flutter_treeview: ^1.0.7
+  chaquopy: ^0.0.19
+  # flutter_activity_recognition:
   # flutter_gen:
   #   git:
   #     url: https://github.com/juggler99/FlutterGen.git
@@ -54,6 +56,7 @@ dependencies:
   equatable: ^2.0.3
   flutter_localizations:
     sdk: flutter
+  dio: ^5.1.1
   # starflut:
   # flutter_typeahead2:  
 

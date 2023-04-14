@@ -54,7 +54,6 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   );
   var _screenSizeProvider = ScreenSizeBloc();
   PyCodeField? _pyCodeTextField;
-
   double screenSize = 100;
   double screenRatio = 1;
   Color bgColor = Colors.blue;
@@ -100,8 +99,11 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
     var PyCodeFieldWidget =
         CompositedTransformTarget(link: _layerLink, child: _pyCodeTextField);
 
-    _pyCodeFieldContainer =
-        Container(height: containerHeight, child: PyCodeFieldWidget);
+    _pyCodeFieldContainer = Container(
+      height: containerHeight,
+      child: PyCodeFieldWidget,
+      width: YaSeApp.of(context)!.widget.YaSeAppWidth - 45,
+    );
 
     _customButtonBar = createTextButtonBarFromListOfText([
       '=>~\t',
@@ -127,6 +129,8 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    print("PyEditor dispose");
+    _pyCodeTextField!.getPyCodeControllerToken().dispose();
     super.dispose();
   }
 

@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import '../controls/gen/python_console.dart';
 import './../../../utils/os/file_open.dart' as file_open;
 import './../../../utils/os/file_save.dart' as file_save;
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,6 +45,8 @@ class YaSeApp extends StatefulWidget {
   ThemeManager? _themeManager = null;
   HomeScreen? _homeScreen;
   late String YaSeAppPath;
+  late double YaSeAppHeight;
+  late double YaSeAppWidth;
   Map<String, dynamic>? routes;
 
   ThemeManager getThemeManager() => _themeManager!;
@@ -84,6 +87,9 @@ class _YaSeAppState extends State<YaSeApp> {
       widget.YaSeAppPath =
           await getDefaultRootFolderAsString(appFolder: "YaSe");
     });
+
+    widget.YaSeAppHeight = 0.0;
+    widget.YaSeAppWidth = 0.0;
 
 /*
     Future.delayed(Duration(seconds: 3), () async {
@@ -148,6 +154,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/documentManager': (context) => DocumentManager(),
         '/file_open': (context) => file_open.FileOpenDialog(),
         '/file_save': (context) => file_save.FileSaveDialog(),
+        '/python_console': (context) => PythonConsole(),
       },
     );
   }

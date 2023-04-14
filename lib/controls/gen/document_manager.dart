@@ -11,6 +11,7 @@ import './../../utils/file_utils.dart';
 import './../../utils/button_utils.dart';
 import './../../utils/dlg_utils.dart';
 import './../../utils/tab_utils.dart';
+import './../../utils/python_utils.dart';
 import '../bloc_controls/py_code/py_editor.dart';
 import '../bloc_controls/doc_provider/document.dart';
 import './../../controls/header.dart';
@@ -55,7 +56,6 @@ class _DocumentManagerState extends State<DocumentManager>
   void dispose() {
     _tabController.dispose();
     _scrollController.dispose();
-
     super.dispose();
   }
 
@@ -254,8 +254,12 @@ class _DocumentManagerState extends State<DocumentManager>
       if (tabIndex > 0) {
         _tabController.animateTo(tabIndex - 1);
       } else {
-        //close the editor
-        Navigator.of(context).pop();
+        if (_numTabs > 0)
+          _tabController.animateTo(0);
+        else {
+          //close the editor
+          Navigator.of(context).pop();
+        }
       }
       setState(() {});
     }
@@ -263,6 +267,16 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentRun() {
+    var editor = _tabContent[_tabController.index] as PyEditor;
+    var text = editor.getPyCodeControllerToken().getTextController().text;
+    String result = "";
+    Future.delayed(Duration.zero, () async {
+      Navigator.pushNamed(context, "/python_console",
+          arguments: <String, dynamic>{
+            "title": 'Ya Se',
+            "body": await runPython(script: text)
+          });
+    });
     setState(() {});
   }
 
@@ -285,17 +299,6 @@ class _DocumentManagerState extends State<DocumentManager>
       child: Scaffold(
         appBar: header,
         body: createTabView(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _numTabs++; // add a new tab
-              _tabs.add(Tab(text: 'Untitled$_numTabs'));
-              _tabContent.add(Text('This is Tab $_numTabs'));
-              _tabController = TabController(length: _numTabs, vsync: this);
-            });
-          },
-          child: Icon(Icons.add),
-        ),
       ),
     );
     return docManager;

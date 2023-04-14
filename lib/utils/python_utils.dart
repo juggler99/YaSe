@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:chaquopy/chaquopy.dart';
+import 'file_utils.dart';
 import 'dart:developer';
 
 /// Returns a List<String> with Python keywords
@@ -70,3 +72,15 @@ List<String> getMatchingKeywords(String pattern) {
     return [];
   }
 }
+
+Future<String> runPython(
+    {String? script = null, String? filename = null}) async {
+  Map<String, dynamic> result;
+  // Load the Python script file from assets
+  if (filename != null) {
+    script = await read(filename);
+  }
+  result = await Chaquopy.executeCode(script!);
+  return result["textOutputOrError"];
+}
+// Note that you'll need to have Python installed on the device in order for chaquopy to work. The package will automatically download and install Python when you run your app for the first time.

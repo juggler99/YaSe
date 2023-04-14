@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.YaSe">
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
    <application
         android:label="YaSe"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:name="com.chaquo.python.android.PyApplication">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

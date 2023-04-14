@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.4.2"
+  chaquopy:
+    dependency: "direct main"
+    description:
+      name: chaquopy
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.19"
   characters:
     dependency: transitive
     description:
@@ -176,6 +183,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.4"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.1"
   equatable:
     dependency: "direct main"
     description:

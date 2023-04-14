@@ -39,7 +39,7 @@ class _PyCodeFieldState extends State<PyCodeField> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => displayOverlay(_items,
+    WidgetsBinding.instance.addPostFrameCallback((_) => displayOverlay(_items,
         widget.getPyCodeControllerToken().getTextController(), _textStyle));
     focusNode.addListener(() {});
     widget
