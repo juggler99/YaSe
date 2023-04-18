@@ -130,7 +130,7 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
   @override
   void dispose() {
     print("PyEditor dispose");
-    _pyCodeTextField!.getPyCodeControllerToken().dispose();
+    // _pyCodeTextField!.getPyCodeControllerToken().dispose();
     super.dispose();
   }
 

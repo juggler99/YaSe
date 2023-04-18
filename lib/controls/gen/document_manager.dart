@@ -33,6 +33,12 @@ class _DocumentManagerState extends State<DocumentManager>
   late List<Widget> _tabContent;
   late List<Document> _documents;
   late String defaultPath;
+  String defaultFilenameOnly = 'untitled';
+  String defaultFilenameExtension = '.py';
+
+  String resolveFilename(int index) {
+    return "$defaultFilenameOnly${index}$defaultFilenameExtension";
+  }
 
   @override
   void initState() {
@@ -40,7 +46,7 @@ class _DocumentManagerState extends State<DocumentManager>
     super.initState();
     _tabController = TabController(length: _numTabs, vsync: this);
     _scrollController = ScrollController();
-    String defaultFilename = "Untitled1.py";
+    String defaultFilename = resolveFilename(1);
     var filename = getDefaultFullPath();
     var editor = createPyEditor(filename);
     _tabs = [
@@ -56,6 +62,9 @@ class _DocumentManagerState extends State<DocumentManager>
   void dispose() {
     _tabController.dispose();
     _scrollController.dispose();
+    _tabContent.forEach((element) {
+      (element as PyEditor).pyCodeControllerToken.dispose();
+    });
     super.dispose();
   }
 
@@ -121,7 +130,7 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   String getDefaultFileName() {
-    return "Untitled${_numTabs}.py";
+    return resolveFilename(_numTabs);
   }
 
   String getDefaultFullPath() {
@@ -172,11 +181,25 @@ class _DocumentManagerState extends State<DocumentManager>
     return headerItems;
   }
 
+  String getDocumentName(int numTabs) {
+    var filename = resolveFilename(numTabs);
+    var docNames = _documents
+        .map((doc) => doc.filename!.split(path.separator).last)
+        .toList();
+    for (var i = 0; i < docNames.length; i++) {
+      if (!docNames.contains(resolveFilename(i + 1))) {
+        return resolveFilename(i + 1);
+      }
+    }
+    return resolveFilename(numTabs + 1);
+  }
+
   void documentAdd(String? fullPath) {
     setState(() {
       final app = YaSeApp.of(context);
-      _numTabs++; // add a new tab
-      String filename = fullPath ?? 'Untitled$_numTabs.py';
+      // get next document adds 1 to tab count
+      String filename = fullPath ?? getDocumentName(_numTabs);
+      _numTabs++; // add a new tab, this line increments the number of tabs
       var editor = createPyEditor(getDefaultFullPath());
       if (fullPath != null) {
         var contents = read(fullPath);
@@ -213,8 +236,10 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentSave() {
+    debugger();
     var editor = _tabContent[_tabController.index] as PyEditor;
-    if (editor.filename.split(path.separator).last == getDefaultFileName() ||
+    if (editor.filename.split(path.separator).last ==
+            resolveFilename(_tabController.index + 1) ||
         editor.filename == "") {
       Navigator.pushNamed(context, "/file_save", arguments: <String, dynamic>{
         "targetFolder": YaSeApp.of(context)!.widget.YaSeAppPath,

@@ -50,6 +50,10 @@ class _PyCodeFieldState extends State<PyCodeField> {
 
   @override
   void dispose() {
+    widget
+        .getPyCodeControllerToken()
+        .getTextController()
+        .removeListener(getAutocomplete);
     super.dispose();
   }
 

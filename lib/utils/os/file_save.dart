@@ -66,43 +66,30 @@ class _FileSaveDialogState extends State<FileSaveDialog>
     treeViewController = TreeViewController(children: _nodes);
 
     return Scaffold(
-      appBar: header,
-      body: TreeView(
-          controller: treeViewController,
-          allowParentSelect: false,
-          supportParentDoubleTap: false,
-          //onExpansionChanged: _expandNodeHandler,
-          onNodeTap: (key) {
-            args["callback"]!(key);
-            Navigator.pop(context);
-          }),
-      bottomSheet: BottomAppBar(
-        child: Container(
-          child: Row(children: [
-            Expanded(
-              child: Container(
+        appBar: header,
+        body: Column(children: [
+          TreeView(
+              controller: treeViewController,
+              allowParentSelect: false,
+              supportParentDoubleTap: false,
+              //onExpansionChanged: _expandNodeHandler,
+              onNodeTap: (key) {
+                args["callback"]!(key);
+                Navigator.pop(context);
+              }),
+          Container(
+            child: Row(children: [
+              Expanded(
+                  child: Container(
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'File Name',
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'File Extension',
-                  ),
-                ),
-              ),
-            ),
-          ]),
-          height: 50.0,
-        ),
-      ),
-    );
+              )),
+            ]),
+          ),
+        ]));
   }
 }
