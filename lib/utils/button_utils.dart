@@ -191,3 +191,48 @@ void _onButtonPressed(String character, TextEditingController _controller) {
   _controller.text = newText;
   _controller.selection = TextSelection.collapsed(offset: cursorPos + 1);
 }
+
+ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
+    {String? label,
+    Icon? icon,
+    double diameter = 0,
+    Color? color,
+    bool inverted = false}) {
+  ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
+  TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
+  var childWidget = null;
+  if (label != null) {
+    childWidget = Text(label, style: textStyle);
+  } else if (icon != null) {
+    childWidget = icon;
+  }
+  var borderRadius = null;
+  if (diameter > 0) {
+    if (inverted == true) {
+      borderRadius = BorderRadius.only(
+          topLeft: Radius.circular(diameter),
+          topRight: Radius.circular(diameter));
+    } else {
+      borderRadius = BorderRadius.only(
+          bottomLeft: Radius.circular(diameter),
+          bottomRight: Radius.circular(diameter));
+    }
+    borderRadius = BorderRadius.circular(diameter);
+  } else {
+    borderRadius = BorderRadius.circular(diameter);
+  }
+  return ElevatedButton(
+      child: childWidget,
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: borderRadius,
+                  side: BorderSide(color: Colors.red))),
+          foregroundColor: MaterialStateProperty.all(color),
+          backgroundColor: MaterialStateProperty.all(
+              //Theme.of(context).buttonTheme.colorScheme!.outline)),
+              Colors.grey[350])),
+      onPressed: () {
+        onPressed();
+      });
+}

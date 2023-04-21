@@ -42,6 +42,7 @@ dependencies:
   file_picker:
   flutter_treeview: ^1.0.7
   chaquopy: ^0.0.19
+  intl: ^0.17.0
   # flutter_activity_recognition:
   # flutter_gen:
   #   git:
