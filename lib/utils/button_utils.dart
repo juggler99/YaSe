@@ -197,7 +197,10 @@ ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
     Icon? icon,
     double diameter = 0,
     Color? color,
-    bool inverted = false}) {
+    bool inverted = false,
+    bool useAppTheme = true,
+    Color foregroundColor = Colors.black,
+    Color backgroundColor = Colors.grey}) {
   ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   var childWidget = null;
@@ -221,17 +224,22 @@ ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
   } else {
     borderRadius = BorderRadius.circular(diameter);
   }
+  if (useAppTheme == true) {
+    color = Theme.of(context).buttonTheme.colorScheme!.primary;
+    foregroundColor = Theme.of(context).buttonTheme.colorScheme!.onPrimary;
+    backgroundColor =
+        Theme.of(context).buttonTheme.colorScheme!.onPrimary.withAlpha(50);
+  }
   return ElevatedButton(
       child: childWidget,
       style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius: borderRadius,
-                  side: BorderSide(color: Colors.red))),
-          foregroundColor: MaterialStateProperty.all(color),
-          backgroundColor: MaterialStateProperty.all(
-              //Theme.of(context).buttonTheme.colorScheme!.outline)),
-              Colors.grey[350])),
+                  side: BorderSide(color: foregroundColor))),
+          foregroundColor: MaterialStateProperty.all(foregroundColor),
+          backgroundColor: MaterialStateProperty.all(backgroundColor),
+          surfaceTintColor: MaterialStateProperty.all(backgroundColor)),
       onPressed: () {
         onPressed();
       });

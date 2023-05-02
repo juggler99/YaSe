@@ -42,6 +42,8 @@ class PyEditor extends StatefulWidget {
 
   bool isDirty() => _dirty;
   void updateFilename(String newFilename) {
+    debugger();
+    print("PyEditor updateFilename: $newFilename");
     filename = newFilename;
   }
 }

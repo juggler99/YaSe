@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:YaSe/controls/bloc_controls/py_code/py_editor.dart';
+import 'package:YaSe/utils/panel_utils.dart';
 import 'package:flutter/material.dart';
 import '../../utils/dlg_utils.dart';
 import 'package:path/path.dart' as path;
@@ -15,9 +17,15 @@ class FileSaveDialog extends StatefulWidget {
   String? targetFolder;
   String? title;
   String? filter;
+  String? filename;
   CallbackFunction? callback;
 
-  FileSaveDialog({this.targetFolder, this.title, this.filter, this.callback});
+  FileSaveDialog(
+      {this.targetFolder,
+      this.title,
+      this.filename,
+      this.filter,
+      this.callback});
 
   @override
   _FileSaveDialogState createState() => _FileSaveDialogState();
@@ -26,12 +34,14 @@ class FileSaveDialog extends StatefulWidget {
 class _FileSaveDialogState extends State<FileSaveDialog>
     with TickerProviderStateMixin {
   int _numTabs = 1;
-  late TabController _tabController;
   late ScrollController _scrollController;
-  late List<Tab> _tabs = <Tab>[];
-  late List<Widget> _tabContent;
   late String defaultPath;
   late TreeViewController treeViewController;
+  late TreeView treeView;
+  final TextEditingController textEditingController = TextEditingController();
+  EditPanel? editPanel;
+  PyEditor? editor;
+  FocusNode? focusNode;
 
   List<Node> _nodes = [];
 
@@ -40,56 +50,94 @@ class _FileSaveDialogState extends State<FileSaveDialog>
     super.initState();
   }
 
-  String fileSelect() {
-    return "Hello";
+  @override
+  void dispose() {
+    super.dispose();
   }
 
-  List<Widget> HeaderItems() {
+  List<Widget> HeaderItems(TextEditingController textEditingController,
+      double width, double height) {
     List<Widget> headerItems = [];
-    headerItems.add(getIconButton(context, Icons.add, 'Select', () {
-      fileSelect();
-    }, 1));
+    headerItems.add(Container(
+        constraints: BoxConstraints(maxWidth: width, maxHeight: height),
+        child: TextField(
+          controller: textEditingController,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'File Name',
+          ),
+        )));
     return headerItems;
+  }
+
+  String getFinalFilename(BuildContext context) {
+    debugger();
+    return path.join(widget.targetFolder!, textEditingController.text);
+  }
+
+  void _updateText() {
+    print("_updateText");
+    if (editPanel != null && editor != null) {
+      editor?.filename = path.join(
+          path.dirname(editor!.filename), editPanel?.getController().text);
+      print("editor.filename: ${editor!.filename}");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    var mediaSize = MediaQuery.of(context).size;
     final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic?>;
-
-    var header =
-        Header(toolbarHeight: 100, title: args["title"], items: HeaderItems());
-
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    editor = args["editor"] as PyEditor;
+    var fullFilePath = (args["editor"] as PyEditor).filename;
+    var filename = path.basename(fullFilePath);
+    var targetFolder = path.dirname(fullFilePath);
+    editPanel = getEditPanel(
+        context,
+        filename,
+        'Save',
+        () => {Navigator.pop(context, true)},
+        "Cancel",
+        () => {Navigator.pop(context, false)},
+        height: 100,
+        label: "Filename",
+        focusNode: focusNode);
     List<Node<FileSystemEntity>> _nodes =
-        listFiles(context, args["targetFolder"]!, args["filter"]!);
+        listFiles(context, targetFolder, filename.split('.').last);
+
+    editPanel?.getController().addListener(_updateText);
 
     treeViewController = TreeViewController(children: _nodes);
 
+    treeView = TreeView(
+        controller: treeViewController,
+        allowParentSelect: false,
+        supportParentDoubleTap: false,
+        //onExpansionChanged: _expandNodeHandler,
+        theme: TreeViewTheme(
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+                primary: Colors.grey,
+                secondary: Colors.grey,
+              ),
+        ),
+        onNodeTap: (key) {
+          treeViewController.toggleNode(key);
+          print("Node $key tapped");
+          //var node = treeViewController.getNode(key);
+        });
+
+    var header = Header(toolbarHeight: 100, title: args["title"]);
+    print("Selected Node: ${treeViewController.selectedKey}");
+
     return Scaffold(
         appBar: header,
-        body: Column(children: [
-          TreeView(
-              controller: treeViewController,
-              allowParentSelect: false,
-              supportParentDoubleTap: false,
-              //onExpansionChanged: _expandNodeHandler,
-              onNodeTap: (key) {
-                args["callback"]!(key);
-                Navigator.pop(context);
-              }),
-          Container(
-            child: Row(children: [
-              Expanded(
-                  child: Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'File Name',
-                  ),
-                ),
-              )),
-            ]),
-          ),
-        ]));
+        body: Container(
+            key: Key("TreeViewContainer"),
+            //color: Colors.green,
+            constraints: BoxConstraints(
+                maxWidth: mediaSize.width, maxHeight: mediaSize.height),
+            child: treeView),
+        bottomSheet: editPanel);
   }
 }

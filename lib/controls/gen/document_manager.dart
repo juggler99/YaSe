@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:YaSe/controls/bloc_controls/py_code/py_code_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import '../../utils/panel_utils.dart';
 import './../../utils/menu_utils.dart';
 import '../bloc_controls/py_code/py_code_controller_token.dart';
 import '/yase/yase.dart';
@@ -236,18 +237,36 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   void documentSave() {
-    debugger();
     var editor = _tabContent[_tabController.index] as PyEditor;
-    if (editor.filename.split(path.separator).last ==
-            resolveFilename(_tabController.index + 1) ||
+    var filename = editor.filename.split(path.separator).last;
+    if (filename == resolveFilename(_tabController.index + 1) ||
         editor.filename == "") {
-      Navigator.pushNamed(context, "/file_save", arguments: <String, dynamic>{
-        "targetFolder": YaSeApp.of(context)!.widget.YaSeAppPath,
-        "title": "Save File As",
-        "filter": '.py',
-        "callback": () => editor.updateFilename
+      Future.delayed(Duration.zero, () async {
+        var result = await Navigator.pushNamed(context, "/file_save",
+            arguments: <String, dynamic>{
+              "targetFolder": YaSeApp.of(context)!.widget.YaSeAppPath,
+              "title": "Save File As",
+              "editor": editor,
+              "callback": () => {}
+            });
+        debugger();
+        if (result == true) {
+          _documents[_tabController.index].filename = editor.filename;
+          _tabs[_tabController.index] = getTabItem(
+              editor.filename.split(path.separator).last,
+              Icons.close,
+              documentClose,
+              editor.hashCode) as Tab;
+          saveFile(editor);
+          setState(() {});
+        }
       });
+    } else {
+      saveFile(editor);
     }
+  }
+
+  void saveFile(PyEditor editor) {
     String content = editor.pyCodeControllerToken.getTextController().text;
     write(_documents[_tabController.index].filename!, content);
     editor.setDirty(false);
