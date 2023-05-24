@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './../../../utils/button_utils.dart';
+import 'package:YaSe/yase/yase.dart';
 
 class EditorHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -10,7 +11,7 @@ class EditorHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         title: const Text('Ya Se'),
         actions: [
           IconButton(

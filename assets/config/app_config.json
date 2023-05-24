@@ -1,0 +1,33 @@
+{
+    "themesAvailable": 
+    {
+        "type": "string",
+        "enum": [
+            "dark",
+            "light"
+        ],
+        "default": "purple",
+        "markdownDescription": "The color schema of the notebook. Can be either `dark` or `light`."
+    },
+    "themeData": 
+    {
+        "purple": {
+            "splashColor": "Colors.red",
+            "primarySwatch": "Colors.red",
+            "primaryColor": "Colors.red",
+            "backgroundColor": "Colors.red",
+            "brightness": "Brightness.light",
+            "fontFamily": "Arial",
+            "textTheme": "generalTextTheme"
+        },
+        "dark": {                 
+                "splashColor": "Colors.orange",
+                "primarySwatch": "Colors.orange",
+                "primaryColor": "Colors.orangeAccent[800]",
+                "backgroundColor": "Colors.orange",
+                "brightness": "Brightness.light",
+                "fontFamily": "Arial",
+                "textTheme": "generalTextTheme"
+        }
+    }
+}

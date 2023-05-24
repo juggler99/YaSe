@@ -80,14 +80,17 @@ class _DocumentManagerState extends State<DocumentManager>
   }
 
   Align createTabBar() {
-    Color? colorTab = Theme.of(context).primaryColor.withOpacity(0.3);
-    Color? colorTabBackground = Theme.of(context).primaryColor.withOpacity(0.1);
-    Color? colorTabSelected = Theme.of(context).primaryColor.withOpacity(0.5);
+    Color? colorTab =
+        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.3);
+    Color? colorTabBackground =
+        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.1);
+    Color? colorTabSelected =
+        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.5);
     print(
         "colorTab: ${colorTab.alpha} colorTabBackground: ${colorTabBackground.alpha} colorTabSelected: ${colorTabSelected.alpha}");
-    colorTab = Colors.orange[300];
-    colorTabBackground = Colors.orange[100];
-    colorTabSelected = Colors.orange[500];
+    colorTab = colorTab;
+    colorTabBackground = colorTabBackground;
+    colorTabSelected = colorTabSelected;
     BorderSide borderSide = BorderSide(color: colorTabSelected!);
     BorderSide borderSide0 = BorderSide(color: colorTabSelected, width: 0.0);
     Border border = Border(
@@ -249,7 +252,6 @@ class _DocumentManagerState extends State<DocumentManager>
               "editor": editor,
               "callback": () => {}
             });
-        debugger();
         if (result == true) {
           _documents[_tabController.index].filename = editor.filename;
           _tabs[_tabController.index] = getTabItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 
 /// Returns a [Drawer] with the given [listTileItems] and [headerHeight]
 Drawer getListViewAsDrawer(BuildContext context, double? headerHeight,
@@ -8,7 +9,8 @@ Drawer getListViewAsDrawer(BuildContext context, double? headerHeight,
     Container(
       height: headerHeight,
       child: DrawerHeader(
-        decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+        decoration: BoxDecoration(
+            color: YaSeApp.of(context)!.widget.AppTheme.backgroundColor),
         child: Text(label),
       ),
     ),

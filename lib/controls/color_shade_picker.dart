@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
 import './../../utils/dropdown_utils.dart';
 import './../../utils/style_utils.dart';
@@ -84,7 +85,7 @@ class _ColorShadePickerPanelState extends State<ColorShadePickerPanel> {
         margin: EdgeInsets.fromLTRB(
             leftMarging, topMarging, rightMarging, bottomMarging),
         padding: EdgeInsets.all(20),
-        color: Theme.of(context).canvasColor,
+        color: YaSeApp.of(context)!.widget.AppTheme.canvasColor,
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +100,7 @@ Widget getColorShadePickerItem(BuildContext context, Color color, String label,
   return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-      color: Theme.of(context).canvasColor,
+      color: YaSeApp.of(context)!.widget.AppTheme.canvasColor,
       child: SizedBox(
           width: width + 20,
           height: height + 20,

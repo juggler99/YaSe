@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import '../../utils/button_utils.dart';
 import 'dart:developer';
 
@@ -28,7 +29,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
     print("Header build");
     var targetSize = preferredSize;
     print("targetSize: $targetSize, toolbarHeight: $toolbarHeight");
-    TextStyle? textStyle = Theme.of(context).textTheme.headline6;
+    TextStyle? textStyle =
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
     var _text = Text(this.title!, style: textStyle);
     if (this.items?.isEmpty ?? true)
       _text = Text(this.title!, style: textStyle, textAlign: TextAlign.center);
@@ -44,13 +46,13 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
     if (this.tabBar == null) {
       return AppBar(
           toolbarHeight: toolbarHeight,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
           title: _text,
           actions: this.items);
     }
     return AppBar(
         toolbarHeight: toolbarHeight,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         title: _text,
         actions: this.items,
         bottom: prefSizeObject);

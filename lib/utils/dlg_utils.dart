@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import './style_utils.dart';
 import './button_utils.dart';
 import 'dart:developer';
@@ -47,16 +48,18 @@ Future<void> PromptUser(BuildContext context, String title, String message,
                 //    EdgeInsets.only(left: 1, top: 1, right: 1, bottom: 1),
                 height: 40,
                 alignment: Alignment.center,
-                color: Theme.of(context).primaryColor,
+                color: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style:
+                      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1,
                   textAlign: TextAlign.center,
                 ),
               ),
               //),
-              content:
-                  Text(message, style: Theme.of(context).textTheme.subtitle2),
+              content: Text(message,
+                  style:
+                      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2),
               actions: getActionItems(),
             ),
           ]);
@@ -93,8 +96,10 @@ Future<bool?> PromptUserBool(BuildContext context, String title, String message,
     builder: (BuildContext context) {
       return Expanded(
         child: AlertDialog(
-          title: Text(title, style: Theme.of(context).textTheme.subtitle1),
-          content: Text(message, style: Theme.of(context).textTheme.subtitle2),
+          title: Text(title,
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1),
+          content: Text(message,
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2),
           actions: getActionItems(),
         ),
       );
@@ -147,7 +152,11 @@ Future<String?> PromptUserInputSingleEdit(BuildContext context, String title,
             child: AlertDialog(
               title: Center(
                   child: Text(title,
-                      style: Theme.of(context).textTheme.subtitle1)),
+                      style: YaSeApp.of(context)!
+                          .widget
+                          .AppTheme
+                          .textTheme
+                          .subtitle1)),
               content: Container(
                   width: 300,
                   height: 120,
@@ -157,7 +166,11 @@ Future<String?> PromptUserInputSingleEdit(BuildContext context, String title,
                         padding: EdgeInsets.all(2),
                         child: Text(
                           message,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: YaSeApp.of(context)!
+                              .widget
+                              .AppTheme
+                              .textTheme
+                              .subtitle1,
                         )),
                     Container(
                       padding: EdgeInsets.fromLTRB(0, 2, 0, 0),

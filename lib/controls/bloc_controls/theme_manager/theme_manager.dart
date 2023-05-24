@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import '../../../utils/theme_utils.dart';
+import '../../../yase/app_config.dart';
 import './../../../utils/dlg_utils.dart';
+import './../../../utils/color_utils.dart' as cu;
 import './../../../yase/yase.dart';
 import 'dart:developer';
 
@@ -9,22 +12,42 @@ class ThemeManager with ChangeNotifier {
   Widget? _app;
   State? _appState;
   BuildContext? _context;
-  String _currentTheme = "system";
+  String _currentThemeName = "purple";
+  ThemeData? _currentTheme;
   ThemeMode _themeMode = ThemeMode.system;
   Stream<ThemeData> get theme => _themeController.stream;
+  Map<String, dynamic>? _appConfig;
 
   Map<String, ThemeData> _availableThemes = {
     'YaSeTheme': YaSeTheme,
-    'YaSeThemeDark': YaSeThemeDark,
+    'YaSeThemeDark': YaSeThemeDarkDefault,
     'YaSeThemeLight': YaSeThemeLight,
-    'system': YaSeTheme,
-    'dark': YaSeThemeDark,
+    'system': YaSeThemeDarkDefault,
+    'dark': YaSeThemeDarkDefault,
     'light': YaSeThemeLight
   };
 
-  ThemeManager(Widget app, BuildContext? context) {
+  ThemeManager(
+      Widget app, BuildContext? context, Map<String, dynamic>? appConfig) {
     _app = app;
     _context = context;
+    _currentTheme = _availableThemes[_currentThemeName];
+    _appConfig = appConfig;
+    debugger();
+    if (_appConfig != null && _appConfig!.containsKey("themesAvailable")) {
+      var themesAvailable = _appConfig!["themesAvailable"];
+      if (themesAvailable.containsKey("default")) {
+        {
+          //if (_availableThemes != null) {
+          //  _currentTheme = _availableThemes[themesAvailable["default"]];
+          //} else {
+          _currentTheme = createThemeFromConfig(
+              context!, themesAvailable["default"], _appConfig!);
+
+          //}
+        }
+      }
+    }
   }
 
   StreamController<ThemeData> _themeController = StreamController<ThemeData>();
@@ -134,11 +157,17 @@ class ThemeManager with ChangeNotifier {
     return _appState!;
   }
 
-  ThemeData? getThemeData(String key) {
+  ThemeData? getThemeData({String key = ''}) {
     if (_availableThemes.containsKey(key)) {
-      return _availableThemes[key];
+      var theme = _availableThemes[key];
+      if (_appConfig!.containsKey(key)) {}
+      return theme;
     }
-    return null;
+    return _currentTheme;
+  }
+
+  void setThemeDataName(String key) {
+    _currentThemeName = key;
   }
 
   Map<String, ThemeData> getAvailableThemes() {
@@ -148,7 +177,25 @@ class ThemeManager with ChangeNotifier {
     return _filteredMap;
   }
 
-  void CreateTheme(BuildContext context) async {
+  ThemeData createThemeFromConfig(
+      BuildContext context, String themeName, Map<String, dynamic> appConfig) {
+    var themeData = ThemeData();
+    if (!appConfig.containsKey("themeData")) {
+      return themeData;
+    }
+    var themeDataDict = appConfig["themeData"];
+    if (themeDataDict.containsKey(themeName)) {
+      var themeDict = themeDataDict[themeName] as Map<String, dynamic>;
+      themeDict.forEach((key, value) {
+        themeData =
+            getModfiedThemeData(themeData, key, cu.getColorByString(value));
+      });
+    }
+    debugger();
+    return themeData;
+  }
+
+  void CreateThemeFromUi(BuildContext context) async {
     print('CreateTheme');
     String? themeName = await PromptUserInputSingleEdit(
         this._context!, 'Create Theme', 'New Theme Name', 'OK', 'Cancel');
@@ -210,13 +257,40 @@ ThemeData YaSeTheme = ThemeData(
     fontFamily: 'Arial',
     textTheme: generalTextTheme);
 
-ThemeData YaSeThemeDark = ThemeData(
+ThemeData getTheme(String themeDataName) {
+  switch (themeDataName) {
+    case 'YaSeTheme':
+      return YaSeTheme;
+    case 'YaSeThemeLight':
+      return YaSeThemeLight;
+    case 'YaSeThemeDark':
+      var appConfig = AppConfig.getConfig();
+      var themeData = YaSeThemeDarkDefault;
+      if (appConfig!.containsKey(themeDataName)) {
+        var themeDataDict = appConfig[themeDataName];
+        themeData = ThemeData(
+            splashColor: cu.getColorByString('splashColor'),
+            primaryColor: cu.getColorByString('primaryColor'),
+            backgroundColor: cu.getColorByString('backgroundColor'),
+            brightness: Brightness.light,
+            fontFamily: 'Arial',
+            textTheme: generalTextTheme);
+      }
+      return themeData;
+    default:
+      return YaSeTheme;
+  }
+}
+
+ThemeData YaSeThemeDarkDefault = ThemeData(
     // Define the default brightness and colors.
-    splashColor: Colors.blueGrey,
-    primarySwatch: Colors.blueGrey,
+    splashColor: Colors.green,
+    primaryColorLight: Colors.green,
+    primaryColorDark: Colors.blue,
+    primarySwatch: Colors.green,
     brightness: Brightness.dark,
     primaryColor: Colors.lightBlue[800],
-    backgroundColor: Colors.purple,
+    backgroundColor: Colors.red,
 
     // Define the default font family.
     fontFamily: 'Arial',

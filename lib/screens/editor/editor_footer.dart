@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 
 class EditorFooter extends StatelessWidget {
   const EditorFooter({Key? key}) : super(key: key);
@@ -6,23 +7,32 @@ class EditorFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context)
-          .copyWith(backgroundColor: Theme.of(context).primaryColor),
+      data: YaSeApp.of(context)!.widget.AppTheme.copyWith(
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
       child: Container(
         height: 50,
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(
+            color: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButton(
               onPressed: () {},
               child: Text('Button 1',
-                  style: Theme.of(context).textTheme.bodyMedium),
+                  style: YaSeApp.of(context)!
+                      .widget
+                      .AppTheme
+                      .textTheme
+                      .bodyMedium),
             ),
             TextButton(
               onPressed: () {},
               child: Text('Button 2',
-                  style: Theme.of(context).textTheme.bodyMedium),
+                  style: YaSeApp.of(context)!
+                      .widget
+                      .AppTheme
+                      .textTheme
+                      .bodyMedium),
             ),
           ],
         ),

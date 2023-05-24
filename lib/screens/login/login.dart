@@ -1,5 +1,6 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import './../../../utils/dlg_utils.dart';
 import './../../../utils/style_utils.dart';
 import 'dart:developer';
@@ -23,11 +24,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "primary color: ${YaSeApp.of(context)!.widget.AppTheme.primaryColor}");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('Ya Se!', style: Theme.of(context).textTheme.headline5),
+          title: Text('Ya Se!',
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.headline5),
           centerTitle: true,
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         ),
         body: Padding(
             padding: EdgeInsets.all(10),
@@ -38,7 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.all(10),
                     child: Text(
                       'Sign in',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: YaSeApp.of(context)!
+                          .widget
+                          .AppTheme
+                          .textTheme
+                          .subtitle1,
                     )),
                 Container(
                   padding: EdgeInsets.all(10),
@@ -55,7 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     obscureText: true,
                     controller: passwordController,
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: YaSeApp.of(context)!
+                        .widget
+                        .AppTheme
+                        .textTheme
+                        .subtitle1,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
@@ -66,18 +79,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/forgotPassword');
                   },
-                  style: generateTextButtonStyle(Theme.of(context)),
+                  style: generateTextButtonStyle(
+                      YaSeApp.of(context)!.widget.AppTheme),
                   child: Text('Forgot Password?'),
-                  //style: Theme.of(context).textTheme.bodyText1),
+                  //style: YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText1),
                 ),
                 Container(
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
-                      style: generateButtonStyle(Theme.of(context)),
+                      style: generateButtonStyle(
+                          YaSeApp.of(context)!.widget.AppTheme),
                       child: Text(
                         'Submit',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: YaSeApp.of(context)!
+                            .widget
+                            .AppTheme
+                            .textTheme
+                            .headline6,
                       ),
                       onPressed: () {
                         bool isAuthorised = authorise(
@@ -98,12 +117,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Row(
                   children: <Widget>[
                     Text('No account?',
-                        style: Theme.of(context).textTheme.subtitle2),
+                        style: YaSeApp.of(context)!
+                            .widget
+                            .AppTheme
+                            .textTheme
+                            .subtitle2),
                     TextButton(
-                      style: generateTextButtonStyle(Theme.of(context)),
+                      style: generateTextButtonStyle(
+                          YaSeApp.of(context)!.widget.AppTheme),
                       child: Text(
                         'Register',
-                        //style: Theme.of(context).textTheme.subtitle1,
+                        //style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1,
                       ),
                       onPressed: () {
                         Navigator.pushReplacementNamed(context, '/register');

@@ -53,9 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget buttonSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buildButtonColumn(Icons.call, 'CALL', Theme.of(context)),
-        buildButtonColumn(Icons.near_me, 'ROUTE', Theme.of(context)),
-        buildButtonColumn(Icons.share, 'SHARE', Theme.of(context)),
+        buildButtonColumn(
+            Icons.call, 'CALL', YaSeApp.of(context)!.widget.AppTheme),
+        buildButtonColumn(
+            Icons.near_me, 'ROUTE', YaSeApp.of(context)!.widget.AppTheme),
+        buildButtonColumn(
+            Icons.share, 'SHARE', YaSeApp.of(context)!.widget.AppTheme),
       ],
     );
 
@@ -108,6 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Bloc Calculator', 'bloc_calculator'),
                 getPopupMenuItemNav(
                     context, Icons.edit, 'Python Editor', 'documentManager'),
+                getPopupMenuItemNav(
+                    context, Icons.folder, 'File Manager', 'file_manager'),
               ],
             )
           ]),

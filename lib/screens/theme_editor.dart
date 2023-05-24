@@ -52,7 +52,7 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
 
   void CreateTheme() {
     print('CreateTheme');
-    _themeManager!.CreateTheme(context);
+    _themeManager!.CreateThemeFromUi(context);
   }
 
   void SaveTheme() {
@@ -70,7 +70,7 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
 
   void invokeFontDlg(
       BuildContext context, String title, TextStyle style) async {
-    var currentThemeData = _themeManager!.getThemeData('system');
+    var currentThemeData = _themeManager!.getThemeData(key: 'system');
     var fontMap = getThemeDataFonts(currentThemeData!);
     print('title: $title');
     var modifiedStyle = await PromptFontEditDlg(context, title, style);
@@ -223,7 +223,8 @@ List<String> textStyleItems = [
 SingleChildScrollView getFontItems(
     _ThemeEditorScreenState state, BuildContext context) {
   print('getFontItems');
-  var fontMap = getThemeDataFonts(state._themeManager!.getThemeData('system')!);
+  var fontMap =
+      getThemeDataFonts(state._themeManager!.getThemeData(key: 'system')!);
   List<Widget> items = [];
   for (int i = 0; i < textStyleItems.length; i++) {
     var size = fontMap[textStyleItems[i]]!.fontSize;
@@ -232,7 +233,7 @@ SingleChildScrollView getFontItems(
     items.add(getTextButtonWithValue<TextStyle>(
         context,
         textStyleItems[i],
-        Theme.of(context).primaryColor,
+        YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         fontMap[textStyleItems[i]]!,
         fontMap[textStyleItems[i]]!, () async {
       state.invokeFontDlg(

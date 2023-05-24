@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
 import './../../utils/dropdown_utils.dart';
 import './../../utils/style_utils.dart';
@@ -95,7 +96,8 @@ class _DropdownItemThemeColorPanelState
           Container(
             child: Text(widget.label,
                 textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.bodyText2),
+                style:
+                    YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText2),
             width: widget.labelWidth,
             height: widget.labelHeight,
             padding: EdgeInsets.fromLTRB(0, 3, 0, 2),

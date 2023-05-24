@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:YaSe/yase/yase.dart';
 import 'package:YaSe/controls/bloc_controls/py_code/py_editor.dart';
 import 'package:YaSe/utils/panel_utils.dart';
 import 'package:flutter/material.dart';
@@ -116,10 +116,11 @@ class _FileSaveDialogState extends State<FileSaveDialog>
         supportParentDoubleTap: false,
         //onExpansionChanged: _expandNodeHandler,
         theme: TreeViewTheme(
-          colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: Colors.grey,
-                secondary: Colors.grey,
-              ),
+          colorScheme:
+              YaSeApp.of(context)!.widget.AppTheme.colorScheme.copyWith(
+                    primary: Colors.grey,
+                    secondary: Colors.grey,
+                  ),
         ),
         onNodeTap: (key) {
           treeViewController.toggleNode(key);

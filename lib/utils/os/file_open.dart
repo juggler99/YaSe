@@ -26,10 +26,7 @@ class FileOpenDialog extends StatefulWidget {
 class _FileOpenDialogState extends State<FileOpenDialog>
     with TickerProviderStateMixin {
   int _numTabs = 1;
-  late TabController _tabController;
   late ScrollController _scrollController;
-  late List<Tab> _tabs = <Tab>[];
-  late List<Widget> _tabContent;
   late String defaultPath;
   late TreeViewController treeViewController;
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
-import '../bloc_controls/theme_manager/theme_manager.dart';
 import 'dlg_utils.dart';
 import 'dart:developer';
 
@@ -66,21 +66,21 @@ void applyThemeDataTextStyle(
 /// returns a List<Color> with different style elements from context Theme
 List<Color> getThemeSchemaColors(context) {
   return <Color>[
-    Theme.of(context).splashColor,
-    Theme.of(context).canvasColor,
-    Theme.of(context).primaryColor,
-    Theme.of(context).primaryColorDark,
-    Theme.of(context).primaryColorLight,
-    Theme.of(context).backgroundColor,
-    Theme.of(context).colorScheme.onPrimary,
-    Theme.of(context).colorScheme.secondary,
-    Theme.of(context).colorScheme.onSecondary,
-    Theme.of(context).colorScheme.onBackground,
-    Theme.of(context).colorScheme.surface,
-    Theme.of(context).colorScheme.onSurface,
-    Theme.of(context).errorColor,
-    Theme.of(context).colorScheme.onError,
-    Theme.of(context).shadowColor
+    YaSeApp.of(context)!.widget.AppTheme.splashColor,
+    YaSeApp.of(context)!.widget.AppTheme.canvasColor,
+    YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+    YaSeApp.of(context)!.widget.AppTheme.primaryColorDark,
+    YaSeApp.of(context)!.widget.AppTheme.primaryColorLight,
+    YaSeApp.of(context)!.widget.AppTheme.backgroundColor,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.onPrimary,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.secondary,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.onSecondary,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.onBackground,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.surface,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.onSurface,
+    YaSeApp.of(context)!.widget.AppTheme.errorColor,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.onError,
+    YaSeApp.of(context)!.widget.AppTheme.shadowColor
   ];
 }
 
@@ -117,43 +117,45 @@ List<Tuple2<String, Color>> getThemeSchemaColorsCombo(BuildContext context) {
 /// returns a copy of themeData with the corresponding argument for label passed
 ThemeData getModfiedThemeData(
     ThemeData themeData, String itemName, Color? color) {
-  if (itemName == 'Splash') return themeData.copyWith(splashColor: color);
-  if (itemName == 'Canvas') return themeData.copyWith(canvasColor: color);
-  if (itemName == 'Primary Dark')
+  if (itemName == 'splashColor') return themeData.copyWith(splashColor: color);
+  if (itemName == 'canvasColor') return themeData.copyWith(canvasColor: color);
+  if (itemName == 'primaryColor')
+    return themeData.copyWith(primaryColor: color);
+  if (itemName == 'primaryColorDark')
     return themeData.copyWith(primaryColorDark: color);
-  if (itemName == 'Primary Light')
+  if (itemName == 'primaryColorLight')
     return themeData.copyWith(primaryColorLight: color);
-  if (itemName == 'Background')
+  if (itemName == 'backgroundColor')
     return themeData.copyWith(backgroundColor: color);
-  if (itemName == 'on Primary') {
+  if (itemName == 'onPrimary') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onPrimary: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'Secondary')
+  if (itemName == 'secondaryHeaderColor')
     return themeData.copyWith(secondaryHeaderColor: color);
-  if (itemName == 'on Secondary') {
+  if (itemName == 'onSecondary') {
     ColorScheme colorScheme =
         themeData.colorScheme.copyWith(onSecondary: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'on Background') {
+  if (itemName == 'onBackground') {
     ColorScheme colorScheme =
         themeData.colorScheme.copyWith(onBackground: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'Surface') {
+  if (itemName == 'surface') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(surface: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'on Surface') {
+  if (itemName == 'onSurface') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onSurface: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'Error') return themeData.copyWith(errorColor: color);
-  if (itemName == 'on Error') {
+  if (itemName == 'errorColor') return themeData.copyWith(errorColor: color);
+  if (itemName == 'onError') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onError: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'Shadow') return themeData.copyWith(shadowColor: color);
+  if (itemName == 'shadowColor') return themeData.copyWith(shadowColor: color);
   return themeData;
 }

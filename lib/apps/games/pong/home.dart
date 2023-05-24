@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color color = Theme.of(context).primaryColor;
+    Color color = YaSeApp.of(context)!.widget.AppTheme.primaryColor;
     Widget buttonSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [

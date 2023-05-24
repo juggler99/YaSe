@@ -20,7 +20,7 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
   @override
   Widget build(BuildContext context) {
     _themeManager = YaSeApp.of(context)!.widget.getThemeManager();
-    Color color = Theme.of(context).backgroundColor;
+    Color color = YaSeApp.of(context)!.widget.AppTheme.backgroundColor;
     Widget buttonSection = Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -62,16 +62,20 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
         TextButton(
           child: Center(
             child: Text('Click Me'),
-            //style: Theme.of(context).textTheme.subtitle1)
+            //style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1)
           ),
-          style: generateTextButtonStyle(Theme.of(context)),
+          style: generateTextButtonStyle(YaSeApp.of(context)!.widget.AppTheme),
           onPressed: () {},
         ),
         ElevatedButton(
           child: Center(
               child: Text('Click Me',
-                  style: Theme.of(context).textTheme.subtitle1)),
-          style: generateButtonStyle(Theme.of(context)),
+                  style: YaSeApp.of(context)!
+                      .widget
+                      .AppTheme
+                      .textTheme
+                      .subtitle1)),
+          style: generateButtonStyle(YaSeApp.of(context)!.widget.AppTheme),
           onPressed: () {},
         ),
         Container(
@@ -107,7 +111,7 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
     Container dropdownContainer = Container(
         width: 100,
         decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
             borderRadius: BorderRadius.circular(15)),
         child: ButtonTheme(
           alignedDropdown: true,
@@ -118,7 +122,9 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
             onChanged: changedDropDownItem,
             alignment: AlignmentDirectional.center,
             style: TextStyle(
-                backgroundColor: Theme.of(context).primaryColor, fontSize: 20),
+                backgroundColor:
+                    YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+                fontSize: 20),
             underline: Container(),
           ),
         ));

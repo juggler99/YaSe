@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'style_utils.dart';
 
 /// Returns a [TextButton] with the given [label] and [color] and [value]
 TextButton getTextButtonForClosingDialog<T>(
     BuildContext context, String label, Color? color, T value,
     {void Function()? callback = null}) {
-  ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
+  ThemeData localTheme =
+      YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   return TextButton(
       child: Text(
@@ -26,14 +28,15 @@ TextButton getTextButtonForClosingDialog<T>(
 ElevatedButton getElevatedButtonForClosingDialog<T>(
     BuildContext context, String label, Color? color, T value,
     {void Function()? callback = null}) {
-  ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
+  ThemeData localTheme =
+      YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   return ElevatedButton(
       child: Text(label, style: textStyle),
       style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all(color),
           backgroundColor: MaterialStateProperty.all(
-              //Theme.of(context).buttonTheme.colorScheme!.outline)),
+              //YaSeApp.of(context)!.widget.AppTheme.buttonTheme.colorScheme!.outline)),
               Colors.grey[350])),
       onPressed: () {
         if (callback != null) {
@@ -79,7 +82,7 @@ Widget getIconButton(BuildContext context, IconData iconData, String tooltip,
   }
   print("iconSize: $iconSize, edges: $edges");
   return Material(
-      color: Theme.of(context).primaryColor,
+      color: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
       child: Tooltip(
           message: tooltip,
           child: IconButton(
@@ -201,7 +204,8 @@ ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
     bool useAppTheme = true,
     Color foregroundColor = Colors.black,
     Color backgroundColor = Colors.grey}) {
-  ThemeData localTheme = Theme.of(context).copyWith(primaryColor: color);
+  ThemeData localTheme =
+      YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
   TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
   var childWidget = null;
   if (label != null) {
@@ -225,10 +229,17 @@ ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
     borderRadius = BorderRadius.circular(diameter);
   }
   if (useAppTheme == true) {
-    color = Theme.of(context).buttonTheme.colorScheme!.primary;
-    foregroundColor = Theme.of(context).buttonTheme.colorScheme!.onPrimary;
-    backgroundColor =
-        Theme.of(context).buttonTheme.colorScheme!.onPrimary.withAlpha(50);
+    color =
+        YaSeApp.of(context)!.widget.AppTheme.buttonTheme.colorScheme!.primary;
+    foregroundColor =
+        YaSeApp.of(context)!.widget.AppTheme.buttonTheme.colorScheme!.onPrimary;
+    backgroundColor = YaSeApp.of(context)!
+        .widget
+        .AppTheme
+        .buttonTheme
+        .colorScheme!
+        .onPrimary
+        .withAlpha(50);
   }
   return ElevatedButton(
       child: childWidget,

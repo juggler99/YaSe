@@ -50,7 +50,7 @@ abstract class ThemeManagerState extends Equatable {
 class ThemeManagerInitial extends ThemeManagerState {
   ThemeManagerInitial()
       : super(
-            themeManager: ThemeManager(Text(''), null),
+            themeManager: ThemeManager(Text(''), null, null),
             themeName: 'system',
             themeData: ThemeData(),
             themeMode: ThemeMode.system,

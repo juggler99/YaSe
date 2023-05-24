@@ -64,11 +64,11 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final isCollapsed = false;
-    Color color = Theme.of(context).primaryColor;
+    Color color = YaSeApp.of(context)!.widget.AppTheme.primaryColor;
     screenSize = MediaQuery.of(context).size.width;
 
     appBar = AppBar(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
       elevation: 0.0,
       centerTitle: true,
       title: const Text('Ya Se!'),
@@ -140,7 +140,10 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
                       children: <Widget>[
                         new Container(
                           decoration: new BoxDecoration(
-                              color: Theme.of(context).primaryColor),
+                              color: YaSeApp.of(context)!
+                                  .widget
+                                  .AppTheme
+                                  .primaryColor),
                           child: new TabBar(
                               controller: _tabController,
                               indicatorColor: Colors.pink,

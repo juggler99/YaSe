@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../controls/gen/python_console.dart';
 import './../../../utils/os/file_open.dart' as file_open;
 import './../../../utils/os/file_save.dart' as file_save;
+import './../../../utils/os/file_manager.dart' as file_manager;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,7 @@ import '../settings.dart';
 import './../controls/color_picker.dart';
 import './../screens/complex.dart';
 import './../screens/home.dart';
+import 'app_config.dart';
 import 'main.dart';
 import './../screens/account_screen.dart';
 import './../screens/home.dart';
@@ -43,10 +45,13 @@ import 'dart:developer';
 class YaSeApp extends StatefulWidget {
   YaSeApp({Key? key}) : super(key: key);
   ThemeManager? _themeManager = null;
+
   HomeScreen? _homeScreen;
   late String YaSeAppPath;
   late double YaSeAppHeight;
   late double YaSeAppWidth;
+  late ThemeData AppTheme;
+  late Map<String, dynamic>? YaSeAppConfig;
   Map<String, dynamic>? routes;
 
   ThemeManager getThemeManager() => _themeManager!;
@@ -68,7 +73,19 @@ class _YaSeAppState extends State<YaSeApp> {
   @override
   void initState() {
     print("YaseApp initState");
-    widget.setThemeManager(ThemeManager(widget, context));
+    Future.delayed(Duration.zero, () async {
+      // Call your asynchronous method here
+      widget.YaSeAppPath =
+          await getDefaultRootFolderAsString(appFolder: "YaSe");
+    });
+    widget.YaSeAppHeight = 0.0;
+    widget.YaSeAppWidth = 0.0;
+    widget.YaSeAppConfig = AppConfig.getConfig();
+    print("YaSeApp Config: ${widget.YaSeAppConfig}");
+    widget.setThemeManager(ThemeManager(widget, context, widget.YaSeAppConfig));
+    var appThemeData = widget.getThemeManager().getThemeData();
+    widget.AppTheme = appThemeData as ThemeData;
+    print("Theme: primarycolor: ${widget.AppTheme.primaryColor}");
     super.initState();
     widget._appBarNavMenutItems = [
       getPopupMenuItemNav(
@@ -81,15 +98,6 @@ class _YaSeAppState extends State<YaSeApp> {
           'bloc_calculator'),
       getPopupMenuItemNav(context, Icons.edit, 'Editor', 'py_editor')
     ];
-
-    Future.delayed(Duration.zero, () async {
-      // Call your asynchronous method here
-      widget.YaSeAppPath =
-          await getDefaultRootFolderAsString(appFolder: "YaSe");
-    });
-
-    widget.YaSeAppHeight = 0.0;
-    widget.YaSeAppWidth = 0.0;
 
 /*
     Future.delayed(Duration(seconds: 3), () async {
@@ -125,9 +133,10 @@ class _YaSeAppState extends State<YaSeApp> {
       ],
       debugShowCheckedModeBanner: false,
       title: 'YaSe',
-      theme: getThemeManager().getThemeData("system"),
-      darkTheme: getThemeManager().getThemeData("dark"),
-      highContrastTheme: getThemeManager().getThemeData("light"),
+      //theme: getThemeManager().getThemeData(key: "light"),
+      theme: getThemeManager().getThemeData(key: "purple"),
+      darkTheme: getThemeManager().getThemeData(key: "dark"),
+      highContrastTheme: getThemeManager().getThemeData(key: "light"),
       themeMode: getThemeManager().getThemeMode(),
       initialRoute: '/',
       routes: {
@@ -154,6 +163,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/documentManager': (context) => DocumentManager(),
         '/file_open': (context) => file_open.FileOpenDialog(),
         '/file_save': (context) => file_save.FileSaveDialog(),
+        '/file_manager': (context) => file_manager.FileManagerDialog(),
         '/python_console': (context) => PythonConsole(),
       },
     );

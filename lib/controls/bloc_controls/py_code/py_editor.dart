@@ -203,7 +203,7 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
         },
         builder: (context, PyCodeBlocState state) {
           final isCollapsed = false;
-          Color color = Theme.of(context).primaryColor;
+          Color color = YaSeApp.of(context)!.widget.AppTheme.primaryColor;
           screenSize = MediaQuery.of(context).size.width;
 
           Row row = Row(
@@ -214,7 +214,7 @@ class PyEditorState extends State<PyEditor> with TickerProviderStateMixin {
           row.children.add(_pyCodeFieldContainer!);
 
           return Container(
-            color: Theme.of(context).primaryColor,
+            color: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
             child: Stack(
               children: <Widget>[
                 Scaffold(

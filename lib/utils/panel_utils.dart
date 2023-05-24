@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/button_utils.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'dart:developer';
 
 class EditPanel extends StatefulWidget {
@@ -44,7 +45,8 @@ class _EditPanelState extends State<EditPanel> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     print("Panel build");
-    TextStyle? textStyle = Theme.of(context).textTheme.headline6;
+    TextStyle? textStyle =
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
     widget.textEditingController.text = widget.presetText ?? "";
     var children = <Widget>[
       SizedBox(

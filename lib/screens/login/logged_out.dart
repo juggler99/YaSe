@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import './../../../utils/style_utils.dart';
 
 class LoggedOutScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class _LoggedOutScreenState extends State<LoggedOutScreen> {
   @override
   Widget build(BuildContext context) {
     // Color color = Colors.blue;
-    Color color = Theme.of(context).backgroundColor;
+    Color color = YaSeApp.of(context)!.widget.AppTheme.backgroundColor;
     Widget textSection = const Padding(
       padding: EdgeInsets.all(32),
       child: Center(child: Text('You are now logged out')),

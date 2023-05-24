@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
 import './../../utils/style_utils.dart';
 import './../../utils/button_utils.dart';
@@ -7,19 +8,29 @@ import 'dart:developer';
 
 Map<String, TextStyle?> getFonts(BuildContext context) {
   var result = Map<String, TextStyle?>();
-  result['Headline1'] = Theme.of(context).textTheme.headline1;
-  result['Headline2'] = Theme.of(context).textTheme.headline2;
-  result['Headline3'] = Theme.of(context).textTheme.headline3;
-  result['Headline4'] = Theme.of(context).textTheme.headline4;
-  result['Headline5'] = Theme.of(context).textTheme.headline5;
-  result['Headline6'] = Theme.of(context).textTheme.headline6;
-  result['SubTitle1'] = Theme.of(context).textTheme.subtitle1;
-  result['SubTitle2'] = Theme.of(context).textTheme.subtitle2;
-  result['bodyText1'] = Theme.of(context).textTheme.bodyText1;
-  result['bodyText2'] = Theme.of(context).textTheme.bodyText2;
-  result['button'] = Theme.of(context).textTheme.button;
-  result['caption'] = Theme.of(context).textTheme.caption;
-  result['overline'] = Theme.of(context).textTheme.overline;
+  result['Headline1'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline1;
+  result['Headline2'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline2;
+  result['Headline3'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline3;
+  result['Headline4'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline4;
+  result['Headline5'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline5;
+  result['Headline6'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
+  result['SubTitle1'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1;
+  result['SubTitle2'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2;
+  result['bodyText1'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText1;
+  result['bodyText2'] =
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText2;
+  result['button'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.button;
+  result['caption'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.caption;
+  result['overline'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.overline;
   return result;
 }
 
@@ -100,7 +111,8 @@ class FontPanel extends StatelessWidget {
       Icon(Icons.format_underline, size: 40),
     ];
 
-    TextStyle? titleStyle = Theme.of(context).textTheme.subtitle1;
+    TextStyle? titleStyle =
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1;
 
     return StatefulBuilder(builder: (context, setState) {
       return Flex(direction: Axis.vertical, children: [

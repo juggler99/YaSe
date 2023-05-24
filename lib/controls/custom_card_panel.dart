@@ -70,7 +70,8 @@ class _CustomCardPanelState extends State<CustomCardPanel> {
           var label = widget.label;
           ThemeManager _themeManager =
               YaSeApp.of(context)!.widget.getThemeManager();
-          ThemeData? currentThemeData = _themeManager.getThemeData('system');
+          ThemeData? currentThemeData =
+              _themeManager.getThemeData(key: 'system');
           ThemeData? modifiedThemeData = getModfiedThemeData(
               currentThemeData!, widget.label, colorShadePicker.color);
           _themeManager.modifySystemTheme(context,
@@ -125,7 +126,11 @@ class _CustomCardPanelState extends State<CustomCardPanel> {
               Container(
                 child: Text(widget.label,
                     textAlign: TextAlign.left,
-                    style: Theme.of(context).textTheme.bodyText2),
+                    style: YaSeApp.of(context)!
+                        .widget
+                        .AppTheme
+                        .textTheme
+                        .bodyText2),
                 width: widget.panelWidth,
                 height: widget.panelHeight,
                 padding: EdgeInsets.fromLTRB(0, 3, 0, 2),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 
 class Footer extends StatelessWidget {
   double? height;
@@ -9,11 +10,12 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context)
-          .copyWith(backgroundColor: Theme.of(context).primaryColor),
+      data: YaSeApp.of(context)!.widget.AppTheme.copyWith(
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
       child: Container(
         height: this.height,
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+        decoration: BoxDecoration(
+            color: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: this.items!,
