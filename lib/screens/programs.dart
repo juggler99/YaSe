@@ -56,7 +56,7 @@ class _ProgramsScreenState extends State<ProgramsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        //backgroundColor: color,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         centerTitle: true,
         title: const Text('Programs'),
         automaticallyImplyLeading: true,

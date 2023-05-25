@@ -183,6 +183,8 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
         length: 3,
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor:
+                  YaSeApp.of(context)!.widget.AppTheme.primaryColor,
               centerTitle: true,
               title: const Text('Theme Editor'),
               automaticallyImplyLeading: true,

@@ -131,6 +131,7 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
 
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
           centerTitle: true,
           title: const Text('Theme Manager'),
           automaticallyImplyLeading: true,

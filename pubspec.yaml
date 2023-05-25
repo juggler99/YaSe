@@ -90,6 +90,7 @@ flutter:
     - assets/
     - assets/routes/routes.yaml
     - assets/config/app_config.json
+    - assets/icons/
   #  - starfiles/
     
   #   - images/a_dot_ham.jpeg

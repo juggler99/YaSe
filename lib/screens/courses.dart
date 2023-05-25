@@ -77,7 +77,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: color,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         centerTitle: true,
         title: const Text('Courses'),
         automaticallyImplyLeading: true,

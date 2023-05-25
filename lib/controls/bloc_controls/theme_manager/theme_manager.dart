@@ -33,7 +33,6 @@ class ThemeManager with ChangeNotifier {
     _context = context;
     _currentTheme = _availableThemes[_currentThemeName];
     _appConfig = appConfig;
-    debugger();
     if (_appConfig != null && _appConfig!.containsKey("themesAvailable")) {
       var themesAvailable = _appConfig!["themesAvailable"];
       if (themesAvailable.containsKey("default")) {
@@ -191,7 +190,6 @@ class ThemeManager with ChangeNotifier {
             getModfiedThemeData(themeData, key, cu.getColorByString(value));
       });
     }
-    debugger();
     return themeData;
   }
 

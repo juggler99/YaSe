@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:YaSe/yase/yase.dart';
 import './../../utils/style_utils.dart';
 import './../../utils/dropdownlist.dart';
 
@@ -14,6 +15,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         centerTitle: true,
         title: const Text('Settings'),
         automaticallyImplyLeading: true,

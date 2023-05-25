@@ -76,21 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     widget._listView = ListView(
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            // Navigate to the second screen using a named route.
-            Navigator.pushNamed(context, '/pong');
-          },
-          child: const Text('Pong'),
-        ),
-        buttonSection,
-        textSection
-      ],
+      children: [buttonSection, textSection],
     );
 
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
           centerTitle: true,
           title: const Text('Ya Se!'),
           automaticallyImplyLeading: true,
