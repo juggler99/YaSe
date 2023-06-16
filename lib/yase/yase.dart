@@ -20,6 +20,7 @@ import 'app_config.dart';
 import 'main.dart';
 import './../screens/account_screen.dart';
 import './../screens/home.dart';
+import './../screens/browser.dart';
 import './../screens/me.dart';
 import './../screens/courses.dart';
 import './../screens/programs.dart';
@@ -48,6 +49,7 @@ class YaSeApp extends StatefulWidget {
 
   HomeScreen? _homeScreen;
   late String YaSeAppPath;
+  late String YaSeAppBinPath;
   late double YaSeAppHeight;
   late double YaSeAppWidth;
   late ThemeData AppTheme;
@@ -74,9 +76,11 @@ class _YaSeAppState extends State<YaSeApp> {
   void initState() {
     print("YaseApp initState");
     Future.delayed(Duration.zero, () async {
-      // Call your asynchronous method here
+      // Call asynchronous method
       widget.YaSeAppPath =
           await getDefaultRootFolderAsString(appFolder: "YaSe");
+      widget.YaSeAppBinPath =
+          await getDefaultRootFolderAsString(appFolder: "YaSeBin");
     });
     widget.YaSeAppHeight = 0.0;
     widget.YaSeAppWidth = 0.0;
@@ -149,6 +153,7 @@ class _YaSeAppState extends State<YaSeApp> {
         '/programs': (context) => const ProgramsScreen(),
         '/complex': (context) => const ComplexScreen(),
         '/python_client': (context) => const PythonClientScreen(),
+        '/browser': (context) => const BrowserScreen(),
         '/forgotPassword': (context) => const ForgotPasswordScreen(),
         '/home': (context) => widget._homeScreen!,
         '/login': (context) => const LoginScreen(),

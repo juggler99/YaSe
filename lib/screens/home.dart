@@ -1,10 +1,15 @@
 import 'package:YaSe/yase/yase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import '../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
+import '../data/course_data.dart';
+import '../utils/file_utils.dart';
 import './../../../utils/drawer_utils.dart';
 import './../../../utils/style_utils.dart';
 import './../../../utils/menu_utils.dart';
+import 'package:html/parser.dart' as htmlparser;
+import 'package:html/dom.dart' as dom;
 import 'dart:developer';
 
 class HomeScreen extends StatefulWidget {
@@ -50,33 +55,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ScreenSizeBlocUpdateEvent(
             screenName: "home", visibleHeight: visibleHeight));
     print("autocomplete visibleHeight: $visibleHeight");
-    Widget buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        buildButtonColumn(
-            Icons.call, 'CALL', YaSeApp.of(context)!.widget.AppTheme),
-        buildButtonColumn(
-            Icons.near_me, 'ROUTE', YaSeApp.of(context)!.widget.AppTheme),
-        buildButtonColumn(
-            Icons.share, 'SHARE', YaSeApp.of(context)!.widget.AppTheme),
-      ],
-    );
+    String? htmlData;
+    dom.Document? document;
+    Html? html;
 
-    Widget textSection = const Padding(
-      padding: EdgeInsets.all(32),
-      child: Text(
-        'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
-        'Alps. Situated 1,578 meters above sea level, it is one of the '
-        'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
-        'half-hour walk through pastures and pine forest, leads you to the '
-        'lake, which warms to 20 degrees Celsius in the summer. Activities '
-        'enjoyed here include rowing, and riding the summer toboggan run.',
-        softWrap: true,
-      ),
-    );
+    html = Html(data: html_data);
+
+    /*
+    Future.delayed(Duration.zero, () async {
+      debugger;
+      // htmlData = await read('assets/html/course2.html');
+      htmlData = html_data;
+      document = htmlparser.parse(htmlData);
+      html = Html(data: htmlData);
+    });
+*/
+
+    Widget textSection =
+        SingleChildScrollView(padding: EdgeInsets.all(32), child: html);
 
     widget._listView = ListView(
-      children: [buttonSection, textSection],
+      children: [textSection],
     );
 
     return Scaffold(
@@ -93,17 +92,23 @@ class _HomeScreenState extends State<HomeScreen> {
             PopupMenuButton(
               itemBuilder: (BuildContext itemBuilder) => [
                 getPopupMenuItemNav(
-                    context, Icons.account_box_sharp, 'Logout', 'loggedout'),
+                    context, Icons.exit_to_app, 'Salida', 'loggedout'),
+                /*
                 getPopupMenuItemNav(
-                    context, Icons.palette, 'Theme Manager', 'theme_manager'),
+                    context, Icons.palette, 'Temas', 'theme_manager'),
                 getPopupMenuItemNav(context, Icons.add_circle_outline,
-                    'Calculator', 'calculator'),
+                    'Calculadora', 'calculator'),
                 getPopupMenuItemNav(context, Icons.add_circle_outline,
-                    'Bloc Calculator', 'bloc_calculator'),
+                    'Calculadora Bloc', 'bloc_calculator'),                
                 getPopupMenuItemNav(
-                    context, Icons.edit, 'Python Editor', 'documentManager'),
+                    context, Icons.edit, 'Python', 'documentManager'),
+                */
+                getPopupMenuItemNav(context, Icons.account_circle_sharp,
+                    'Mi Cuenta', 'settings'),
                 getPopupMenuItemNav(
-                    context, Icons.folder, 'File Manager', 'file_manager'),
+                    context, Icons.settings, 'Config', 'settings'),
+                getPopupMenuItemNav(context, Icons.folder, 'Manejo de Archivos',
+                    'file_manager'),
               ],
             )
           ]),
@@ -111,23 +116,27 @@ class _HomeScreenState extends State<HomeScreen> {
           width: isCollapsed ? MediaQuery.of(context).size.width * 0.1 : null,
           child: Drawer(
               child: getListViewAsDrawer(context, 90, 'Ya Se!', [
+            getListTile(context, Icon(Icons.book), 'Cursos', 'courses',
+                edgeItems: const [10, 0, 0, 0]),
+            getListTile(context, Icon(Icons.edit), 'Python', 'documentManager',
+                edgeItems: const [10, 0, 0, 0]),
+
+            /*
             getListTile(context, Icon(Icons.account_circle_sharp), 'Me', 'me',
                 edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.book), 'Courses', 'courses',
-                edgeItems: const [10, 0, 0, 0]),
             getListTile(
-                context, Icon(Icons.library_books), 'Programs', 'programs',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(
-                context, Icon(Icons.computer_outlined), 'Complex', 'complex',
+                context, Icon(Icons.library_books), 'Programas', 'programs',
                 edgeItems: const [10, 0, 0, 0]),
             getListTile(context, Icon(Icons.computer_outlined), 'PythonClient',
                 'python_client',
                 edgeItems: const [10, 0, 0, 0]),
             getListTile(context, Icon(Icons.edit), 'Editor', 'editor',
                 edgeItems: const [10, 0, 0, 0]),
+            getListTile(context, Icon(Icons.html), 'Browser', 'browser',
+                edgeItems: const [10, 0, 0, 0]),
             getListTile(context, Icon(Icons.edit), 'Settings', 'settings',
                 edgeItems: const [10, 0, 0, 0]),
+            */
           ]))),
       body: widget._listView,
     );

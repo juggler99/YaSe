@@ -10,7 +10,7 @@ Drawer getListViewAsDrawer(BuildContext context, double? headerHeight,
       height: headerHeight,
       child: DrawerHeader(
         decoration: BoxDecoration(
-            color: YaSeApp.of(context)!.widget.AppTheme.backgroundColor),
+            color: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
         child: Text(label),
       ),
     ),
