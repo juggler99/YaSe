@@ -9,16 +9,14 @@ class ScreenSizeBlocUpdateEvent extends ScreenSizeBlocEvent {
   final String screenName;
   final double visibleHeight;
   const ScreenSizeBlocUpdateEvent(
-      {required this.screenName, required this.visibleHeight})
-      : assert(screenName != null && visibleHeight != null);
+      {required this.screenName, required this.visibleHeight});
   @override
   List<Object> get props => [screenName, visibleHeight];
 }
 
 class ScreenSizeBlocQueryEvent extends ScreenSizeBlocEvent {
   final String screenName;
-  const ScreenSizeBlocQueryEvent({required this.screenName})
-      : assert(screenName != null);
+  const ScreenSizeBlocQueryEvent({required this.screenName});
   @override
   List<Object> get props => [screenName];
 }

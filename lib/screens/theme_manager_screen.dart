@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import './../../../utils/button_utils.dart';
 import './../../../utils/collection_utils.dart';
+import './../../../utils/color_utils.dart';
 import './../../../utils/style_utils.dart';
 import './../yase/yase.dart';
-import 'dart:developer';
 
 class ThemeManagerScreen extends StatefulWidget {
   const ThemeManagerScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
   @override
   Widget build(BuildContext context) {
     _themeManager = YaSeApp.of(context)!.widget.getThemeManager();
-    Color color = YaSeApp.of(context)!.widget.AppTheme.backgroundColor;
+    Color color = YaSeApp.of(context)!.widget.AppTheme.colorScheme.background;
     Widget buttonSection = Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -34,8 +34,9 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
                       context,
                       'floater',
                       ThemeData(
-                          backgroundColor: Colors.red,
-                          primaryColor: Colors.blue));
+                          primaryColor: Colors.blue,
+                          colorScheme: getColorScheme(
+                              YaSeApp.of(context)!.widget.AppTheme)));
                 });
               }),
           TextButton(
@@ -74,7 +75,7 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
                       .widget
                       .AppTheme
                       .textTheme
-                      .subtitle1)),
+                      .titleMedium)),
           style: generateButtonStyle(YaSeApp.of(context)!.widget.AppTheme),
           onPressed: () {},
         ),

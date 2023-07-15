@@ -1,28 +1,12 @@
-import 'dart:io';
 import 'package:YaSe/controls/bloc_controls/py_code/py_code_controller_token.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter/material.dart';
-import '/controls/bloc_controls/doc_provider/document.dart';
-import '/controls/bloc_controls/doc_provider/document_bloc.dart';
 import '../../../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
 import './../../../utils/button_utils.dart';
-import './../../../utils/dlg_utils.dart';
-import './../../../utils/file_utils.dart';
-import './../../../controls/header.dart';
 import './py_code_bloc.dart';
 import './py_code_field.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../controls/edit_control_panel.dart';
-import '../../../controls/edit_control_panel_custom.dart';
-import './../../../utils/dropdown_utils.dart';
-import './../../../utils/theme_utils.dart';
-import './../../../utils/python_utils.dart';
-import 'package:tuple/tuple.dart';
-import '../../../controls/dropdown_item_theme_color_panel.dart';
-import './../../../utils/style_utils.dart';
 import '../../../yase/yase.dart';
-import './py_code_bloc.dart';
-import './../../../utils/tabbar_utils.dart';
 import 'dart:developer';
 
 class PyEditor extends StatefulWidget {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
 import 'dlg_utils.dart';
+import './../../../utils/color_utils.dart';
 import 'dart:developer';
 
 /// Applies the newTextStyle to the targetCopyWith of the themeData
@@ -10,57 +11,57 @@ void applyThemeDataTextStyle(
     ThemeData themeData, String targetCopyWith, TextStyle newTextStyle) {
   debugger();
   if (targetCopyWith == 'Headline1')
-    themeData.textTheme.headline1!.apply(
-        fontSizeDelta:
-            themeData.textTheme.headline1!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.displayLarge!.apply(
+        fontSizeDelta: themeData.textTheme.displayLarge!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'Headline2')
-    themeData.textTheme.headline2!.apply(
-        fontSizeDelta:
-            themeData.textTheme.headline2!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.displayMedium!.apply(
+        fontSizeDelta: themeData.textTheme.displayMedium!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'Headline3')
-    themeData.textTheme.headline3!.apply(
-        fontSizeDelta:
-            themeData.textTheme.headline3!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.displaySmall!.apply(
+        fontSizeDelta: themeData.textTheme.displaySmall!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'Headline4')
-    themeData.textTheme.headline4!.apply(
-        fontSizeDelta:
-            themeData.textTheme.headline4!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.headlineMedium!.apply(
+        fontSizeDelta: themeData.textTheme.headlineMedium!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'Headline5')
-    themeData.textTheme.headline5!.apply(
-        fontSizeDelta:
-            themeData.textTheme.headline5!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.headlineSmall!.apply(
+        fontSizeDelta: themeData.textTheme.headlineSmall!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'Headline6')
-    themeData.textTheme.headline6!.apply(
+    themeData.textTheme.titleLarge!.apply(
         fontSizeDelta:
-            themeData.textTheme.headline6!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.titleLarge!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'SubTitle1')
-    themeData.textTheme.subtitle1!.apply(
-        fontSizeDelta:
-            themeData.textTheme.subtitle1!.fontSize! - newTextStyle.fontSize!);
+    themeData.textTheme.titleMedium!.apply(
+        fontSizeDelta: themeData.textTheme.titleMedium!.fontSize! -
+            newTextStyle.fontSize!);
   else if (targetCopyWith == 'SubTitle2')
-    themeData.textTheme.subtitle2!.apply(
+    themeData.textTheme.titleSmall!.apply(
         fontSizeDelta:
-            themeData.textTheme.subtitle2!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.titleSmall!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'bodyText1')
-    themeData.textTheme.bodyText1!.apply(
+    themeData.textTheme.bodyLarge!.apply(
         fontSizeDelta:
-            themeData.textTheme.bodyText1!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.bodyLarge!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'bodyText2')
-    themeData.textTheme.bodyText2!.apply(
+    themeData.textTheme.bodyMedium!.apply(
         fontSizeDelta:
-            themeData.textTheme.bodyText2!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.bodyMedium!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'button')
-    themeData.textTheme.button!.apply(
+    themeData.textTheme.labelLarge!.apply(
         fontSizeDelta:
-            themeData.textTheme.button!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.labelLarge!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'caption')
-    themeData.textTheme.caption!.apply(
+    themeData.textTheme.bodySmall!.apply(
         fontSizeDelta:
-            themeData.textTheme.caption!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.bodySmall!.fontSize! - newTextStyle.fontSize!);
   else if (targetCopyWith == 'overline')
-    themeData.textTheme.overline!.apply(
+    themeData.textTheme.labelSmall!.apply(
         fontSizeDelta:
-            themeData.textTheme.overline!.fontSize! - newTextStyle.fontSize!);
+            themeData.textTheme.labelSmall!.fontSize! - newTextStyle.fontSize!);
 }
 
 /// returns a List<Color> with different style elements from context Theme
@@ -71,14 +72,14 @@ List<Color> getThemeSchemaColors(context) {
     YaSeApp.of(context)!.widget.AppTheme.primaryColor,
     YaSeApp.of(context)!.widget.AppTheme.primaryColorDark,
     YaSeApp.of(context)!.widget.AppTheme.primaryColorLight,
-    YaSeApp.of(context)!.widget.AppTheme.backgroundColor,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.onPrimary,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.secondary,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.onSecondary,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.onBackground,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.surface,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.onSurface,
-    YaSeApp.of(context)!.widget.AppTheme.errorColor,
+    YaSeApp.of(context)!.widget.AppTheme.colorScheme.error,
     YaSeApp.of(context)!.widget.AppTheme.colorScheme.onError,
     YaSeApp.of(context)!.widget.AppTheme.shadowColor
   ];
@@ -126,7 +127,7 @@ ThemeData getModfiedThemeData(
   if (itemName == 'primaryColorLight')
     return themeData.copyWith(primaryColorLight: color);
   if (itemName == 'backgroundColor')
-    return themeData.copyWith(backgroundColor: color);
+    return themeData.copyWith(colorScheme: getColorScheme(themeData));
   if (itemName == 'onPrimary') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onPrimary: color);
     return themeData.copyWith(colorScheme: colorScheme);
@@ -151,7 +152,8 @@ ThemeData getModfiedThemeData(
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onSurface: color);
     return themeData.copyWith(colorScheme: colorScheme);
   }
-  if (itemName == 'errorColor') return themeData.copyWith(errorColor: color);
+  if (itemName == 'errorColor')
+    return themeData.copyWith(colorScheme: getColorScheme(themeData));
   if (itemName == 'onError') {
     ColorScheme colorScheme = themeData.colorScheme.copyWith(onError: color);
     return themeData.copyWith(colorScheme: colorScheme);

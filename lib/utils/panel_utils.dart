@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../utils/button_utils.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'dart:developer';
 
 class EditPanel extends StatefulWidget {
   double? height;
@@ -46,7 +45,7 @@ class _EditPanelState extends State<EditPanel> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     print("Panel build");
     TextStyle? textStyle =
-        YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.titleLarge;
     widget.textEditingController.text = widget.presetText ?? "";
     var children = <Widget>[
       SizedBox(
@@ -93,12 +92,12 @@ EditPanel getEditPanel(
         Positioned(
             top: 50,
             left: leftButton1,
-            child: getElevatedButton(context, () => {callback1()},
+            child: getElevatedButton(context, () => callback1(),
                 label: labelButton1)),
         Positioned(
             top: 50,
             left: leftButton2,
-            child: getElevatedButton(context, () => {callback2()},
+            child: getElevatedButton(context, () => callback2(),
                 label: labelButton2))
       ]);
   return editPanel;

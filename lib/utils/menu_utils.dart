@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 class ExtendedMenu extends StatefulWidget {
   @override

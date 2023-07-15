@@ -1,17 +1,7 @@
-import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'package:supercharged/supercharged.dart';
-import '../utils/time_utils.dart';
-import './../../../utils/style_utils.dart';
-import './../../../utils/dropdownlist.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/parser.dart' as htmlparser;
-import 'package:html/dom.dart' as dom;
 import 'package:web_browser/web_browser.dart';
-import 'dart:developer';
 
 class BrowserScreen extends StatefulWidget {
   const BrowserScreen({Key? key}) : super(key: key);

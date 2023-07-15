@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import '../../utils/button_utils.dart';
-import 'dart:developer';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
   String? title;
@@ -30,7 +28,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
     var targetSize = preferredSize;
     print("targetSize: $targetSize, toolbarHeight: $toolbarHeight");
     TextStyle? textStyle =
-        YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.titleLarge;
     var _text = Text(this.title!, style: textStyle);
     if (this.items?.isEmpty ?? true)
       _text = Text(this.title!, style: textStyle, textAlign: TextAlign.center);

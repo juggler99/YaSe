@@ -38,7 +38,7 @@ class PyCodeBlocStateChange extends PyCodeBlocState {
   PyCodeBlocStateChange(
       {this.codeTextController,
       this.lineCountTextController,
-      this.dirty: true});
+      this.dirty = true});
 
   @override
   List<Object> get props => [dirty];

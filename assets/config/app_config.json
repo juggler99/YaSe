@@ -14,8 +14,8 @@
         "purple": {
             "splashColor": "Colors.red",
             "primarySwatch": "Colors.red",
-            "primaryColor": "Colors.red",
-            "backgroundColor": "Colors.red",
+            "primaryColor": "Colors.green",
+            "backgroundColor": "Colors.green",
             "brightness": "Brightness.light",
             "fontFamily": "Arial",
             "textTheme": "generalTextTheme"

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 Color getColorByString(String strColor) {
   if (strColor == null) return Colors.white;
@@ -47,4 +46,19 @@ Color getColorByString(String strColor) {
   }
   print("color[$strColor]: $color");
   return color;
+}
+
+ColorScheme getColorScheme(ThemeData appTheme) {
+  return ColorScheme(
+      brightness: appTheme.brightness,
+      primary: appTheme.primaryColor,
+      onPrimary: appTheme.primaryColor,
+      secondary: appTheme.secondaryHeaderColor,
+      onSecondary: appTheme.secondaryHeaderColor,
+      error: appTheme.colorScheme.error,
+      onError: appTheme.colorScheme.error,
+      background: appTheme.colorScheme.background,
+      onBackground: appTheme.colorScheme.onBackground,
+      surface: appTheme.colorScheme.surface,
+      onSurface: appTheme.colorScheme.onSurface);
 }

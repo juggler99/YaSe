@@ -1,13 +1,10 @@
 import 'package:YaSe/controls/custom_fab_location.dart';
 import 'package:YaSe/yase/yase.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'dart:developer';
 
 import '../../utils/button_utils.dart';
-import '../semicircle_button.dart';
 
 class PythonConsole extends StatefulWidget {
   PythonConsole({Key? key, this.title, this.body}) : super(key: key);
@@ -92,18 +89,14 @@ class _PythonConsoleState extends State<PythonConsole> {
     var iconDown = Icon(Icons.arrow_drop_down, size: 25);
     var buttonUp = getElevatedButton(
         context,
-        () => {
-              scroller.controller!
-                  .jumpTo(scroller.controller!.offset - pageHeight)
-            },
+        () => scroller.controller!
+            .jumpTo(scroller.controller!.offset - pageHeight),
         icon: iconUp,
         diameter: 20);
     var buttonDown = getElevatedButton(
         context,
-        () => {
-              scroller.controller!
-                  .jumpTo(scroller.controller!.offset + pageHeight)
-            },
+        () => scroller.controller!
+            .jumpTo(scroller.controller!.offset + pageHeight),
         icon: iconUp,
         diameter: 20);
     var lines = body.split("\n").length;
@@ -111,9 +104,13 @@ class _PythonConsoleState extends State<PythonConsole> {
     var customLocation = CustomFabLoc();
     var dragButton = Draggable(
       feedback: FloatingActionButton(
-          child: Icon(Icons.drag_indicator_sharp), onPressed: () {}),
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+          child: Icon(Icons.drag_indicator_sharp),
+          onPressed: () {}),
       child: FloatingActionButton(
-          child: Icon(Icons.drag_indicator_sharp), onPressed: () {}),
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+          child: Icon(Icons.drag_indicator_sharp),
+          onPressed: () {}),
       childWhenDragging: Container(),
       onDragUpdate: (details) => moveFloater(
           scroller,
@@ -130,6 +127,7 @@ class _PythonConsoleState extends State<PythonConsole> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
+          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
           title: Text(args["title"]),
         ),
         body: Column(

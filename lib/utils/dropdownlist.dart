@@ -1,7 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'dart:developer';
 
 import 'package:tuple/tuple.dart';
 
@@ -110,11 +107,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
         height: style.height,
         child: OutlinedButton(
           style: OutlinedButton.styleFrom(
-            padding: style.padding,
+            foregroundColor: style.primaryColor, padding: style.padding,
             //backgroundColor: Colors.white,
             backgroundColor: style.backgroundColor,
             elevation: style.elevation,
-            primary: style.primaryColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
@@ -230,7 +226,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
       });
     } else {
       this._overlayEntry = this._createOverlayEntry();
-      Overlay.of(context)!.insert(this._overlayEntry!);
+      Overlay.of(context).insert(this._overlayEntry!);
       setState(() => _isOpen = true);
       _animationController!.forward();
     }

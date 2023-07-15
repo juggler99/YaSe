@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import './../../utils/dropdown_utils.dart';
 import './../../utils/dropdownlist.dart';
 import './../../utils/button_utils.dart';
-import 'package:tuple/tuple.dart';
 
-import 'dart:developer';
 
 class EditorControlPanel extends StatefulWidget {
   String title = 'title';
@@ -17,10 +14,10 @@ class EditorControlPanel extends StatefulWidget {
   EditorControlPanel(
       {Key? key,
       required this.dropdown,
-      this.iconNewEnabled: true,
-      this.iconEditEnabled: true,
-      this.iconDeleteEnabled: true,
-      this.iconDiscardEnabled: true})
+      this.iconNewEnabled = true,
+      this.iconEditEnabled = true,
+      this.iconDeleteEnabled = true,
+      this.iconDiscardEnabled = true})
       : super(key: key);
 
   @override

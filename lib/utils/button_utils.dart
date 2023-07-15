@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'style_utils.dart';
 
 /// Returns a [TextButton] with the given [label] and [color] and [value]
 TextButton getTextButtonForClosingDialog<T>(
@@ -9,7 +7,7 @@ TextButton getTextButtonForClosingDialog<T>(
     {void Function()? callback = null}) {
   ThemeData localTheme =
       YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
-  TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
+  TextStyle textStyle = localTheme.textTheme.titleMedium!.apply(color: color);
   return TextButton(
       child: Text(
         label,
@@ -30,7 +28,7 @@ ElevatedButton getElevatedButtonForClosingDialog<T>(
     {void Function()? callback = null}) {
   ThemeData localTheme =
       YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
-  TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
+  TextStyle textStyle = localTheme.textTheme.titleMedium!.apply(color: color);
   return ElevatedButton(
       child: Text(label, style: textStyle),
       style: ButtonStyle(
@@ -206,7 +204,7 @@ ElevatedButton getElevatedButton(BuildContext context, VoidCallback onPressed,
     Color backgroundColor = Colors.grey}) {
   ThemeData localTheme =
       YaSeApp.of(context)!.widget.AppTheme.copyWith(primaryColor: color);
-  TextStyle textStyle = localTheme.textTheme.subtitle1!.apply(color: color);
+  TextStyle textStyle = localTheme.textTheme.titleMedium!.apply(color: color);
   var childWidget = null;
   if (label != null) {
     childWidget = Text(label, style: textStyle);

@@ -1,13 +1,8 @@
 //import 'dart:html';
 import 'dart:io';
-import 'package:YaSe/controls/bloc_controls/py_code/py_code_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import '../../utils/panel_utils.dart';
-import './../../utils/menu_utils.dart';
 import '../bloc_controls/py_code/py_code_controller_token.dart';
 import '/yase/yase.dart';
-import 'package:flutter_treeview/flutter_treeview.dart';
 import './../../utils/file_utils.dart';
 import './../../utils/button_utils.dart';
 import './../../utils/dlg_utils.dart';
@@ -16,8 +11,6 @@ import './../../utils/python_utils.dart';
 import '../bloc_controls/py_code/py_editor.dart';
 import '../bloc_controls/doc_provider/document.dart';
 import './../../controls/header.dart';
-import 'dart:developer';
-import 'dart:io' as io;
 import 'package:path/path.dart' as path;
 
 class DocumentManager extends StatefulWidget {
@@ -79,60 +72,6 @@ class _DocumentManagerState extends State<DocumentManager>
     );
   }
 
-  Align createTabBar() {
-    Color? colorTab =
-        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.3);
-    Color? colorTabBackground =
-        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.1);
-    Color? colorTabSelected =
-        YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.5);
-    print(
-        "colorTab: ${colorTab.alpha} colorTabBackground: ${colorTabBackground.alpha} colorTabSelected: ${colorTabSelected.alpha}");
-    colorTab = colorTab;
-    colorTabBackground = colorTabBackground;
-    colorTabSelected = colorTabSelected;
-    BorderSide borderSide = BorderSide(color: colorTabSelected!);
-    BorderSide borderSide0 = BorderSide(color: colorTabSelected, width: 0.0);
-    Border border = Border(
-        top: borderSide,
-        left: borderSide,
-        right: borderSide,
-        bottom: borderSide);
-    return Align(
-        alignment: Alignment.centerLeft,
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(0.0),
-            color: colorTabBackground, // set the color in between the tabs
-            child: TabBar(
-              indicatorPadding: EdgeInsets.symmetric(horizontal: -8.0),
-              padding: EdgeInsets.all(0.0),
-              isScrollable: true,
-              tabs: _tabs.map((tab) {
-                final labelWidth = getTabLabelWidth(tab);
-                return Container(
-                  height: 32,
-                  width: labelWidth,
-                  decoration: BoxDecoration(
-                      border: border,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(8))),
-                  child: Center(child: tab),
-                );
-              }).toList(),
-              controller: _tabController,
-              indicator: BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-                color: colorTabSelected, // set the color of the indicator
-              ),
-              indicatorSize: TabBarIndicatorSize.label,
-              labelPadding: EdgeInsets.zero,
-              onTap: (index) {
-                print("on Tap: $index");
-              },
-            )));
-  }
-
   String getDefaultFileName() {
     return resolveFilename(_numTabs);
   }
@@ -140,19 +79,6 @@ class _DocumentManagerState extends State<DocumentManager>
   String getDefaultFullPath() {
     return concatPaths(
         [YaSeApp.of(context)!.widget.YaSeAppPath, getDefaultFileName()]);
-  }
-
-  TabBarView createTabView() {
-    print("createTabView");
-    return TabBarView(
-      children: List.generate(
-        _numTabs,
-        (index) => index < _tabContent.length
-            ? _tabContent[index]
-            : createPyEditor(getDefaultFullPath()),
-      ),
-      controller: _tabController,
-    );
   }
 
   PyEditor createPyEditor(String filename) {
@@ -339,12 +265,19 @@ class _DocumentManagerState extends State<DocumentManager>
         items: HeaderItems(),
         tabs: _tabs,
         tabController: _tabController,
-        tabBar: createTabBar());
+        tabBar: createTabBar(context, _tabs, _tabController));
     var docManager = DefaultTabController(
       length: _numTabs,
       child: Scaffold(
         appBar: header,
-        body: createTabView(),
+        body: createTabView(
+            List.generate(
+              _numTabs,
+              (index) => index < _tabContent.length
+                  ? _tabContent[index]
+                  : createPyEditor(getDefaultFullPath()),
+            ),
+            _tabController),
       ),
     );
     return docManager;

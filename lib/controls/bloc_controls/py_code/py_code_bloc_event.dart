@@ -19,8 +19,7 @@ class PyCodeBlocControlTextChangeEvent extends PyCodeBlocEvent {
   final PyCodeField pyCodeField;
   final TextEditingController lineCountTextController;
   const PyCodeBlocControlTextChangeEvent(
-      {required this.pyCodeField, required this.lineCountTextController})
-      : assert(pyCodeField != null && lineCountTextController != null);
+      {required this.pyCodeField, required this.lineCountTextController});
   @override
   List<Object> get props => [pyCodeField, lineCountTextController];
 }

@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
 import 'package:chaquopy/chaquopy.dart';
 import 'file_utils.dart';
-import 'dart:developer';
 
 /// Returns a List<String> with Python keywords
 List<String> keywords = [

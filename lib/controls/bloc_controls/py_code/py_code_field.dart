@@ -6,9 +6,6 @@ import 'package:tuple/tuple.dart';
 import './../../../utils/python_utils.dart';
 import './../../../utils/string_utils.dart';
 import 'py_code_controller_token.dart';
-import 'py_code_text_controller.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
-import 'dart:developer';
 
 class PyCodeField extends StatefulWidget {
   PyCodeControllerToken pyCodeControllerToken;
@@ -277,7 +274,7 @@ class _PyCodeFieldState extends State<PyCodeField> {
         ),
       );
 
-      _overlay!.insert(this._entry!);
+      _overlay.insert(this._entry!);
     } else {
       hideOverlay();
     }

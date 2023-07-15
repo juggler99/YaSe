@@ -57,7 +57,7 @@ Future<String> getDefaultRootFolderAsString({String appFolder = ""}) async {
 ///Returns a string representing default file location for an app from root App class
 String getAppPath<T extends State<StatefulWidget>>(
     BuildContext context, ValueGetter<String> callback,
-    {appFolder: ""}) {
+    {appFolder = ""}) {
   var appRootFolder = callback();
   if (appRootFolder.split(path.separator).last == appFolder) {
     return appRootFolder;
@@ -69,7 +69,7 @@ String getAppPath<T extends State<StatefulWidget>>(
 String getFullPath(BuildContext context, ValueGetter<String> callback,
     String filename, String appFolder) {
   var folder = getAppPath(context, callback, appFolder: appFolder);
-  if (!filename.contains(folder!)) return concatPaths([folder, filename]);
+  if (!filename.contains(folder)) return concatPaths([folder, filename]);
   return filename;
 }
 

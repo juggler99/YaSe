@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'calculator_result_display.dart';
 import './../../utils/button_utils.dart';
-import 'dart:developer';
 
 class Calculator extends StatefulWidget {
   @override

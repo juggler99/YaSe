@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'dart:developer';
 
 class CalculationModel extends Equatable {
   CalculationModel({

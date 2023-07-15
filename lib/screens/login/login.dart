@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
 import './../../../utils/dlg_utils.dart';
 import './../../../utils/style_utils.dart';
-import 'dart:developer';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -30,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text('Ya Se!',
-              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.headline5),
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.headlineSmall),
           centerTitle: true,
           backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
         ),
@@ -47,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           .widget
                           .AppTheme
                           .textTheme
-                          .subtitle1,
+                          .titleMedium,
                     )),
                 Container(
                   padding: EdgeInsets.all(10),
@@ -68,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         .widget
                         .AppTheme
                         .textTheme
-                        .subtitle1,
+                        .titleMedium,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Password',
@@ -96,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             .widget
                             .AppTheme
                             .textTheme
-                            .headline6,
+                            .titleLarge,
                       ),
                       onPressed: () {
                         bool isAuthorised = authorise(
@@ -121,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             .widget
                             .AppTheme
                             .textTheme
-                            .subtitle2),
+                            .titleSmall),
                     TextButton(
                       style: generateTextButtonStyle(
                           YaSeApp.of(context)!.widget.AppTheme),

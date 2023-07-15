@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import './../controls/bloc_controls/theme_manager/theme_manager_bloc_event.dart';
-import 'package:provider/src/provider.dart';
-import './../../../utils/dlg_utils.dart';
 import 'package:tuple/tuple.dart';
-import './../controls/color_shade_picker.dart';
 import './../controls/custom_card_panel.dart';
 import './../../../utils/dropdown_utils.dart';
 import './../controls/edit_control_panel_custom.dart';
 import './../../../utils/theme_utils.dart';
 import './../../../utils/button_utils.dart';
-import './../../../utils/style_utils.dart';
-import './../controls/color_picker.dart';
 import './../controls/dlg_font.dart';
 import './../controls/bloc_controls/theme_manager/theme_manager.dart';
 import './../yase/yase.dart';
-import './../controls/bloc_controls/theme_manager/theme_manager_bloc_provider.dart';
 import 'dart:developer';
 
 typedef OnColorChangeCallback = void Function(Color value, int index);
@@ -84,55 +77,55 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
       if (title == 'Headline1')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline1: fontMap[title]!));
+                .copyWith(displayLarge: fontMap[title]!));
       else if (title == 'Headline2')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline2: fontMap[title]!));
+                .copyWith(displayMedium: fontMap[title]!));
       else if (title == 'Headline3')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline3: fontMap[title]!));
+                .copyWith(displaySmall: fontMap[title]!));
       else if (title == 'Headline4')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline4: fontMap[title]!));
+                .copyWith(headlineMedium: fontMap[title]!));
       else if (title == 'Headline5')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline5: fontMap[title]!));
+                .copyWith(headlineSmall: fontMap[title]!));
       else if (title == 'Headline6')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline6: fontMap[title]!));
+                .copyWith(titleLarge: fontMap[title]!));
       else if (title == 'SubTitle1')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(subtitle1: fontMap[title]!));
+                .copyWith(titleMedium: fontMap[title]!));
       else if (title == 'SubTitle2')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(subtitle2: fontMap[title]!));
+                .copyWith(titleSmall: fontMap[title]!));
       else if (title == 'bodyText1')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(bodyText1: fontMap[title]!));
+                .copyWith(bodyLarge: fontMap[title]!));
       else if (title == 'bodyText2')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(bodyText2: fontMap[title]!));
+                .copyWith(bodyMedium: fontMap[title]!));
       else if (title == 'button')
         currentThemeData = currentThemeData!.copyWith(
             textTheme:
-                currentThemeData!.textTheme.copyWith(button: fontMap[title]!));
+                currentThemeData!.textTheme.copyWith(labelLarge: fontMap[title]!));
       else if (title == 'caption')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(headline2: fontMap[title]!));
+                .copyWith(displayMedium: fontMap[title]!));
       else if (title == 'overline')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
-                .copyWith(overline: fontMap[title]!));
+                .copyWith(labelSmall: fontMap[title]!));
       _themeManager!.modifySystemTheme(context, newThemeData: currentThemeData);
       print('refresh style : $textStyle');
     }

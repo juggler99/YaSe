@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:reflectable/reflectable.dart';
-import 'package:reflectable/mirrors.dart';
 import 'dart:developer';
 
 class Reflector extends Reflectable {
@@ -34,4 +32,4 @@ class A {
   lessEqual(int x) => x <= a;
 }
 
-void main() => {ReflectTest().invokingCapabilityTest()};
+void main() => ReflectTest().invokingCapabilityTest();

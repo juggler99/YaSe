@@ -6,14 +6,15 @@ import '../utils/tab_utils.dart';
 import '../utils/textfield_utils.dart';
 import './../yase/yase.dart';
 
-class MeScreen extends StatefulWidget {
-  const MeScreen({Key? key}) : super(key: key);
+class ProfileEditScreen extends StatefulWidget {
+  const ProfileEditScreen({Key? key}) : super(key: key);
   @override
-  _MeScreenState createState() => _MeScreenState();
+  _ProfileEditScreenState createState() => _ProfileEditScreenState();
 }
 
-class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
-  final _formKey = GlobalKey<_MeScreenState>();
+class _ProfileEditScreenState extends State<ProfileEditScreen>
+    with TickerProviderStateMixin {
+  final _formKey = GlobalKey<_ProfileEditScreenState>();
   AppBar? appBar;
   late List<Tab> _tabs;
   late List<Widget> _tabContent;
@@ -70,23 +71,23 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
     ));
 
     _tabContent = <Widget>[];
-    _tabContent.add(createForm(context, GlobalKey<_MeScreenState>(),
+    _tabContent.add(createForm(context, GlobalKey<_ProfileEditScreenState>(),
         textFieldsPerfil!.entries.map((e) => e.value).toList()));
 
-    _tabContent.add(createForm(context, GlobalKey<_MeScreenState>(),
+    _tabContent.add(createForm(context, GlobalKey<_ProfileEditScreenState>(),
         textFieldsPassword!.entries.map((e) => e.value).toList()));
 
-    _tabContent.add(createForm(context, GlobalKey<_MeScreenState>(),
+    _tabContent.add(createForm(context, GlobalKey<_ProfileEditScreenState>(),
         textFieldsCredito!.entries.map((e) => e.value).toList()));
 
-    _tabContent.add(createForm(context, GlobalKey<_MeScreenState>(),
+    _tabContent.add(createForm(context, GlobalKey<_ProfileEditScreenState>(),
         textFieldsPago!.entries.map((e) => e.value).toList()));
 
     _tabController = TabController(length: _tabs.length, vsync: this);
 
     header = Header(
         toolbarHeight: 100,
-        title: "Ya Se",
+        title: "Perfil",
         items: <Widget>[],
         tabs: _tabs,
         tabController: _tabController,

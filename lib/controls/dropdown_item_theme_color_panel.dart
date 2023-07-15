@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'package:tuple/tuple.dart';
 import './../../utils/dropdown_utils.dart';
 import './../../utils/style_utils.dart';
 import 'dart:developer';
@@ -23,17 +22,17 @@ class DropdownItemThemeColorPanel extends StatefulWidget {
 
   DropdownItemThemeColorPanel(
       {Key? key,
-      this.label: 'Color',
-      this.backgroundColor: Colors.white,
-      this.primaryColor: Colors.black,
-      this.leftMargin: 10,
-      this.labelWidth: 150,
-      this.labelHeight: 32,
-      this.cardWidth: 60,
-      this.cardHeight: 32,
-      this.dropdownWidth: 120,
-      this.dropdownHeight: 45,
-      this.dropdownSelectItem: 'Color',
+      this.label = 'Color',
+      this.backgroundColor = Colors.white,
+      this.primaryColor = Colors.black,
+      this.leftMargin = 10,
+      this.labelWidth = 150,
+      this.labelHeight = 32,
+      this.cardWidth = 60,
+      this.cardHeight = 32,
+      this.dropdownWidth = 120,
+      this.dropdownHeight = 45,
+      this.dropdownSelectItem = 'Color',
       OnColorChangeCallback? callback})
       : super(key: key);
 
@@ -97,7 +96,7 @@ class _DropdownItemThemeColorPanelState
             child: Text(widget.label,
                 textAlign: TextAlign.left,
                 style:
-                    YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText2),
+                    YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyMedium),
             width: widget.labelWidth,
             height: widget.labelHeight,
             padding: EdgeInsets.fromLTRB(0, 3, 0, 2),

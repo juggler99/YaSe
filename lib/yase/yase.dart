@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import '../controls/gen/python_console.dart';
@@ -6,10 +5,6 @@ import './../../../utils/os/file_open.dart' as file_open;
 import './../../../utils/os/file_save.dart' as file_save;
 import './../../../utils/os/file_manager.dart' as file_manager;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
-import '../controls/bloc_controls/py_code/py_editor.dart';
 import '../controls/gen/document_manager.dart';
 import '../screens/editor/editor.dart';
 import '../settings.dart';
@@ -17,9 +12,6 @@ import './../controls/color_picker.dart';
 import './../screens/complex.dart';
 import './../screens/home.dart';
 import 'app_config.dart';
-import 'main.dart';
-import './../screens/account_screen.dart';
-import './../screens/home.dart';
 import './../screens/browser.dart';
 import './../screens/me.dart';
 import './../screens/courses.dart';
@@ -29,18 +21,16 @@ import './../controls/bloc_controls/theme_manager/theme_manager.dart';
 import './../screens/theme_manager_screen.dart';
 import '../screens/login/login.dart';
 import '../screens/login/forgot_password.dart';
-import '../screens/login/no_access.dart';
 import '../screens/login/register.dart';
 import '../screens/login/logged_out.dart';
+import '../screens/profile.dart';
+import '../screens/profile_edit.dart';
 import './../../../utils/file_utils.dart';
-import './../../../utils/style_utils.dart';
-import './../../../utils/theme_utils.dart';
 import './../../../utils/menu_utils.dart';
 import './../controls/color_shade_picker.dart';
 import '../apps/calculator/calculator.dart';
 import './../screens/python_client.dart';
 import './../controls/app_bars/app_bar_main.dart';
-import './../../../utils/yaml_utils.dart';
 import 'dart:developer';
 
 class YaSeApp extends StatefulWidget {
@@ -74,6 +64,7 @@ class _YaSeAppState extends State<YaSeApp> {
 
   @override
   void initState() {
+    debugger();
     print("YaseApp initState");
     Future.delayed(Duration.zero, () async {
       // Call asynchronous method
@@ -133,8 +124,11 @@ class _YaSeAppState extends State<YaSeApp> {
       ],
       supportedLocales: [
         const Locale('en', 'UK'), // English
+        //const Locale('en', 'US'),
+        //const Locale('es', 'Sp'),
         // ... other locales the app supports
       ],
+      locale: Locale('en'),
       debugShowCheckedModeBanner: false,
       title: 'YaSe',
       //theme: getThemeManager().getThemeData(key: "light"),
@@ -149,6 +143,8 @@ class _YaSeAppState extends State<YaSeApp> {
         // When navigating to the "/second" route, build the widget.
         '/settings': (context) => const SettingsScreen(),
         '/me': (context) => const MeScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/profile_edit': (context) => const ProfileEditScreen(),
         '/courses': (context) => const CoursesScreen(),
         '/programs': (context) => const ProgramsScreen(),
         '/complex': (context) => const ComplexScreen(),

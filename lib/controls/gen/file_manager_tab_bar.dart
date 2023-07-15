@@ -12,7 +12,7 @@ class FileManagerTabBar extends StatefulWidget {
     return tab;
   }
 
-  void remove({String? name, int index: -1}) {
+  void remove({String? name, int index = -1}) {
     if (name == null || name.length > 0) {
       if (index > -1) {
         this.items!.removeAt(index);

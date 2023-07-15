@@ -1,54 +1,51 @@
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
 import 'package:tuple/tuple.dart';
-import './../../utils/style_utils.dart';
 import './../../utils/button_utils.dart';
-import 'dart:developer';
 
 Map<String, TextStyle?> getFonts(BuildContext context) {
   var result = Map<String, TextStyle?>();
   result['Headline1'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline1;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.displayLarge;
   result['Headline2'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline2;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.displayMedium;
   result['Headline3'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline3;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.displaySmall;
   result['Headline4'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline4;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headlineMedium;
   result['Headline5'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline5;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.headlineSmall;
   result['Headline6'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.headline6;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.titleLarge;
   result['SubTitle1'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.titleMedium;
   result['SubTitle2'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.titleSmall;
   result['bodyText1'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText1;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyLarge;
   result['bodyText2'] =
-      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyText2;
-  result['button'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.button;
-  result['caption'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.caption;
-  result['overline'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.overline;
+      YaSeApp.of(context)!.widget.AppTheme.textTheme.bodyMedium;
+  result['button'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.labelLarge;
+  result['caption'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.bodySmall;
+  result['overline'] = YaSeApp.of(context)!.widget.AppTheme.textTheme.labelSmall;
   return result;
 }
 
 Map<String, TextStyle?> getThemeDataFonts(ThemeData themeData) {
   var result = Map<String, TextStyle?>();
-  result['Headline1'] = themeData.textTheme.headline1;
-  result['Headline2'] = themeData.textTheme.headline2;
-  result['Headline3'] = themeData.textTheme.headline3;
-  result['Headline4'] = themeData.textTheme.headline4;
-  result['Headline5'] = themeData.textTheme.headline5;
-  result['Headline6'] = themeData.textTheme.headline6;
-  result['SubTitle1'] = themeData.textTheme.subtitle1;
-  result['SubTitle2'] = themeData.textTheme.subtitle2;
-  result['bodyText1'] = themeData.textTheme.bodyText1;
-  result['bodyText2'] = themeData.textTheme.bodyText2;
-  result['button'] = themeData.textTheme.button;
-  result['caption'] = themeData.textTheme.caption;
-  result['overline'] = themeData.textTheme.overline;
+  result['Headline1'] = themeData.textTheme.displayLarge;
+  result['Headline2'] = themeData.textTheme.displayMedium;
+  result['Headline3'] = themeData.textTheme.displaySmall;
+  result['Headline4'] = themeData.textTheme.headlineMedium;
+  result['Headline5'] = themeData.textTheme.headlineSmall;
+  result['Headline6'] = themeData.textTheme.titleLarge;
+  result['SubTitle1'] = themeData.textTheme.titleMedium;
+  result['SubTitle2'] = themeData.textTheme.titleSmall;
+  result['bodyText1'] = themeData.textTheme.bodyLarge;
+  result['bodyText2'] = themeData.textTheme.bodyMedium;
+  result['button'] = themeData.textTheme.labelLarge;
+  result['caption'] = themeData.textTheme.bodySmall;
+  result['overline'] = themeData.textTheme.labelSmall;
   return result;
 }
 
@@ -112,7 +109,7 @@ class FontPanel extends StatelessWidget {
     ];
 
     TextStyle? titleStyle =
-        YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1;
+        YaSeApp.of(context)!.widget.AppTheme.textTheme.titleMedium;
 
     return StatefulBuilder(builder: (context, setState) {
       return Flex(direction: Axis.vertical, children: [

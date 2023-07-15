@@ -100,13 +100,13 @@ class ThemeManager with ChangeNotifier {
   }
 
   void modifySystemTheme(BuildContext context,
-      {ThemeData? newThemeData: null}) {
+      {ThemeData? newThemeData = null}) {
     _availableThemes['system'] = newThemeData!;
     notifyListeners();
   }
 
   Tuple2<bool, String> applyTheme(String newThemeName,
-      {ThemeData? newThemeData: null}) {
+      {ThemeData? newThemeData = null}) {
     _availableThemes['prevSystem'] = _availableThemes['system']!;
     if (_availableThemes.containsKey(newThemeName)) {
       _availableThemes['system'] = _availableThemes[newThemeName]!;
@@ -233,29 +233,28 @@ class ThemeManager with ChangeNotifier {
 
 ThemeData YaSeThemeLight = ThemeData(
     splashColor: Colors.lightGreen,
-    // Define the default brightness and colors.
-    primarySwatch: Colors.lightGreen,
     brightness: Brightness.dark,
     // toolbars, tab bars, app bars
     primaryColor: Colors.lightGreen[800],
-    backgroundColor: Colors.orange,
 
     // Define the default font family.
     fontFamily: 'Arial',
     // Define the default `TextTheme`. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
-    textTheme: generalTextTheme);
+    textTheme: generalTextTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightGreen)
+        .copyWith(background: Colors.orange, brightness: Brightness.dark));
 
 ThemeData YaSeTheme = ThemeData(
     splashColor: Colors.orange,
-    primarySwatch: Colors.orange,
     primaryColor: Colors.orangeAccent[800],
-    backgroundColor: Colors.orange,
     brightness: Brightness.light,
     fontFamily: 'Arial',
-    textTheme: generalTextTheme);
+    textTheme: generalTextTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
+        .copyWith(background: Colors.orange));
 
-ThemeData getTheme(String themeDataName) {
+ThemeData getTheme(BuildContext context, String themeDataName) {
   switch (themeDataName) {
     case 'YaSeTheme':
       return YaSeTheme;
@@ -269,10 +268,11 @@ ThemeData getTheme(String themeDataName) {
         themeData = ThemeData(
             splashColor: cu.getColorByString('splashColor'),
             primaryColor: cu.getColorByString('primaryColor'),
-            backgroundColor: cu.getColorByString('backgroundColor'),
             brightness: Brightness.light,
             fontFamily: 'Arial',
-            textTheme: generalTextTheme);
+            textTheme: generalTextTheme,
+            colorScheme:
+                cu.getColorScheme(YaSeApp.of(context)!.widget.AppTheme));
       }
       return themeData;
     default:
@@ -285,10 +285,8 @@ ThemeData YaSeThemeDarkDefault = ThemeData(
     splashColor: Colors.green,
     primaryColorLight: Colors.green,
     primaryColorDark: Colors.blue,
-    primarySwatch: Colors.green,
     brightness: Brightness.dark,
-    primaryColor: Colors.lightBlue[800],
-    backgroundColor: Colors.red,
+    primaryColor: Colors.yellow[800],
 
     // Define the default font family.
     fontFamily: 'Arial',
@@ -296,19 +294,21 @@ ThemeData YaSeThemeDarkDefault = ThemeData(
     // Define the default `TextTheme`. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
     textTheme: generalTextTheme,
-    tabBarTheme: genericTabBarTheme);
+    tabBarTheme: genericTabBarTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
+        .copyWith(background: Colors.red, brightness: Brightness.dark));
 
 TextTheme generalTextTheme = TextTheme(
-  headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-  headline2: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
-  headline3: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
-  headline4: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
-  headline5: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-  headline6: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
-  subtitle1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-  subtitle2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
-  bodyText1: TextStyle(fontSize: 26.0, fontWeight: FontWeight.normal),
-  bodyText2: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
+  displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+  displayMedium: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
+  displaySmall: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+  headlineMedium: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+  headlineSmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+  titleLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
+  titleMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+  titleSmall: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
+  bodyLarge: TextStyle(fontSize: 26.0, fontWeight: FontWeight.normal),
+  bodyMedium: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
 );
 
 TabBarTheme genericTabBarTheme = TabBarTheme(

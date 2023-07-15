@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_treeview/flutter_treeview.dart';
-import 'dart:developer';
 
 class CustomNode<T> extends Node<T> {
   /// The unique string that identifies this object.
@@ -38,8 +37,8 @@ class CustomNode<T> extends Node<T> {
     required this.key,
     required this.label,
     //this.children: [],
-    this.expanded: false,
-    this.parent: false,
+    this.expanded = false,
+    this.parent = false,
     this.icon,
     this.iconColor,
     this.selectedIconColor,

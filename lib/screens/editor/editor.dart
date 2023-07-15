@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import './../../controls/bloc_controls/py_code/py_code_field.dart';
 import './../../../controls/header.dart';
 import './../../../utils/button_utils.dart';
 import 'editor_footer.dart';
-import 'editor_header.dart';
 
 class Editor extends StatelessWidget {
   @override

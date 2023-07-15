@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'package:flutter/services.dart';
 //import 'package:starflut/starflut.dart';
-import './../../../utils/dropdown_utils.dart';
-import './../../../utils/style_utils.dart';
-import './../../../utils/dropdownlist.dart';
 
 class PythonClientScreen extends StatefulWidget {
   const PythonClientScreen({Key? key}) : super(key: key);
@@ -29,7 +25,7 @@ class _PythonClientScreenState extends State<PythonClientScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.backgroundColor,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
         centerTitle: true,
         title: const Text('Python Client'),
         automaticallyImplyLeading: true,

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import 'package:tuple/tuple.dart';
-import './../../utils/dropdown_utils.dart';
 import './../../utils/style_utils.dart';
-import 'dart:developer';
 
 typedef OnColorChangeCallback = void Function(Color value, int index);
 
@@ -14,7 +11,7 @@ class ColorShadePickerPanel extends StatefulWidget {
 
   ColorShadePickerPanel(
       {Key? key,
-      color: Colors.transparent,
+      color = Colors.transparent,
       OnColorChangeCallback? callback,
       VoidCallback? onTapCallback})
       : super(key: key) {

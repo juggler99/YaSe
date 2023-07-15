@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'theme_manager.dart';
 
 abstract class ThemeManagerEvent extends Equatable {
@@ -10,8 +9,7 @@ abstract class ThemeManagerEvent extends Equatable {
 class RemoveTheme extends ThemeManagerEvent {
   final ThemeManager themeManager;
   final String themeName;
-  const RemoveTheme({required this.themeManager, required this.themeName})
-      : assert(themeManager != null && themeName != null);
+  const RemoveTheme({required this.themeManager, required this.themeName});
   @override
   List<Object> get props => [themeManager, themeName];
 }
@@ -25,8 +23,7 @@ class AddTheme extends ThemeManagerEvent {
       {required this.themeManager,
       required this.themeName,
       required this.themeData,
-      this.force: false})
-      : assert(themeManager != null && themeName != null && themeData != null);
+      this.force = false});
   @override
   List<Object> get props => [themeManager, themeName, themeData];
 }
@@ -34,8 +31,7 @@ class AddTheme extends ThemeManagerEvent {
 class ChangeMode extends ThemeManagerEvent {
   final ThemeManager themeManager;
   final ThemeMode mode;
-  const ChangeMode({required this.themeManager, required this.mode})
-      : assert(themeManager != null && mode != null);
+  const ChangeMode({required this.themeManager, required this.mode});
   @override
   List<Object> get props => [themeManager, mode];
 }
@@ -44,8 +40,7 @@ class ModifySystemTheme extends ThemeManagerEvent {
   final ThemeManager themeManager;
   final ThemeData newThemeData;
   const ModifySystemTheme(
-      {required this.themeManager, required this.newThemeData})
-      : assert(themeManager != null && newThemeData != null);
+      {required this.themeManager, required this.newThemeData});
   @override
   List<Object> get props => [themeManager, newThemeData];
 }
@@ -57,8 +52,7 @@ class ApplyTheme extends ThemeManagerEvent {
   const ApplyTheme(
       {required this.themeManager,
       required this.themeName,
-      required this.themeData})
-      : assert(themeManager != null && themeName != null && themeData != null);
+      required this.themeData});
   @override
   List<Object> get props => [themeManager, themeName, themeData];
 }
@@ -70,10 +64,7 @@ class SwapTheme extends ThemeManagerEvent {
   const SwapTheme(
       {required this.themeManager,
       required this.outgoingThemeName,
-      required this.incommingThemeName})
-      : assert(themeManager != null &&
-            outgoingThemeName != null &&
-            incommingThemeName != null);
+      required this.incommingThemeName});
   @override
   List<Object> get props =>
       [themeManager, outgoingThemeName, incommingThemeName];
@@ -81,8 +72,7 @@ class SwapTheme extends ThemeManagerEvent {
 
 class GetThemeMode extends ThemeManagerEvent {
   final ThemeManager themeManager;
-  const GetThemeMode({required this.themeManager})
-      : assert(themeManager != null);
+  const GetThemeMode({required this.themeManager});
   @override
   List<Object> get props => [themeManager];
 }
@@ -90,24 +80,21 @@ class GetThemeMode extends ThemeManagerEvent {
 class GetThemeData extends ThemeManagerEvent {
   final ThemeManager themeManager;
   final ThemeData themeName;
-  const GetThemeData({required this.themeManager, required this.themeName})
-      : assert(themeManager != null && themeName != null);
+  const GetThemeData({required this.themeManager, required this.themeName});
   @override
   List<Object> get props => [themeManager, themeName];
 }
 
 class GetAvailableThemes extends ThemeManagerEvent {
   final ThemeManager themeManager;
-  const GetAvailableThemes({required this.themeManager})
-      : assert(themeManager != null);
+  const GetAvailableThemes({required this.themeManager});
   @override
   List<Object> get props => [themeManager];
 }
 
 class CreateTheme extends ThemeManagerEvent {
   final ThemeManager themeManager;
-  const CreateTheme({required this.themeManager})
-      : assert(themeManager != null);
+  const CreateTheme({required this.themeManager});
   @override
   List<Object> get props => [themeManager];
 }
@@ -115,16 +102,14 @@ class CreateTheme extends ThemeManagerEvent {
 class ValidateThemeName extends ThemeManagerEvent {
   final ThemeManager themeManager;
   final ThemeData themeName;
-  const ValidateThemeName({required this.themeManager, required this.themeName})
-      : assert(themeManager != null && themeName != null);
+  const ValidateThemeName({required this.themeManager, required this.themeName});
   @override
   List<Object> get props => [themeManager, themeName];
 }
 
 class GetThemeDataItemsAsListOfTuples extends ThemeManagerEvent {
   final ThemeManager themeManager;
-  const GetThemeDataItemsAsListOfTuples({required this.themeManager})
-      : assert(themeManager != null);
+  const GetThemeDataItemsAsListOfTuples({required this.themeManager});
   @override
   List<Object> get props => [themeManager];
 }

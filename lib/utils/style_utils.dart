@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
-import 'dart:developer';
 
 Color getColorBlue(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -39,7 +38,7 @@ ButtonStyle generateTextButtonStyle(ThemeData theme) {
       shadowColor:
           MaterialStateProperty.resolveWith((states) => theme.shadowColor),
       textStyle: MaterialStateProperty.resolveWith(
-          (states) => theme.textTheme.subtitle1));
+          (states) => theme.textTheme.titleMedium));
 }
 
 /// Returns a [ButtonStyle] with the given [Theme]
@@ -50,8 +49,8 @@ ButtonStyle generateButtonStyle(ThemeData theme) {
           MaterialStateProperty.resolveWith((states) => theme.primaryColor),
       overlayColor:
           MaterialStateProperty.resolveWith((states) => theme.primaryColor),
-      backgroundColor:
-          MaterialStateProperty.resolveWith((states) => theme.backgroundColor),
+      backgroundColor: MaterialStateProperty.resolveWith(
+          (states) => theme.colorScheme.background),
       shadowColor:
           MaterialStateProperty.resolveWith((states) => theme.shadowColor));
 }
@@ -62,10 +61,10 @@ Column buildButtonColumn(IconData icon, String label, ThemeData themeData) {
     mainAxisSize: MainAxisSize.min,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Icon(icon, color: themeData.backgroundColor),
+      Icon(icon, color: themeData.colorScheme.background),
       Container(
         // margin: const EdgeInsets.only(top: 8),
-        child: Text(label, style: themeData.textTheme.bodyText1),
+        child: Text(label, style: themeData.textTheme.bodyLarge),
       ),
     ],
   );

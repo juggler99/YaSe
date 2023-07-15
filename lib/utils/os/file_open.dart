@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import '../../utils/dlg_utils.dart';
-import 'package:path/path.dart' as path;
 import '../../utils/file_utils.dart';
 import 'package:flutter_treeview/flutter_treeview.dart';
 import '../../controls/header.dart';
 import '../../utils/button_utils.dart';
-import 'dart:developer';
 
 typedef void CallbackFunction(String? fullPath);
 
@@ -52,7 +49,7 @@ class _FileOpenDialogState extends State<FileOpenDialog>
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic?>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     var header =
         Header(toolbarHeight: 100, title: args["title"], items: HeaderItems());

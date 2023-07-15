@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
 
 class AppBarMain extends StatefulWidget {
   List<PopupMenuItem<ListTile>>? navMenuItems;

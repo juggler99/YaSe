@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import './../../utils/dropdown_utils.dart';
 import './../../utils/dropdownlist.dart';
 import './../../utils/button_utils.dart';
-import './../../utils/theme_utils.dart';
 import './../controls/bloc_controls/theme_manager/theme_manager.dart';
 import 'package:tuple/tuple.dart';
 
-import 'dart:developer';
 
 class EditorControlPanelCustom extends StatefulWidget {
   String title = 'title';

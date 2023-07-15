@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
+
+import '../yase/yase.dart';
 
 var widthCharacterFactor = 8.0;
 var widthWordPadding = 20.0;
@@ -71,4 +72,64 @@ double getTabLabelWidth(Tab tab) {
   }
   // return a default value
   return 80.0;
+}
+
+Align createTabBar(
+    BuildContext context, List<Tab> tabs, TabController tabController) {
+  Color? colorTab =
+      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.3);
+  Color? colorTabBackground =
+      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.1);
+  Color? colorTabSelected =
+      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.5);
+  print(
+      "colorTab: ${colorTab.alpha} colorTabBackground: ${colorTabBackground.alpha} colorTabSelected: ${colorTabSelected.alpha}");
+  colorTab = colorTab;
+  colorTabBackground = colorTabBackground;
+  colorTabSelected = colorTabSelected;
+  BorderSide borderSide = BorderSide(color: colorTabSelected);
+  BorderSide borderSide0 = BorderSide(color: colorTabSelected, width: 0.0);
+  Border border = Border(
+      top: borderSide, left: borderSide, right: borderSide, bottom: borderSide);
+  return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+          width: YaSeApp.of(context)?.widget.YaSeAppWidth,
+          padding: EdgeInsets.all(0.0),
+          color: colorTabBackground, // set the color in between the tabs
+          child: TabBar(
+            indicatorPadding: EdgeInsets.symmetric(horizontal: -8.0),
+            padding: EdgeInsets.all(0.0),
+            isScrollable: true,
+            tabs: tabs.map((tab) {
+              final labelWidth = getTabLabelWidth(tab);
+              return Container(
+                height: 32,
+                width: labelWidth,
+                decoration: BoxDecoration(
+                    border: border,
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(8))),
+                child: Center(child: tab),
+              );
+            }).toList(),
+            controller: tabController,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+              color: colorTabSelected, // set the color of the indicator
+            ),
+            indicatorSize: TabBarIndicatorSize.label,
+            labelPadding: EdgeInsets.zero,
+            onTap: (index) {
+              print("on Tap: $index");
+            },
+          )));
+}
+
+TabBarView createTabView(List<Widget> children, TabController tabController) {
+  print("createTabView");
+  return TabBarView(
+    children: children,
+    controller: tabController,
+  );
 }

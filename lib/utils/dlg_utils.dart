@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import './style_utils.dart';
 import './button_utils.dart';
-import 'dart:developer';
 
 /// Returns a [Dialog] with the given [title], [message] and [buttons] to close the dialog
 Future<void> PromptUser(BuildContext context, String title, String message,
@@ -52,14 +50,14 @@ Future<void> PromptUser(BuildContext context, String title, String message,
                 child: Text(
                   title,
                   style:
-                      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1,
+                      YaSeApp.of(context)!.widget.AppTheme.textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
               ),
               //),
               content: Text(message,
                   style:
-                      YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2),
+                      YaSeApp.of(context)!.widget.AppTheme.textTheme.titleSmall),
               actions: getActionItems(),
             ),
           ]);
@@ -97,9 +95,9 @@ Future<bool?> PromptUserBool(BuildContext context, String title, String message,
       return Expanded(
         child: AlertDialog(
           title: Text(title,
-              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle1),
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.titleMedium),
           content: Text(message,
-              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.subtitle2),
+              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.titleSmall),
           actions: getActionItems(),
         ),
       );
@@ -114,6 +112,7 @@ Future<bool?> PromptUserBool(BuildContext context, String title, String message,
       // user pressed No button
       print(title + ' exit false');
     }
+    return null;
   });
 }
 
@@ -156,7 +155,7 @@ Future<String?> PromptUserInputSingleEdit(BuildContext context, String title,
                           .widget
                           .AppTheme
                           .textTheme
-                          .subtitle1)),
+                          .titleMedium)),
               content: Container(
                   width: 300,
                   height: 120,
@@ -170,7 +169,7 @@ Future<String?> PromptUserInputSingleEdit(BuildContext context, String title,
                               .widget
                               .AppTheme
                               .textTheme
-                              .subtitle1,
+                              .titleMedium,
                         )),
                     Container(
                       padding: EdgeInsets.fromLTRB(0, 2, 0, 0),

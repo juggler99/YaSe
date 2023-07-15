@@ -4,13 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
 import '../data/course_data.dart';
-import '../utils/file_utils.dart';
 import './../../../utils/drawer_utils.dart';
-import './../../../utils/style_utils.dart';
 import './../../../utils/menu_utils.dart';
-import 'package:html/parser.dart' as htmlparser;
 import 'package:html/dom.dart' as dom;
-import 'dart:developer';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -104,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     context, Icons.edit, 'Python', 'documentManager'),
                 */
                 getPopupMenuItemNav(context, Icons.account_circle_sharp,
-                    'Mi Cuenta', 'settings'),
+                    'Mi Cuenta', 'profile'),
                 getPopupMenuItemNav(
                     context, Icons.settings, 'Config', 'settings'),
                 getPopupMenuItemNav(context, Icons.folder, 'Manejo de Archivos',

@@ -30,19 +30,19 @@ class CustomCardPanel extends StatefulWidget {
 
   CustomCardPanel(
       {Key? key,
-      this.label: 'Color',
-      this.backgroundColor: Colors.white,
-      this.primaryColor: Colors.black,
-      this.leftMargin: 10,
-      this.panelWidth: 150,
-      this.panelHeight: 32,
-      this.cardWidth: 60,
-      this.cardHeight: 32,
-      this.backgroundColorName: 'white',
-      this.primaryColorName: 'black',
-      this.message: '',
-      this.optionTrue: 'OK',
-      this.opriotnFalse: 'Cancel',
+      this.label = 'Color',
+      this.backgroundColor = Colors.white,
+      this.primaryColor = Colors.black,
+      this.leftMargin = 10,
+      this.panelWidth = 150,
+      this.panelHeight = 32,
+      this.cardWidth = 60,
+      this.cardHeight = 32,
+      this.backgroundColorName = 'white',
+      this.primaryColorName = 'black',
+      this.message = '',
+      this.optionTrue = 'OK',
+      this.opriotnFalse = 'Cancel',
       OnColorChangeCallback? callback,
       OnTapCallback? onTapCallback})
       : super(key: key);
@@ -130,7 +130,7 @@ class _CustomCardPanelState extends State<CustomCardPanel> {
                         .widget
                         .AppTheme
                         .textTheme
-                        .bodyText2),
+                        .bodyMedium),
                 width: widget.panelWidth,
                 height: widget.panelHeight,
                 padding: EdgeInsets.fromLTRB(0, 3, 0, 2),

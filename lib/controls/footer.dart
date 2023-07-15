@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
+import './../../../utils/color_utils.dart';
 
 class Footer extends StatelessWidget {
   double? height;
@@ -11,7 +12,7 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: YaSeApp.of(context)!.widget.AppTheme.copyWith(
-          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor),
+          colorScheme: getColorScheme(YaSeApp.of(context)!.widget.AppTheme)),
       child: Container(
         height: this.height,
         decoration: BoxDecoration(

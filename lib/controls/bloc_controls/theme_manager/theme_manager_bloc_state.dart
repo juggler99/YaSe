@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/diagnostics.dart';
 import './theme_manager.dart';
-import 'package:meta/meta.dart';
 import 'package:tuple/tuple.dart';
 
 abstract class ThemeManagerState extends Equatable {
@@ -20,11 +18,7 @@ abstract class ThemeManagerState extends Equatable {
       required this.themeMode,
       required this.result,
       required this.error,
-      required this.themeNames})
-      : assert(themeManager != null &&
-            themeName != null &&
-            themeData != null &&
-            themeMode != null);
+      required this.themeNames});
 
   final Map<String, ThemeData> availableThemes = {
     'YaSeTheme': YaSeTheme,
@@ -84,52 +78,51 @@ class ThemeChanged extends ThemeManagerState {
 
 ThemeData YaSeThemeLight = ThemeData(
     splashColor: Colors.lightGreen,
-    // Define the default brightness and colors.
-    primarySwatch: Colors.lightGreen,
     brightness: Brightness.dark,
     // toolbars, tab bars, app bars
     primaryColor: Colors.lightGreen[800],
-    backgroundColor: Colors.orange,
 
     // Define the default font family.
     fontFamily: 'Georgia',
     // Define the default `TextTheme`. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
-    textTheme: generalTextTheme);
+    textTheme: generalTextTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightGreen)
+        .copyWith(background: Colors.orange));
 
 ThemeData YaSeTheme = ThemeData(
     splashColor: Colors.orange,
-    primarySwatch: Colors.orange,
     primaryColor: Colors.orangeAccent[800],
-    backgroundColor: Colors.orange,
     brightness: Brightness.light,
     fontFamily: 'Times',
-    textTheme: generalTextTheme);
+    textTheme: generalTextTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
+        .copyWith(background: Colors.orange));
 
 ThemeData YaSeThemeDark = ThemeData(
     // Define the default brightness and colors.
     splashColor: Colors.blueGrey,
-    primarySwatch: Colors.blueGrey,
     brightness: Brightness.dark,
-    primaryColor: Colors.lightBlue[800],
-    backgroundColor: Colors.purple,
+    primaryColor: Colors.yellow[800],
 
     // Define the default font family.
     fontFamily: 'Courier',
 
     // Define the default `TextTheme`. Use this to specify the default
     // text styling for headlines, titles, bodies of text, and more.
-    textTheme: generalTextTheme);
+    textTheme: generalTextTheme,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
+        .copyWith(background: Colors.purple));
 
 TextTheme generalTextTheme = TextTheme(
-  headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-  headline2: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
-  headline3: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
-  headline4: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
-  headline5: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-  headline6: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
-  subtitle1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-  subtitle2: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
-  bodyText1: TextStyle(fontSize: 26.0, fontWeight: FontWeight.normal),
-  bodyText2: TextStyle(fontSize: 22.0, fontWeight: FontWeight.normal),
+  displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+  displayMedium: TextStyle(fontSize: 60.0, fontWeight: FontWeight.bold),
+  displaySmall: TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+  headlineMedium: TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold),
+  headlineSmall: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+  titleLarge: TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal),
+  titleMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+  titleSmall: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
+  bodyLarge: TextStyle(fontSize: 26.0, fontWeight: FontWeight.normal),
+  bodyMedium: TextStyle(fontSize: 22.0, fontWeight: FontWeight.normal),
 );

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
-import './../../utils/style_utils.dart';
 import './../../utils/json_utils.dart';
-import './../../utils/dropdownlist.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);

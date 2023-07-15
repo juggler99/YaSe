@@ -30,7 +30,7 @@ class _NoAccessScreenState extends State<NoAccessScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.backgroundColor,
+        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
         centerTitle: true,
         title: const Text('No Access'),
         automaticallyImplyLeading: true,

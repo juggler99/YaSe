@@ -2,10 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import './py_code_field.dart';
-import 'dart:developer';
-import './../../../utils/python_utils.dart';
 import 'py_code_controller_token.dart';
-import 'py_code_text_controller.dart';
 
 part 'py_code_bloc_event.dart';
 part 'py_code_bloc_state.dart';
