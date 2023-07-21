@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import '../../../utils/style_utils.dart';
 import '../../../utils/theme_utils.dart';
 import '../../../yase/app_config.dart';
 import './../../../utils/dlg_utils.dart';
@@ -183,14 +184,26 @@ class ThemeManager with ChangeNotifier {
       return themeData;
     }
     var themeDataDict = appConfig["themeData"];
+    debugger();
     if (themeDataDict.containsKey(themeName)) {
       var themeDict = themeDataDict[themeName] as Map<String, dynamic>;
-      themeDict.forEach((key, value) {
-        themeData =
-            getModfiedThemeData(themeData, key, cu.getColorByString(value));
-      });
+      var colorScheme = ColorScheme(
+          brightness: resolveBrigthness(themeDict['brightness']),
+          primary: cu.getColorByString(themeDict['primary']),
+          onPrimary: cu.getColorByString(themeDict['onPrimary']),
+          secondary: cu.getColorByString(themeDict['secondary']),
+          onSecondary: cu.getColorByString(themeDict['onSecondary']),
+          error: cu.getColorByString(themeDict['error']),
+          onError: cu.getColorByString(themeDict['onError']),
+          background: cu.getColorByString(themeDict['background']),
+          onBackground: cu.getColorByString(themeDict['onBackground']),
+          surface: cu.getColorByString(themeDict['surface']),
+          onSurface: cu.getColorByString(themeDict['onSurface']));
+      themeData = themeData.copyWith(colorScheme: colorScheme);
+      return themeData;
     }
-    return themeData;
+    ;
+    return ThemeData();
   }
 
   void CreateThemeFromUi(BuildContext context) async {

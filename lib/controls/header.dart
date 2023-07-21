@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
 
@@ -8,51 +10,37 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   List<Widget>? tabs;
   Widget? tabBar;
   double? toolbarHeight;
+  bool? goBackArrow;
+  bool? centerTitle;
 
-  Header({
-    Key? key,
-    this.toolbarHeight,
-    this.items,
-    this.title,
-    this.tabController,
-    this.tabs,
-    this.tabBar,
-  }) : super(key: key);
+  Header(
+      {Key? key,
+      this.toolbarHeight,
+      this.items,
+      this.title,
+      this.centerTitle = true,
+      this.goBackArrow = true})
+      : super(key: key);
 
   //@override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(45);
 
   @override
   Widget build(BuildContext context) {
-    print("Header build");
-    var targetSize = preferredSize;
-    print("targetSize: $targetSize, toolbarHeight: $toolbarHeight");
+    print("Header build ${this.hashCode} tabBar: $tabBar ${tabBar.hashCode}");
     TextStyle? textStyle =
         YaSeApp.of(context)!.widget.AppTheme.textTheme.titleLarge;
     var _text = Text(this.title!, style: textStyle);
     if (this.items?.isEmpty ?? true)
       _text = Text(this.title!, style: textStyle, textAlign: TextAlign.center);
-    var prefHeight = toolbarHeight ?? 80;
-    var prefSize = Size.fromHeight(prefHeight);
-    var prefSizeObject = null;
-    if (this.tabBar == null) {
-      prefSizeObject = PreferredSize(preferredSize: prefSize, child: Text(""));
-    } else {
-      prefSizeObject =
-          PreferredSize(preferredSize: prefSize, child: this.tabBar!);
-    }
-    if (this.tabBar == null) {
-      return AppBar(
-          toolbarHeight: toolbarHeight,
-          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-          title: _text,
-          actions: this.items);
-    }
-    return AppBar(
+    var appBar = AppBar(
         toolbarHeight: toolbarHeight,
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+        backgroundColor:
+            YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
         title: _text,
+        centerTitle: this.centerTitle,
         actions: this.items,
-        bottom: prefSizeObject);
+        automaticallyImplyLeading: this.goBackArrow!);
+    return appBar;
   }
 }

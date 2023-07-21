@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
+import '../../controls/header.dart';
 import './../../../utils/style_utils.dart';
 
 class LoggedOutScreen extends StatefulWidget {
@@ -28,12 +29,7 @@ class _LoggedOutScreenState extends State<LoggedOutScreen> {
         });
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: color,
-        centerTitle: true,
-        title: const Text('Ya Se!'),
-      ),
+      appBar: Header(title: 'Ya Se!', goBackArrow: false),
       body: ListView(
         children: [textSection, backToLoginScreenButton],
       ),

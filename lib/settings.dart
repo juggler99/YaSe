@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
 import './../../utils/json_utils.dart';
+import 'controls/header.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -16,12 +17,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         getPrettyJSONString(YaSeApp.of(context)!.widget.YaSeAppConfig);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-        centerTitle: true,
-        title: const Text('Settings'),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: Header(toolbarHeight: 40, title: "Settings"),
       body: Text(appConfigJsonStr),
     );
   }

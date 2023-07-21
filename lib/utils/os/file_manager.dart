@@ -103,7 +103,7 @@ class _FileManagerDialogState extends State<FileManagerDialog>
       title = args["title"];
       callback = args["callback"];
     }
-
+    print("file_manager, build");
     var header = Header(toolbarHeight: 100, title: title, items: HeaderItems());
 
     List<Node<FileSystemEntity>> _nodes = listFiles(context, targetFolder, "");

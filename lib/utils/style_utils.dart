@@ -362,3 +362,11 @@ Map<Color, String> getPrimaryColorsAsMapKeyedByColor() {
   });
   return results;
 }
+
+Brightness resolveBrigthness(String brightness) {
+  if (brightness.contains('light')) {
+    return Brightness.light;
+  }
+  if (brightness.contains('dark')) return Brightness.dark;
+  return Brightness.light;
+}

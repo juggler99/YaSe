@@ -3,6 +3,7 @@ import 'package:YaSe/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controls/header.dart';
+import '../controls/header_with_tabs.dart';
 import '../utils/tab_utils.dart';
 import '../utils/textfield_utils.dart';
 import './../yase/yase.dart';
@@ -24,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   double screenRatio = 1;
   Color bgColor = Colors.white;
   DateTime selectedDate = DateTime.now();
-  Header? header;
+  HeaderWithTabs? header;
 
   TextEditingController usernameController = TextEditingController();
   Map<String, Container>? textFieldsPerfil;
@@ -70,8 +71,8 @@ class _ProfileScreenState extends State<ProfileScreen>
         textFieldsPago!.entries.map((e) => e.value).toList()));
 
     _tabController = TabController(length: _tabs.length, vsync: this);
-
-    header = Header(
+    print("profile, initstate");
+    header = HeaderWithTabs(
         toolbarHeight: 100,
         title: "Perfil",
         items: <Widget>[

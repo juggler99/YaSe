@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
+import '../controls/header.dart';
 import './../../../utils/style_utils.dart';
 import './../../../utils/dropdownlist.dart';
 
@@ -76,12 +77,7 @@ class _CoursesScreenState extends State<CoursesScreen> {
       children: [textSection, buttonSection, menuSection],
     );
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-        centerTitle: true,
-        title: const Text('Courses'),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: Header(title: 'Courses'),
       body: _listView,
     );
   }

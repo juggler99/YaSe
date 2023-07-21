@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../controls/gen/python_console.dart';
 import './../../../utils/os/file_open.dart' as file_open;
@@ -64,7 +63,6 @@ class _YaSeAppState extends State<YaSeApp> {
 
   @override
   void initState() {
-    debugger();
     print("YaseApp initState");
     Future.delayed(Duration.zero, () async {
       // Call asynchronous method

@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
+
+import 'style_utils.dart';
 
 Color getColorByString(String strColor) {
+  print('getColorByString: $strColor');
   if (strColor == null) return Colors.white;
   if (strColor.isEmpty) return Colors.white;
   if (strColor.contains("Colors.")) {
     strColor = strColor.replaceAll("Colors.", "");
   }
   Color color = Colors.white;
+  int shadeIndex = strColor.indexOf('[');
+  int shade = -1;
+  if (shadeIndex >= 0) {
+    shade = int.parse(strColor.substring(shadeIndex + 1, strColor.length - 1));
+    strColor = strColor.substring(0, shadeIndex);
+  }
   switch (strColor) {
     case "red":
       color = Colors.red;
@@ -44,7 +54,11 @@ Color getColorByString(String strColor) {
     default:
       color = Colors.white;
   }
-  print("color[$strColor]: $color");
+  print("color[$strColor]: $color, Shade: $shade");
+  if (shadeIndex > -1) {
+    var selectedColorShades = getShadesForColorAsListOfTuples(color);
+    return selectedColorShades[shade].item2;
+  }
   return color;
 }
 

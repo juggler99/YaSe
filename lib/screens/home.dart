@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import '../controls/bloc_controls/screen_size_provider/screen_size_bloc.dart';
-import '../data/course_data.dart';
+import '../controls/header.dart';
+import '../data/01_intro.dart';
 import './../../../utils/drawer_utils.dart';
 import './../../../utils/menu_utils.dart';
 import 'package:html/dom.dart' as dom;
+import 'dart:developer';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -20,6 +22,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Header? header;
+  Drawer? drawer;
+  Container? containerDrawer;
+  final isCollapsed = false;
   void menuAction(ListTile value) {
     String testText = value.title.toString();
     var _screenSizeProvider = ScreenSizeBloc();
@@ -34,11 +40,40 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    List<Widget> items = <Widget>[];
+    items.add(IconButton(
+      icon: const Icon(Icons.search),
+      onPressed: () {},
+    ));
+    items.add(PopupMenuButton(
+        itemBuilder: (BuildContext itemBuilder) => [
+              getPopupMenuItemNav(
+                  context, Icons.exit_to_app, 'Salida', 'loggedout'),
+              getPopupMenuItemNav(
+                  context, Icons.account_circle_sharp, 'Mi Cuenta', 'profile'),
+              getPopupMenuItemNav(
+                  context, Icons.settings, 'Config', 'settings'),
+              getPopupMenuItemNav(
+                  context, Icons.folder, 'Manejo de Archivos', 'file_manager'),
+            ]));
+    print("home, initstate");
+    header = Header(toolbarHeight: 40, title: "Ya Se", items: items);
+    drawer = Drawer(
+        child: getListViewAsDrawer(context, 40, 'Ya Se!', [
+      getListTile(context, Icon(Icons.book), 'Cursos', 'courses',
+          edgeItems: const [10, 0, 0, 0]),
+      getListTile(context, Icon(Icons.edit), 'Python', 'documentManager',
+          edgeItems: const [10, 0, 0, 0]),
+    ]));
+
+    containerDrawer = Container(
+        width: isCollapsed ? MediaQuery.of(context).size.width * 0.1 : null,
+        child: drawer);
   }
 
   @override
   Widget build(BuildContext context) {
-    final isCollapsed = false;
     YaSeApp.of(context)?.widget.YaSeAppWidth =
         MediaQuery.of(context).size.width;
     YaSeApp.of(context)?.widget.YaSeAppHeight =
@@ -75,65 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-          centerTitle: true,
-          title: const Text('Ya Se!'),
-          automaticallyImplyLeading: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-            PopupMenuButton(
-              itemBuilder: (BuildContext itemBuilder) => [
-                getPopupMenuItemNav(
-                    context, Icons.exit_to_app, 'Salida', 'loggedout'),
-                /*
-                getPopupMenuItemNav(
-                    context, Icons.palette, 'Temas', 'theme_manager'),
-                getPopupMenuItemNav(context, Icons.add_circle_outline,
-                    'Calculadora', 'calculator'),
-                getPopupMenuItemNav(context, Icons.add_circle_outline,
-                    'Calculadora Bloc', 'bloc_calculator'),                
-                getPopupMenuItemNav(
-                    context, Icons.edit, 'Python', 'documentManager'),
-                */
-                getPopupMenuItemNav(context, Icons.account_circle_sharp,
-                    'Mi Cuenta', 'profile'),
-                getPopupMenuItemNav(
-                    context, Icons.settings, 'Config', 'settings'),
-                getPopupMenuItemNav(context, Icons.folder, 'Manejo de Archivos',
-                    'file_manager'),
-              ],
-            )
-          ]),
-      drawer: Container(
-          width: isCollapsed ? MediaQuery.of(context).size.width * 0.1 : null,
-          child: Drawer(
-              child: getListViewAsDrawer(context, 90, 'Ya Se!', [
-            getListTile(context, Icon(Icons.book), 'Cursos', 'courses',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.edit), 'Python', 'documentManager',
-                edgeItems: const [10, 0, 0, 0]),
-
-            /*
-            getListTile(context, Icon(Icons.account_circle_sharp), 'Me', 'me',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(
-                context, Icon(Icons.library_books), 'Programas', 'programs',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.computer_outlined), 'PythonClient',
-                'python_client',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.edit), 'Editor', 'editor',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.html), 'Browser', 'browser',
-                edgeItems: const [10, 0, 0, 0]),
-            getListTile(context, Icon(Icons.edit), 'Settings', 'settings',
-                edgeItems: const [10, 0, 0, 0]),
-            */
-          ]))),
+      appBar: header,
+      drawer: containerDrawer,
       body: widget._listView,
     );
   }

@@ -2,6 +2,7 @@ import 'package:YaSe/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controls/header.dart';
+import '../controls/header_with_tabs.dart';
 import '../utils/tab_utils.dart';
 import '../utils/textfield_utils.dart';
 import './../yase/yase.dart';
@@ -22,7 +23,7 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
   double screenRatio = 1;
   Color bgColor = Colors.white;
   DateTime selectedDate = DateTime.now();
-  Header? header;
+  HeaderWithTabs? header;
 
   TextEditingController usernameController = TextEditingController();
   Map<String, Container>? textFieldsPerfil;
@@ -50,7 +51,8 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
     };
 
     textFieldsPago = {
-      "tarjeta": getTextFieldContainer('Tarjeta', editorWidth),
+      "tarjeta": getTextFieldContainer('Numero de Tarjeta', editorWidth),
+      "nombreTarjeta": getTextFieldContainer('Nombre en Tarjeta', editorWidth),
       "expiracion": getTextFieldContainer('Expiracion', editorWidth),
       "secno": getTextFieldContainer('Seguridad', editorWidth),
     };
@@ -83,8 +85,8 @@ class _MeScreenState extends State<MeScreen> with TickerProviderStateMixin {
         textFieldsPago!.entries.map((e) => e.value).toList()));
 
     _tabController = TabController(length: _tabs.length, vsync: this);
-
-    header = Header(
+    print("me, initstate");
+    header = HeaderWithTabs(
         toolbarHeight: 100,
         title: "Ya Se",
         items: <Widget>[],

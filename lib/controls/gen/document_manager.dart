@@ -10,8 +10,9 @@ import './../../utils/tab_utils.dart';
 import './../../utils/python_utils.dart';
 import '../bloc_controls/py_code/py_editor.dart';
 import '../bloc_controls/doc_provider/document.dart';
-import './../../controls/header.dart';
+import './../../controls/header_with_tabs.dart';
 import 'package:path/path.dart' as path;
+import 'dart:developer';
 
 class DocumentManager extends StatefulWidget {
   @override
@@ -27,6 +28,7 @@ class _DocumentManagerState extends State<DocumentManager>
   late List<Widget> _tabContent;
   late List<Document> _documents;
   late String defaultPath;
+  late HeaderWithTabs header;
   String defaultFilenameOnly = 'untitled';
   String defaultFilenameExtension = '.py';
 
@@ -259,13 +261,15 @@ class _DocumentManagerState extends State<DocumentManager>
     print("Tabs: $_tabs");
     print("Tab Content: $_tabContent");
     print("Tab Count: $_numTabs");
-    var header = Header(
+    print("document_manager, build");
+    header = HeaderWithTabs(
         toolbarHeight: 100,
         title: "Ya Se",
         items: HeaderItems(),
         tabs: _tabs,
         tabController: _tabController,
         tabBar: createTabBar(context, _tabs, _tabController));
+
     var docManager = DefaultTabController(
       length: _numTabs,
       child: Scaffold(

@@ -51,6 +51,7 @@ class _FileOpenDialogState extends State<FileOpenDialog>
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
+    print("file_open, build");
     var header =
         Header(toolbarHeight: 100, title: args["title"], items: HeaderItems());
 
