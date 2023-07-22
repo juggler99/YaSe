@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print("home, initstate");
     header = Header(toolbarHeight: 40, title: "Ya Se", items: items);
     drawer = Drawer(
-        child: getListViewAsDrawer(context, 40, 'Ya Se!', [
+        child: getListViewAsDrawer(context, 20, 'Ya Se!', [
       getListTile(context, Icon(Icons.book), 'Cursos', 'courses',
           edgeItems: const [10, 0, 0, 0]),
       getListTile(context, Icon(Icons.edit), 'Python', 'documentManager',

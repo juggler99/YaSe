@@ -80,7 +80,7 @@ Widget getIconButton(BuildContext context, IconData iconData, String tooltip,
   }
   print("iconSize: $iconSize, edges: $edges");
   return Material(
-      color: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+      color: YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
       child: Tooltip(
           message: tooltip,
           child: IconButton(

@@ -2,6 +2,7 @@ import 'package:YaSe/utils/form_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controls/header_with_tabs.dart';
+import '../utils/button_utils.dart';
 import '../utils/tab_utils.dart';
 import '../utils/textfield_utils.dart';
 import './../yase/yase.dart';
@@ -15,7 +16,6 @@ class ProfileEditScreen extends StatefulWidget {
 class _ProfileEditScreenState extends State<ProfileEditScreen>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<_ProfileEditScreenState>();
-  AppBar? appBar;
   late List<Tab> _tabs;
   late List<Widget> _tabContent;
   TabController? _tabController;
@@ -88,7 +88,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen>
     header = HeaderWithTabs(
         toolbarHeight: 100,
         title: "Perfil",
-        items: <Widget>[],
+        items: <Widget>[
+          getIconButton(context, Icons.save, 'Save', () {
+            saveProfile();
+          }, 1)
+        ],
         tabs: _tabs,
         tabController: _tabController,
         tabBar: createTabBar(context, _tabs, _tabController!));
@@ -124,5 +128,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen>
 
     return Scaffold(
         appBar: header, body: createTabView(_tabContent, _tabController!));
+  }
+
+  bool saveProfile() {
+    print('saveProfile');
+    return true;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
+import '../../controls/header.dart';
 import './../../../utils/style_utils.dart';
 
 class NoAccessScreen extends StatefulWidget {
@@ -29,12 +30,7 @@ class _NoAccessScreenState extends State<NoAccessScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
-        centerTitle: true,
-        title: const Text('No Access'),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: Header(title: 'No Access'),
       body: ListView(
         children: [textSection, buttonSection],
       ),

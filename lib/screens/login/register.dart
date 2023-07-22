@@ -1,5 +1,6 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../../controls/header.dart';
 import '../../utils/button_utils.dart';
 import '../../utils/form_utils.dart';
 import '../../utils/textfield_utils.dart';
@@ -65,11 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     double editorWidth = MediaQuery.of(context).size.width - 10;
     formItems = getRegisterFormItems(editorWidth);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Ya Se!'),
-        centerTitle: true,
-      ),
+      appBar: Header(title: 'Ya Se!'),
       body: createForm(context, GlobalKey<_RegisterScreenState>(), formItems!),
     );
   }

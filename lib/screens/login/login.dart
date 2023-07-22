@@ -1,6 +1,7 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:YaSe/yase/yase.dart';
+import '../../controls/header.dart';
 import './../../../utils/dlg_utils.dart';
 import './../../../utils/style_utils.dart';
 
@@ -26,13 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
     print(
         "primary color: ${YaSeApp.of(context)!.widget.AppTheme.primaryColor}");
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Ya Se!',
-              style: YaSeApp.of(context)!.widget.AppTheme.textTheme.headlineSmall),
-          centerTitle: true,
-          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-        ),
+        appBar: Header(title: 'Ya Se!', goBackArrow: false),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(

@@ -1,3 +1,4 @@
+import 'package:YaSe/controls/header_with_tabs.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import './../controls/custom_card_panel.dart';
@@ -116,8 +117,8 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
                 .copyWith(bodyMedium: fontMap[title]!));
       else if (title == 'button')
         currentThemeData = currentThemeData!.copyWith(
-            textTheme:
-                currentThemeData!.textTheme.copyWith(labelLarge: fontMap[title]!));
+            textTheme: currentThemeData!.textTheme
+                .copyWith(labelLarge: fontMap[title]!));
       else if (title == 'caption')
         currentThemeData = currentThemeData!.copyWith(
             textTheme: currentThemeData!.textTheme
@@ -146,6 +147,7 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
     double panelHeight = 45;
 
     Color selectedColor = Colors.transparent;
+    HeaderWithTabs? header;
 
     // Theme Editor Items
     List<Tuple3<String, String, VoidCallback>> iconItems = [
@@ -172,23 +174,17 @@ class _ThemeEditorScreenState extends State<ThemeEditorScreen> {
         iconItems: iconItems,
         themeManager: _themeManager);
 
+    var _tabs = [
+      Tab(text: 'Theme', icon: Icon(Icons.edit)),
+      Tab(text: 'Colors', icon: Icon(Icons.palette_rounded)),
+      Tab(text: 'Fonts', icon: Icon(Icons.font_download_rounded)),
+    ];
+    header = HeaderWithTabs(tabs: _tabs, title: 'Theme Editor');
+
     return DefaultTabController(
         length: 3,
         child: Scaffold(
-            appBar: AppBar(
-              backgroundColor:
-                  YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-              centerTitle: true,
-              title: const Text('Theme Editor'),
-              automaticallyImplyLeading: true,
-              bottom: const TabBar(
-                tabs: [
-                  Tab(text: 'Theme', icon: Icon(Icons.edit)),
-                  Tab(text: 'Colors', icon: Icon(Icons.palette_rounded)),
-                  Tab(text: 'Fonts', icon: Icon(Icons.font_download_rounded)),
-                ],
-              ),
-            ),
+            appBar: header,
             body: TabBarView(children: [
               editControlPanelCustom,
               getColorItemsView(

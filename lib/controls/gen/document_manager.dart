@@ -46,8 +46,8 @@ class _DocumentManagerState extends State<DocumentManager>
     var filename = getDefaultFullPath();
     var editor = createPyEditor(filename);
     _tabs = [
-      getTabItem(defaultFilename, Icons.close, documentClose, editor.hashCode)
-          as Tab
+      getTabItem(context, defaultFilename, editor.hashCode,
+          iconData: Icons.close, callback: documentClose) as Tab
     ];
     _tabContent = [editor];
     _documents = [];
@@ -139,8 +139,9 @@ class _DocumentManagerState extends State<DocumentManager>
         editor.pyCodeControllerToken.getTextController().text = contents;
       }
       var file = File(filename);
-      _tabs.add(getTabItem(file.path.split(path.separator).last, Icons.close,
-          documentClose, editor.hashCode) as Tab);
+      _tabs.add(getTabItem(
+          context, file.path.split(path.separator).last, editor.hashCode,
+          iconData: Icons.close, callback: documentClose) as Tab);
       _tabContent.add(editor);
       _tabController = TabController(length: _numTabs, vsync: this);
       _tabController.animateTo(_tabController.length - 1);
@@ -182,11 +183,9 @@ class _DocumentManagerState extends State<DocumentManager>
             });
         if (result == true) {
           _documents[_tabController.index].filename = editor.filename;
-          _tabs[_tabController.index] = getTabItem(
-              editor.filename.split(path.separator).last,
-              Icons.close,
-              documentClose,
-              editor.hashCode) as Tab;
+          _tabs[_tabController.index] = getTabItem(context,
+              editor.filename.split(path.separator).last, editor.hashCode,
+              iconData: Icons.close, callback: documentClose) as Tab;
           saveFile(editor);
           setState(() {});
         }
@@ -257,7 +256,7 @@ class _DocumentManagerState extends State<DocumentManager>
   @override
   Widget build(BuildContext context) {
     print('Document Manager build');
-    AppBar.preferredHeightFor(context, Size(double.infinity, 100));
+    //AppBar.preferredHeightFor(context, Size(double.infinity, 100));
     print("Tabs: $_tabs");
     print("Tab Content: $_tabContent");
     print("Tab Count: $_numTabs");

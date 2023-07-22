@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../controls/header.dart';
 import './../../../utils/button_utils.dart';
 import './../../../utils/collection_utils.dart';
 import './../../../utils/color_utils.dart';
@@ -131,15 +132,9 @@ class _ThemeManagerScreenState extends State<ThemeManagerScreen> {
         ));
 
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-          centerTitle: true,
-          title: const Text('Theme Manager'),
-          automaticallyImplyLeading: true,
-          actions: [
-            getNavIconButton(context, Icons.edit, 'theme_editor',
-                popPrev: false)
-          ]),
+      appBar: Header(title: 'Theme Manager', items: [
+        getNavIconButton(context, Icons.edit, 'theme_editor', popPrev: false)
+      ]),
       body: ListView(
         children: [buttonSection, dropdownContainer],
       ),

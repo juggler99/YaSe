@@ -1,5 +1,6 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import '../../controls/header.dart';
 import './../../../utils/dlg_utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -21,11 +22,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text('Ya Se!'),
-          centerTitle: true,
-        ),
+        appBar: Header(title: 'Ya Se!'),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(

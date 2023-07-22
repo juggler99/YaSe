@@ -3,6 +3,8 @@ import 'package:logging/logging.dart';
 import 'package:YaSe/yase/yase.dart';
 import 'package:web_browser/web_browser.dart';
 
+import '../controls/header.dart';
+
 class BrowserScreen extends StatefulWidget {
   const BrowserScreen({Key? key}) : super(key: key);
 
@@ -84,12 +86,7 @@ class _BrowserScreenState extends State<BrowserScreen> {
         initialUriString: getUri(addressController.text), topBar: textSection);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
-        centerTitle: true,
-        title: const Text('Browser'),
-        automaticallyImplyLeading: true,
-      ),
+      appBar: Header(title: 'Browser'),
       body: _browser,
     );
   }

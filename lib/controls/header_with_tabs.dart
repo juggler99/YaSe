@@ -43,7 +43,8 @@ class HeaderWithTabs extends StatelessWidget implements PreferredSizeWidget {
         PreferredSize(preferredSize: prefSize, child: this.tabBar!);
     return AppBar(
         toolbarHeight: 100,
-        backgroundColor: YaSeApp.of(context)!.widget.AppTheme.primaryColor,
+        backgroundColor:
+            YaSeApp.of(context)!.widget.AppTheme.colorScheme.background,
         title: _text,
         actions: this.items,
         bottom: prefSizeObject);

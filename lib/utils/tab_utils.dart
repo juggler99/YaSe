@@ -4,10 +4,47 @@ import '../yase/yase.dart';
 
 var widthCharacterFactor = 8.0;
 var widthWordPadding = 20.0;
+typedef VoidCallbackWithIntArg = void Function(int);
 
-Widget getTabItem(
-    String label, IconData iconData, Function callback, int tabIndex) {
+VoidCallbackWithIntArg? getDefaultFunction() {
+  return (int tabIndex) {
+    print('${tabIndex}');
+  };
+}
+
+Widget getTabItem(BuildContext context, String label, int tabIndex,
+    {IconData iconData = Icons.adb,
+    Function? callback = null,
+    double iconSize = 24.0,
+    Color iconColor = Colors.black}) {
   final labelWidth = getLabelWidth(label);
+  var iconColor = YaSeApp.of(context)!.widget.AppTheme.colorScheme.onSurface;
+  if (callback == null) {
+    callback = (int tabIndex) {
+      print('${tabIndex}');
+    };
+  }
+  var children = <Widget>[
+    Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: Text(
+        label,
+      ),
+    )
+  ];
+  if (iconData != Icons.adb) {
+    children.add(Padding(
+      padding: const EdgeInsets.only(left: 1),
+      child: InkWell(
+          onTap: () => callback!(tabIndex),
+          child: Icon(
+            iconData,
+            color: iconColor,
+            size: iconSize,
+          )),
+    ));
+  }
+
   return Tab(
       child: Container(
     constraints: BoxConstraints(
@@ -19,27 +56,10 @@ Widget getTabItem(
     ),
     child: Center(
       child: SizedBox(
-        height: 40,
+        height: 50,
         width: labelWidth,
         child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(
-                label,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 1),
-              child: InkWell(
-                  onTap: () => callback(tabIndex),
-                  child: Icon(
-                    iconData,
-                    color: const Color(0xffef5145),
-                    size: 24,
-                  )),
-            ),
-          ],
+          children: children,
         ),
       ),
     ),
@@ -76,19 +96,31 @@ double getTabLabelWidth(Tab tab) {
 
 Align createTabBar(
     BuildContext context, List<Tab> tabs, TabController tabController) {
+  var colorbg =
+      YaSeApp.of(context)!.widget.AppTheme.colorScheme.surface.withOpacity(0.3);
   Color? colorTab =
-      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.3);
-  Color? colorTabBackground =
-      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.1);
-  Color? colorTabSelected =
-      YaSeApp.of(context)!.widget.AppTheme.primaryColor.withOpacity(0.5);
+      YaSeApp.of(context)!.widget.AppTheme.colorScheme.error.withOpacity(0.5);
+  Color? colorTabBackground = colorbg;
+  Color? colorTabSelected = YaSeApp.of(context)!
+      .widget
+      .AppTheme
+      .colorScheme
+      .background
+      .withOpacity(1);
+  Color? borderColor = YaSeApp.of(context)!
+      .widget
+      .AppTheme
+      .colorScheme
+      .background
+      .withOpacity(1);
   print(
       "colorTab: ${colorTab.alpha} colorTabBackground: ${colorTabBackground.alpha} colorTabSelected: ${colorTabSelected.alpha}");
   colorTab = colorTab;
   colorTabBackground = colorTabBackground;
   colorTabSelected = colorTabSelected;
-  BorderSide borderSide = BorderSide(color: colorTabSelected);
-  BorderSide borderSide0 = BorderSide(color: colorTabSelected, width: 0.0);
+  BorderSide borderSide = BorderSide(color: borderColor);
+  BorderSide borderSide0 = BorderSide(color: borderColor, width: 0.0);
+  double radius = 10;
   Border border = Border(
       top: borderSide, left: borderSide, right: borderSide, bottom: borderSide);
   return Align(
@@ -98,24 +130,24 @@ Align createTabBar(
           padding: EdgeInsets.all(0.0),
           color: colorTabBackground, // set the color in between the tabs
           child: TabBar(
-            indicatorPadding: EdgeInsets.symmetric(horizontal: -8.0),
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 0.0),
             padding: EdgeInsets.all(0.0),
             isScrollable: true,
             tabs: tabs.map((tab) {
               final labelWidth = getTabLabelWidth(tab);
               return Container(
-                height: 32,
+                height: 28,
                 width: labelWidth,
                 decoration: BoxDecoration(
                     border: border,
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(8))),
+                        BorderRadius.vertical(top: Radius.circular(radius))),
                 child: Center(child: tab),
               );
             }).toList(),
             controller: tabController,
             indicator: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(radius)),
               color: colorTabSelected, // set the color of the indicator
             ),
             indicatorSize: TabBarIndicatorSize.label,

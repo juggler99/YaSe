@@ -17,7 +17,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with TickerProviderStateMixin {
   final _formKey = GlobalKey<_ProfileScreenState>();
-  AppBar? appBar;
   late List<Tab> _tabs;
   late List<Widget> _tabContent;
   TabController? _tabController;
@@ -56,12 +55,12 @@ class _ProfileScreenState extends State<ProfileScreen>
     };
 
     _tabs = <Tab>[];
-    _tabs.add(new Tab(
-      text: 'Perfil',
-    ));
-    _tabs.add(new Tab(
-      text: 'Formas de Pago',
-    ));
+    _tabs.add(getTabItem(
+      context,
+      'Perfil',
+      0,
+    ) as Tab);
+    _tabs.add(getTabItem(context, 'Formas de Pago', 1) as Tab);
 
     _tabContent = <Widget>[];
     _tabContent.add(createForm(context, GlobalKey<_ProfileScreenState>(),
